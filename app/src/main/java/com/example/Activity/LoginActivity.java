@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import static com.example.Activity.R.id.sign_In_Button;
 import static com.example.Activity.R.id.sign_Up_Button;
@@ -39,11 +38,11 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
-
+/*
     public void signIn(View v){
         Toast.makeText(getApplicationContext(), "로그인 완료", Toast.LENGTH_LONG).show();
         finish();
     }
-
+*/
 
 }
