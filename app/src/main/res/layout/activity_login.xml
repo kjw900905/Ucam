@@ -24,7 +24,8 @@
         android:id="@+id/password_Input"
         android:layout_centerHorizontal="true"
         android:hint="Password"
-        android:layout_below="@+id/username_Input" />
+        android:layout_below="@+id/username_Input"
+        android:inputType="textPassword" />
 
     <CheckBox
         android:layout_width="150dp"
