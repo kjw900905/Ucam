@@ -18,22 +18,22 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="23dp"
         android:layout_marginTop="29dp"
-        android:id="@+id/nameText" />
+        android:id="@+id/name_Text" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="회원가입:"
-        android:id="@+id/signupText" />
+        android:id="@+id/sign_Up_Text" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/inputName"
-        android:layout_alignBaseline="@+id/nameText"
-        android:layout_alignBottom="@+id/nameText"
+        android:id="@+id/input_Name"
+        android:layout_alignBaseline="@+id/name_Text"
+        android:layout_alignBottom="@+id/name_Text"
         android:layout_centerHorizontal="true"
         android:hint="실명을 입력하세요." />
 
@@ -41,40 +41,40 @@
         android:text="ID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/idText"
-        android:layout_alignBaseline="@+id/inputID"
-        android:layout_alignBottom="@+id/inputID"
-        android:layout_alignStart="@+id/nameText" />
+        android:id="@+id/id_Text"
+        android:layout_alignBaseline="@+id/input_Id"
+        android:layout_alignBottom="@+id/input_Id"
+        android:layout_alignStart="@+id/name_Text" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/inputID"
+        android:id="@+id/input_Id"
         android:layout_marginTop="28dp"
-        android:layout_below="@+id/inputName"
-        android:layout_alignStart="@+id/inputName"
+        android:layout_below="@+id/input_Name"
+        android:layout_alignStart="@+id/input_Name"
         android:hint="특수문자 금지." />
 
     <TextView
         android:text="PW"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/pwText"
-        android:layout_alignBaseline="@+id/inputPw"
-        android:layout_alignBottom="@+id/inputPw"
-        android:layout_alignStart="@+id/idText" />
+        android:id="@+id/pw_Text"
+        android:layout_alignBaseline="@+id/input_Pw"
+        android:layout_alignBottom="@+id/input_Pw"
+        android:layout_alignStart="@+id/id_Text" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/inputPw"
+        android:id="@+id/input_Pw"
         android:layout_marginTop="24dp"
-        android:layout_below="@+id/inputID"
-        android:layout_alignStart="@+id/inputID"
+        android:layout_below="@+id/input_Id"
+        android:layout_alignStart="@+id/input_Id"
         android:hint="특수문자 금지." />
 
     <TextView
@@ -82,19 +82,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="46dp"
-        android:id="@+id/textStuNum"
-        android:layout_below="@+id/inputPw"
-        android:layout_alignEnd="@+id/idText" />
+        android:id="@+id/text_Stu_Num"
+        android:layout_below="@+id/input_Pw"
+        android:layout_alignEnd="@+id/id_Text" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
-        android:id="@+id/inputStuNum"
-        android:layout_alignBaseline="@+id/textStuNum"
-        android:layout_alignBottom="@+id/textStuNum"
-        android:layout_alignStart="@+id/inputPw"
+        android:id="@+id/input_Stu_Num"
+        android:layout_alignBaseline="@+id/text_Stu_Num"
+        android:layout_alignBottom="@+id/text_Stu_Num"
+        android:layout_alignStart="@+id/input_Pw"
         android:hint="숫자만 입력하세요." />
 
     <TextView
@@ -102,26 +102,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
-        android:id="@+id/textSchoolNmae"
-        android:layout_below="@+id/inputStuNum"
-        android:layout_alignStart="@+id/textStuNum" />
+        android:id="@+id/text_School_Nmae"
+        android:layout_below="@+id/input_Stu_Num"
+        android:layout_alignStart="@+id/text_Stu_Num" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:layout_below="@+id/inputStuNum"
-        android:layout_alignStart="@+id/inputStuNum"
+        android:layout_below="@+id/input_Stu_Num"
+        android:layout_alignStart="@+id/input_Stu_Num"
         android:layout_marginTop="29dp"
-        android:id="@+id/inputSchoolName"
+        android:id="@+id/input_School_Name"
         android:hint="학교명 검색"
-        android:layout_toStartOf="@+id/searchSchool" />
+        android:layout_toStartOf="@+id/search_School" />
 
     <Button
         android:text="submit"
         android:id="@+id/submit"
-        android:onClick="submitButton"
+        android:onClick="submit_Button"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:width="@dimen/activity_horizontal_margin"
@@ -132,21 +132,21 @@
         android:text="검색"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/searchSchool"
-        android:onClick="searchButton"
+        android:id="@+id/search_School"
+        android:onClick="search_Button"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="13dp"
-        android:layout_alignBottom="@+id/inputSchoolName"
-        android:layout_alignTop="@+id/inputSchoolName" />
+        android:layout_alignBottom="@+id/input_School_Name"
+        android:layout_alignTop="@+id/input_School_Name" />
 
     <CheckBox
         android:text="남"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/checkBoxM"
-        android:onClick="chkMale"
-        android:layout_below="@+id/inputSchoolName"
-        android:layout_alignStart="@+id/pwText"
+        android:id="@+id/check_Box_M"
+        android:onClick="chk_Male"
+        android:layout_below="@+id/input_School_Name"
+        android:layout_alignStart="@+id/pw_Text"
         android:layout_marginTop="19dp" />
 
     <CheckBox
@@ -154,8 +154,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/checkBoxW"
-        android:onClick="chkFemale"
-        android:layout_alignBaseline="@+id/checkBoxM"
-        android:layout_alignBottom="@+id/checkBoxM"
+        android:onClick="chk_Female"
+        android:layout_alignBaseline="@+id/check_Box_M"
+        android:layout_alignBottom="@+id/check_Box_M"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>
