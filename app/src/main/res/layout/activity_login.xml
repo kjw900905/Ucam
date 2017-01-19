@@ -13,7 +13,7 @@
     <EditText
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:id="@+id/usernameInput"
+        android:id="@+id/username_Input"
         android:layout_centerHorizontal="true"
         android:hint="Username"
         android:layout_marginTop="151dp" />
@@ -21,57 +21,66 @@
     <EditText
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:id="@+id/passwordInput"
+        android:id="@+id/password_Input"
         android:layout_centerHorizontal="true"
         android:hint="Password"
-        android:layout_below="@+id/usernameInput" />
-
-    <TextView
-        android:text="UCam"
-        android:layout_height="60dp"
-        android:layout_marginTop="55dp"
-        android:id="@+id/textView"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textSize="50sp"
-        android:layout_width="150dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:layout_width="150dp"
-        android:layout_height="55dp"
-        android:text="Sign in"
-        android:id="@+id/signInButton"
-        android:textAllCaps="false"
-        android:layout_marginTop="19dp"
-        android:onClick="signIn"
-        android:layout_below="@+id/passwordInput"
-        android:layout_alignStart="@+id/passwordInput"
-        android:layout_alignEnd="@+id/passwordInput" />
-
-    <TextView
-        android:text="Forgot your Username or Password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/findingButton"
-        android:layout_below="@+id/checkBox"
-        android:layout_alignEnd="@+id/textView" />
-
-    <TextView
-        android:text="Sign up"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/signUpButton"
-        android:layout_alignBaseline="@+id/findingButton"
-        android:layout_alignBottom="@+id/findingButton"
-        android:layout_toEndOf="@+id/findingButton"
-        android:layout_marginStart="11dp" />
+        android:layout_below="@+id/username_Input" />
 
     <CheckBox
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:id="@+id/checkBox"
         android:text="Stay signed in"
-        android:layout_below="@+id/signInButton"
-        android:layout_alignStart="@+id/signInButton" />
+        android:layout_below="@+id/sign_In_Button"
+        android:layout_alignStart="@+id/sign_In_Button" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="55dp"
+        android:text="Sign in"
+        android:id="@+id/sign_In_Button"
+        android:textAllCaps="false"
+        android:layout_marginTop="20dp"
+        android:onClick="signIn"
+        android:layout_below="@+id/password_Input"
+        android:layout_alignStart="@+id/password_Input"
+        android:layout_alignEnd="@+id/password_Input" />
+
+    <TextView
+        android:text="Forgot your Username or Password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/finding_Button"
+        android:layout_below="@+id/checkBox"
+        android:layout_alignEnd="@+id/text_View" />
+
+    <TextView
+        android:text="Sign up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sign_Up_Button"
+        android:layout_alignBaseline="@+id/finding_Button"
+        android:layout_alignBottom="@+id/finding_Button"
+        android:layout_alignEnd="@+id/sign_In_Button"
+        android:layout_marginEnd="13dp" />
+
+    <TextView
+        android:text="UCam Copyright © U-Cam Corp. All Rights Reserved."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/textView2"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:text="UCam"
+        android:layout_height="60dp"
+        android:layout_marginTop="55dp"
+        android:id="@+id/text_View"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textSize="50sp"
+        android:layout_width="150dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
