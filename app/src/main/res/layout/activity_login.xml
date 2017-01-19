@@ -10,4 +10,68 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.Activity.LoginActivity">
 
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:id="@+id/usernameInput"
+        android:layout_centerHorizontal="true"
+        android:hint="Username"
+        android:layout_marginTop="151dp" />
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:id="@+id/passwordInput"
+        android:layout_centerHorizontal="true"
+        android:hint="Password"
+        android:layout_below="@+id/usernameInput" />
+
+    <TextView
+        android:text="UCam"
+        android:layout_height="60dp"
+        android:layout_marginTop="55dp"
+        android:id="@+id/textView"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textSize="50sp"
+        android:layout_width="150dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="55dp"
+        android:text="Sign in"
+        android:id="@+id/signInButton"
+        android:textAllCaps="false"
+        android:layout_marginTop="19dp"
+        android:onClick="signIn"
+        android:layout_below="@+id/passwordInput"
+        android:layout_alignStart="@+id/passwordInput"
+        android:layout_alignEnd="@+id/passwordInput" />
+
+    <TextView
+        android:text="Forgot your Username or Password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/findingButton"
+        android:layout_below="@+id/checkBox"
+        android:layout_alignEnd="@+id/textView" />
+
+    <TextView
+        android:text="Sign up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/signUpButton"
+        android:layout_alignBaseline="@+id/findingButton"
+        android:layout_alignBottom="@+id/findingButton"
+        android:layout_toEndOf="@+id/findingButton"
+        android:layout_marginStart="11dp" />
+
+    <CheckBox
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkBox"
+        android:text="Stay signed in"
+        android:layout_below="@+id/signInButton"
+        android:layout_alignStart="@+id/signInButton" />
 </RelativeLayout>
