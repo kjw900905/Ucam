@@ -26,17 +26,6 @@
         android:hint="Password"
         android:layout_below="@+id/username_Input" />
 
-    <TextView
-        android:text="UCam"
-        android:layout_height="60dp"
-        android:layout_marginTop="55dp"
-        android:id="@+id/text_View"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textSize="50sp"
-        android:layout_width="150dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
     <CheckBox
         android:layout_width="150dp"
         android:layout_height="wrap_content"
@@ -74,4 +63,24 @@
         android:layout_alignBottom="@+id/finding_Button"
         android:layout_alignEnd="@+id/sign_In_Button"
         android:layout_marginEnd="13dp" />
+
+    <TextView
+        android:text="UCam Copyright © U-Cam Corp. All Rights Reserved."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/textView2"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:text="UCam"
+        android:layout_height="60dp"
+        android:layout_marginTop="55dp"
+        android:id="@+id/text_View"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textSize="50sp"
+        android:layout_width="150dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
