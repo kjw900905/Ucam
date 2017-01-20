@@ -1,5 +1,6 @@
 package com.example.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -40,6 +41,11 @@ public class InActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    public void set_Schedule_Button(View v){
+        Intent intent = new Intent(getApplicationContext(), TimetableActivity.class);
+        startActivity(intent);
     }
 
     @Override
