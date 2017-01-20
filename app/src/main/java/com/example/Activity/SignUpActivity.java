@@ -17,6 +17,22 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
+        male = (CheckBox)findViewById(R.id.check_Box_M);
+        male.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "남성", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        female = (CheckBox)findViewById(R.id.checkBoxW);
+        female.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "여성", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void submit_Button(View v){
@@ -25,8 +41,6 @@ public class SignUpActivity extends AppCompatActivity {
         pw = (EditText)findViewById(R.id.input_Pw);
         studNum = (EditText)findViewById(R.id.input_Stu_Num);
         univName = (EditText)findViewById(R.id.input_School_Name);
-        male = (CheckBox)findViewById(R.id.check_Box_M);
-        female = (CheckBox)findViewById(R.id.checkBoxW);
 
         String Name = name.getText().toString();
         String ID = id.getText().toString();
@@ -78,12 +92,6 @@ public class SignUpActivity extends AppCompatActivity {
             return false;
         }
         else if(isMaleChecked || isFemaleChecked){
-            if(isMaleChecked){
-                Toast.makeText(getApplicationContext(), "남성", Toast.LENGTH_SHORT).show();
-            }
-            else {
-                Toast.makeText(getApplicationContext(), "여성", Toast.LENGTH_SHORT).show();
-            }
             return true;
         }
 

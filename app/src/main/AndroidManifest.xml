@@ -25,10 +25,6 @@
             android:name="SignUpActivity"
             android:label="Sign Up">
         </activity>
-        <activity
-            android:name=".TimetableActivity"
-            android:label="Subject Schedule">
-        </activity>
     </application>
 
 </manifest>

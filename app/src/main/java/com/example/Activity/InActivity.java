@@ -44,8 +44,9 @@ public class InActivity extends AppCompatActivity
     }
 
     public void set_Schedule_Button(View v){
-        Intent intent = new Intent(getApplicationContext(), TimetableActivity.class);
-        startActivity(intent);
+        /* TODO: 스케줄 설정 액티비티로 전환
+        *  신규 .java 파일과 연동
+        * */
     }
 
     @Override
