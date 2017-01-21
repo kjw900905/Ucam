@@ -9,12 +9,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.kjw90.ucam.FindIdPwActivity;
+
+import static com.example.Activity.R.id.finding_Button;
 import static com.example.Activity.R.id.sign_In_Button;
 import static com.example.Activity.R.id.sign_Up_Button;
 
 public class LoginActivity extends AppCompatActivity {
     public Button log_In_Button;
     public TextView join_Button;
+    public TextView find_id_pw_Button;
+
     EditText username;
     EditText password;
 
@@ -48,6 +53,14 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        find_id_pw_Button = (TextView)findViewById(finding_Button);
+        find_id_pw_Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), FindIdPwActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public boolean chk_ID_PW(EditText id, EditText pw) {
