@@ -99,8 +99,9 @@ public class InActivity extends AppCompatActivity
             TimeTableFragment timeTableFragment = new TimeTableFragment();
             FragmentManager manager= getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.content_in, timeTableFragment).addToBackStack(null).commit();
-        } else if (id == R.id.nav_gallery) {
-
+        } else if (id == R.id.nav_edit_mem_info) {
+            Intent intent = new Intent(getApplicationContext(), editMemInfoActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
