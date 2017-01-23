@@ -3,34 +3,25 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/nav_time_table"
+            android:icon="@drawable/ic_menu_time_table"
+            android:title="시간표 등록/수정" />
         <item
             android:id="@+id/nav_edit_mem_info"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_menu_edit_mem_info"
             android:title="회원정보 수정" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:id="@+id/nav_matching"
+            android:icon="@drawable/ic_menu_matching"
+            android:title="매칭" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/nav_appointment"
+            android:icon="@drawable/ic_menu_appointment"
+            android:title="예약" />
+        <item
+            android:id="@+id/nav_preference"
+            android:icon="@drawable/ic_menu_preference"
+            android:title="관심분야" />
     </group>
-
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>
 
 </menu>

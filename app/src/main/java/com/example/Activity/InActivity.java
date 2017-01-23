@@ -95,7 +95,7 @@ public class InActivity extends AppCompatActivity
         int id = item.getItemId();
 
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_time_table) {
             TimeTableFragment timeTableFragment = new TimeTableFragment();
             FragmentManager manager= getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.content_in, timeTableFragment).addToBackStack(null).commit();
@@ -103,11 +103,11 @@ public class InActivity extends AppCompatActivity
             EditMemInfoFragment editMemInfoFragment = new EditMemInfoFragment();
             FragmentManager manager= getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.content_in, editMemInfoFragment).addToBackStack(null).commit();
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_matching) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_appointment) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_preference) {
 
         }
 

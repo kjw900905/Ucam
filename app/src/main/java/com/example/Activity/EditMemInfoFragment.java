@@ -31,10 +31,11 @@ public class EditMemInfoFragment extends Fragment {
         pw = (EditText)view.findViewById(R.id.input_Pw_Edit);
         studNum = (EditText)view.findViewById(R.id.input_Stu_Num_Edit);
         univName = (EditText)view.findViewById(R.id.input_School_Name_Edit);
-
-        CallToShowText(name, id, pw, studNum, univName);
-
         male = (CheckBox)view.findViewById(R.id.check_Box_M_Edit);
+        female = (CheckBox)view.findViewById(R.id.checkBoxW_Edit);
+
+        CallToShowText(name, id, pw, studNum, univName, male, female);
+
         male.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,7 +43,6 @@ public class EditMemInfoFragment extends Fragment {
             }
         });
 
-        female = (CheckBox)view.findViewById(R.id.checkBoxW_Edit);
         female.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,19 +133,25 @@ public class EditMemInfoFragment extends Fragment {
         return false;
     }
 
-    private void CallToShowText(EditText name, EditText id, EditText pw, EditText studNum, EditText univName){
+    private void CallToShowText(EditText name, EditText id, EditText pw, EditText studNum, EditText univName,
+                                CheckBox male, CheckBox female){
         //TODO: 회원의 정보를 먼저 출력하도록 DB와 연동
 
+        //일단은 임시 정보로 초기화.
         String Name = "Test Name";
         String ID = "Test ID";
         String PW = "Test PW";
         String StudNum = "11111111";
         String UnivName = "띵지머";
+        Boolean isMaleChecked = true;
+        Boolean isFemaleChecked = false;
 
         name.setText(Name);
         id.setText(ID);
         pw.setText(PW);
         studNum.setText(StudNum);
         univName.setText(UnivName);
+        male.setChecked(isMaleChecked);
+        female.setChecked(isFemaleChecked);
     }
 }
