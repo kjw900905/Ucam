@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -32,6 +35,10 @@ public class InActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
+
+        NotDbMainFragment notdbMainFragment = new NotDbMainFragment();
+        FragmentManager manager= getSupportFragmentManager();
+        manager.beginTransaction().add(R.id.content_in, notdbMainFragment).addToBackStack(null).commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -87,11 +94,12 @@ public class InActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
 
-        } else if (id == R.id.nav_slideshow) {
+        if (id == R.id.nav_camera) {
+            TimeTableFragment timeTableFragment = new TimeTableFragment();
+            FragmentManager manager= getSupportFragmentManager();
+            manager.beginTransaction().replace(R.id.content_in, timeTableFragment).addToBackStack(null).commit();
+        } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_manage) {
 
