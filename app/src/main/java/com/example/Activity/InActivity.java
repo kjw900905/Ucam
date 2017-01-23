@@ -100,8 +100,9 @@ public class InActivity extends AppCompatActivity
             FragmentManager manager= getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.content_in, timeTableFragment).addToBackStack(null).commit();
         } else if (id == R.id.nav_edit_mem_info) {
-            Intent intent = new Intent(getApplicationContext(), editMemInfoActivity.class);
-            startActivity(intent);
+            EditMemInfoFragment editMemInfoFragment = new EditMemInfoFragment();
+            FragmentManager manager= getSupportFragmentManager();
+            manager.beginTransaction().replace(R.id.content_in, editMemInfoFragment).addToBackStack(null).commit();
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {

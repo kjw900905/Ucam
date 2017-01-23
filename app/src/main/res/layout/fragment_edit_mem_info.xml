@@ -1,0 +1,177 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditMemInfoFragment">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/input_Name_Edit"
+        android:layout_alignBaseline="@+id/name_Text"
+        android:layout_alignBottom="@+id/name_Text"
+        android:layout_centerHorizontal="true"
+        android:hint="실명을 입력하세요." />
+
+    <Button
+        android:text="검색"
+        android:layout_height="wrap_content"
+        android:id="@+id/search_School_Edit"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="13dp"
+        android:layout_alignBottom="@+id/input_School_Name_Edit"
+        android:layout_alignTop="@+id/input_School_Name_Edit"
+        android:layout_toEndOf="@+id/input_Stu_Num_Edit"
+        android:layout_width="wrap_content" />
+
+    <CheckBox
+        android:text="여"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkBoxW_Edit"
+        android:layout_alignBaseline="@+id/check_Box_M_Edit"
+        android:layout_alignBottom="@+id/check_Box_M_Edit"
+        android:layout_centerHorizontal="true" />
+
+    <CheckBox
+        android:text="남"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/check_Box_M_Edit"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/input_School_Name_Edit"
+        android:layout_alignStart="@+id/id_Text" />
+
+    <Button
+        android:text="cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cancel_Edit"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="26dp"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:text="confirm"
+        android:id="@+id/submit_Edit"
+        android:width="@dimen/activity_horizontal_margin"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="12dp"
+        android:layout_above="@+id/cancel_Edit"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="학교명"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_School_Name_Edit"
+        android:layout_alignBaseline="@+id/input_School_Name_Edit"
+        android:layout_alignBottom="@+id/input_School_Name_Edit"
+        android:layout_alignStart="@+id/text_Stu_Num" />
+
+    <TextView
+        android:text="PW"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pw_Text"
+        android:layout_marginTop="10dp"
+        android:layout_alignBaseline="@+id/input_Pw_Edit"
+        android:layout_alignBottom="@+id/input_Pw_Edit"
+        android:layout_alignStart="@+id/text_Stu_Num" />
+
+    <TextView
+        android:text="ID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/id_Text"
+        android:layout_marginTop="10dp"
+        android:layout_alignBaseline="@+id/input_Id_Edit"
+        android:layout_alignBottom="@+id/input_Id_Edit"
+        android:layout_alignEnd="@+id/name_Text" />
+
+    <TextView
+        android:text="이름"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="33dp"
+        android:id="@+id/name_Text"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="회원 탈퇴 시 모든 정보가 삭제됩니다."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_unregister_info"
+        android:layout_alignBaseline="@+id/unregister_Button"
+        android:layout_alignBottom="@+id/unregister_Button"
+        android:layout_alignEnd="@+id/search_School_Edit" />
+
+    <Button
+        android:text="회원탈퇴"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:id="@+id/unregister_Button"
+        android:layout_below="@+id/check_Box_M_Edit"
+        android:layout_alignStart="@+id/text_School_Name_Edit" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/input_Pw_Edit"
+        android:hint="특수문자 금지."
+        android:layout_below="@+id/input_Id_Edit"
+        android:layout_alignStart="@+id/input_Id_Edit"
+        android:layout_marginTop="11dp" />
+
+    <TextView
+        android:text="학번"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:id="@+id/text_Stu_Num"
+        android:layout_below="@+id/input_Pw_Edit"
+        android:layout_alignEnd="@+id/id_Text" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/input_Stu_Num_Edit"
+        android:hint="숫자만 입력하세요."
+        android:layout_alignBaseline="@+id/text_Stu_Num"
+        android:layout_alignBottom="@+id/text_Stu_Num"
+        android:layout_alignStart="@+id/input_Pw_Edit" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/input_Id_Edit"
+        android:layout_marginTop="16dp"
+        android:hint="특수문자 금지."
+        android:layout_below="@+id/input_Name_Edit"
+        android:layout_alignStart="@+id/input_Name_Edit" />
+
+    <EditText
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/input_School_Name_Edit"
+        android:hint="학교명 검색"
+        android:layout_marginTop="24dp"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/input_Stu_Num_Edit"
+        android:layout_toStartOf="@+id/search_School_Edit" />
+
+</RelativeLayout>
