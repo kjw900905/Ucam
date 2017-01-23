@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <TextView
+        android:text="사진을 한장 골라주세요!"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:textSize="24sp"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_height="173dp"
+        app:srcCompat="@drawable/image_ddager"
+        android:id="@+id/imageView"
+        android:layout_width="230dp"
+        android:layout_marginTop="33dp"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:background="@android:color/darker_gray" />
+
+    <TextView
+        android:text="프로필 사진"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:textSize="36sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="프로필 사진 설정 완료"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_Select_Pic"
+        android:layout_marginTop="26dp"
+        android:id="@+id/btn_Set_Clear"
+        android:layout_alignEnd="@+id/btn_Select_Pic"
+        android:layout_alignStart="@+id/btn_Select_Pic"
+        android:onClick="button2" />
+
+    <TextView
+        android:id="@+id/btn_Select_Pic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="사진 선택"
+        android:onClick="button1"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:layout_below="@+id/imageView"
+        android:layout_alignStart="@+id/imageView"
+        android:background="@android:color/holo_blue_light"
+        android:layout_alignEnd="@+id/imageView" />
+
+</RelativeLayout>
