@@ -26,6 +26,7 @@
             android:name="com.example.kjw90.ucam.FindIdPwActivity"
             android:label="Find ID/PW">
         </activity>
+        <activity android:name=".SetProfileImage"></activity>
     </application>
 
 </manifest>

@@ -113,4 +113,8 @@ public class InActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+    public void set_Profile(View view){
+        Intent intent = new Intent(getApplicationContext(), SetProfileImage.class);
+        startActivity(intent);
+    }
 }
