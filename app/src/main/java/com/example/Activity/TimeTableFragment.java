@@ -6,6 +6,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.AdapterView;
+import android.widget.GridView;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 //import com.example.kjw90.ucam.R;
 
@@ -13,7 +20,8 @@ import android.view.ViewGroup;
  * A simple {@link Fragment} subclass.
  */
 public class TimeTableFragment extends Fragment {
-
+    GridView gridView;
+    static final String[] day_of_the_week={"일", "월", "화", "수", "목", "금"};
 
     public TimeTableFragment() {
         // Required empty public constructor
@@ -23,7 +31,19 @@ public class TimeTableFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_time_table, container, false);
+        View view = inflater.inflate(R.layout.gridview_timetable, container, false);
+
+
+        gridView = (GridView)view.findViewById(R.id.grid_timetable);
+        TimeTableAdapter timeTableAdapter = new TimeTableAdapter(view.getContext(), day_of_the_week);
+        gridView.setAdapter(timeTableAdapter);
+        gridView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getActivity(), "sds", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         return view;
     }
 
