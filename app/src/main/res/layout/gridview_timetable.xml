@@ -3,11 +3,8 @@
     android:id="@+id/grid_timetable"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-<<<<<<< HEAD
     android:gravity="center"
     android:stretchMode="columnWidth"
-=======
->>>>>>> 17af900f5b233607bae946d697678d7ee06f7395
     android:numColumns="7"
     android:verticalSpacing="1dp"
     android:horizontalSpacing="1dp"
