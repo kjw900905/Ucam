@@ -36,7 +36,7 @@ public class TimeTableFragment extends Fragment {
 
 
         gridView = (GridView)view.findViewById(R.id.grid_timetable);
-        TimeTableAdapter timeTableAdapter = new TimeTableAdapter(view.getContext());
+        TimeTableAdapter timeTableAdapter = new TimeTableAdapter(view.getContext(), gridView.getHeight()/12);
         gridView.setAdapter(timeTableAdapter);
         gridView.setOnItemClickListener(new OnItemClickListener() {
             @Override
