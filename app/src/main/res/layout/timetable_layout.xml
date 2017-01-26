@@ -9,5 +9,5 @@
         android:id="@+id/grid_TextView"
         android:text="@+id/grid_Text"
         android:gravity="center"
-        />
+        android:background="#FFFFFFFF" />
 </LinearLayout>
