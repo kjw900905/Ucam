@@ -23,7 +23,6 @@ import android.widget.AdapterView.OnItemClickListener;
  */
 public class TimeTableFragment extends Fragment {
     GridView gridView;
-    static final String[] day_of_the_week={" ", "일", "월", "화", "수", "목", "금"};
 
     public TimeTableFragment() {
         // Required empty public constructor
@@ -37,7 +36,7 @@ public class TimeTableFragment extends Fragment {
 
 
         gridView = (GridView)view.findViewById(R.id.grid_timetable);
-        TimeTableAdapter timeTableAdapter = new TimeTableAdapter(view.getContext(), day_of_the_week);
+        TimeTableAdapter timeTableAdapter = new TimeTableAdapter(view.getContext());
         gridView.setAdapter(timeTableAdapter);
         gridView.setOnItemClickListener(new OnItemClickListener() {
             @Override

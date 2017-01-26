@@ -11,11 +11,9 @@ import android.widget.TextView;
 
 public class TimeTableAdapter extends BaseAdapter {
     private Context context;
-    private final String[] mobileValues;
 
-    public TimeTableAdapter(Context context, String[] mobileValues) {
+    public TimeTableAdapter(Context context) {
         this.context = context;
-        this.mobileValues = mobileValues;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -39,9 +37,7 @@ public class TimeTableAdapter extends BaseAdapter {
             // set value into textview
             TextView textView = (TextView) gridView
                     .findViewById(R.id.grid_TextView);
-            textView.setText(mobileValues[position]);
 
-            String mobile = mobileValues[position];
 
         } else {
             gridView = (View) convertView;
@@ -63,7 +59,7 @@ public class TimeTableAdapter extends BaseAdapter {
     @Override
     public int getCount() {
 
-        return mobileValues.length;
+        return 20;
     }
 
     @Override
