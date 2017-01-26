@@ -3,6 +3,8 @@ package com.example.Activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +23,7 @@ import android.widget.AdapterView.OnItemClickListener;
  */
 public class TimeTableFragment extends Fragment {
     GridView gridView;
-    static final String[] day_of_the_week={"일", "월", "화", "수", "목", "금"};
+    static final String[] day_of_the_week={" ", "일", "월", "화", "수", "목", "금"};
 
     public TimeTableFragment() {
         // Required empty public constructor
@@ -40,7 +42,10 @@ public class TimeTableFragment extends Fragment {
         gridView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), "sds", Toast.LENGTH_SHORT).show();
+                /*EditMemInfoFragment editMemInfoFragment = new EditMemInfoFragment();
+                FragmentManager manager = getFragmentManager();
+                manager.beginTransaction().replace(R.id.content_in, editMemInfoFragment).addToBackStack(null).commit();*/
+                Toast.makeText(getActivity(), ((TextView)view.findViewById(R.id.grid_TextView)).getText(), Toast.LENGTH_SHORT).show();
             }
         });
 
