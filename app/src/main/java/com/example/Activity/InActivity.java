@@ -62,6 +62,10 @@ public class InActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            //Skips one activity to go back twice
+            if(getSupportFragmentManager().getBackStackEntryCount() == 1){
+                finish();
+            }
             super.onBackPressed();
         }
     }
