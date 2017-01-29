@@ -65,7 +65,8 @@ public class EditMemInfoFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), "회원탈퇴 완료\n이전 정보는 열람할 수 없습니다.", Toast.LENGTH_SHORT).show();
-                //TODO: 뒤로가기 코드 추가
+                //TODO: 회원탈퇴 관련 코드 추가
+                getActivity().onBackPressed();
             }
         });
 
@@ -82,7 +83,7 @@ public class EditMemInfoFragment extends Fragment {
 
                 if(chkString_Edit(Name, ID, PW, StudNum, UnivName) && chkMaleFemale_Edit(male, female)) {
                     Toast.makeText(getActivity(), "회원정보 수정 완료", Toast.LENGTH_LONG).show();
-                    //TODO: 뒤로가기 코드 추가
+                    getActivity().onBackPressed();
                 }
             }
         });
@@ -92,7 +93,7 @@ public class EditMemInfoFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), "수정 취소", Toast.LENGTH_SHORT).show();
-                //TODO: 뒤로가기 코드 추가
+                getActivity().onBackPressed();
             }
         });
 
