@@ -23,6 +23,8 @@ import android.widget.AdapterView.OnItemClickListener;
  */
 public class TimeTableFragment extends Fragment {
     GridView gridView;
+    int viewHeight = 1;
+    TimeTableAdapter timeTableAdapter;
 
     public TimeTableFragment() {
         // Required empty public constructor
@@ -36,15 +38,20 @@ public class TimeTableFragment extends Fragment {
 
 
         gridView = (GridView)view.findViewById(R.id.grid_timetable);
-        TimeTableAdapter timeTableAdapter = new TimeTableAdapter(view.getContext(), gridView.getHeight()/12);
+        viewHeight = gridView.getHeight();
+        timeTableAdapter = new TimeTableAdapter(view.getContext(), viewHeight);
         gridView.setAdapter(timeTableAdapter);
+        Toast.makeText(getContext(), "   "+gridView.getHeight() + " " + viewHeight, Toast.LENGTH_SHORT).show();
         gridView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 /*EditMemInfoFragment editMemInfoFragment = new EditMemInfoFragment();
                 FragmentManager manager = getFragmentManager();
                 manager.beginTransaction().replace(R.id.content_in, editMemInfoFragment).addToBackStack(null).commit();*/
-                Toast.makeText(getActivity(), ((TextView)view.findViewById(R.id.grid_TextView)).getText(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), ((TextView)view.findViewById(R.id.grid_TextView)).getText(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "   "+gridView.getHeight() + " " + viewHeight, Toast.LENGTH_SHORT).show();
+                timeTableAdapter.setSelectedPosition(position);
+                timeTableAdapter.notifyDataSetChanged();
             }
         });
 
