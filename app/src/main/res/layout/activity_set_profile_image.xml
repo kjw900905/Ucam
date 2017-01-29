@@ -7,6 +7,7 @@
 
     <TextView
         android:text="사진을 한장 골라주세요!"
+        android:textColor="#ff000000"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView2"
@@ -26,6 +27,7 @@
 
     <TextView
         android:text="프로필 사진"
+        android:textColor="#ff000000"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView"
