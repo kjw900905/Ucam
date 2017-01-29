@@ -123,26 +123,6 @@
         android:layout_alignBottom="@+id/input_School_Name"
         android:layout_alignTop="@+id/input_School_Name" />
 
-    <CheckBox
-        android:text="남"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/check_Box_M"
-        android:onClick="chk_Male"
-        android:layout_below="@+id/input_School_Name"
-        android:layout_alignStart="@+id/pw_Text"
-        android:layout_marginTop="19dp" />
-
-    <CheckBox
-        android:text="여"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/checkBoxW"
-        android:onClick="chk_Female"
-        android:layout_alignBaseline="@+id/check_Box_M"
-        android:layout_alignBottom="@+id/check_Box_M"
-        android:layout_centerHorizontal="true" />
-
     <Button
         android:text="cancel"
         android:layout_width="wrap_content"
@@ -161,7 +141,37 @@
         android:width="@dimen/activity_horizontal_margin"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_marginTop="32dp"
-        android:layout_below="@+id/check_Box_M"
+        android:layout_marginTop="44dp"
+        android:layout_below="@+id/input_School_Name"
         android:layout_alignParentStart="true" />
+
+    <RadioGroup
+        android:id="@+id/rdgroup"
+        android:layout_width="500dp"
+        android:layout_height="25dp"
+        android:layout_weight="0"
+        android:orientation="horizontal"
+        android:layout_below="@+id/input_School_Name"
+        android:layout_alignParentStart="true">
+
+        <RadioButton
+            android:text="남"
+            android:layout_width="250dp"
+            android:layout_height="25dp"
+            android:layout_weight="50"
+            android:id="@+id/rd_Male"
+            android:layout_above="@+id/submit"
+            android:layout_alignParentStart="true" />
+
+        <RadioButton
+            android:text="여"
+            android:layout_width="250dp"
+            android:layout_height="25dp"
+            android:layout_weight="50"
+            android:id="@+id/rd_Female"
+            android:layout_alignBaseline="@+id/rd_Male"
+            android:layout_alignBottom="@+id/rd_Male"
+            android:layout_centerHorizontal="true" />
+    </RadioGroup>
+
 </RelativeLayout>
