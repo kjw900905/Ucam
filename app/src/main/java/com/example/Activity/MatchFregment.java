@@ -6,7 +6,7 @@ public class MatchFregment extends Fragment {
     // php 주소 구성 : "http://(서버 주소)/(php 파일명 + 확장자명)"
     // php 주소 형식 : "http://xxx.xxx.xxx.xxx/xxxxx.php"
     // php 주소 예시 : "http://221.148.86.18/SelectAll.php"
-    private static final String SERVER_URL = "http://117.17.158.173/";
+    /*private static final String SERVER_URL = "http://117.17.158.173/";
     private static final String UPDATE_PHP = "UpdateSearch.php";
 
     public void MatchFragment() {
@@ -47,14 +47,14 @@ public class MatchFregment extends Fragment {
 
     public void UpdateSearch(String strInterests, String strNumPeople) {
         class UpdateSearchTask extends AsyncTask<String, Void, String> {
-            /*
+
             ProgressDialog loading;
 
             protected void onPreExecute() {
                 super.onPreExecute();
                 loading = ProgressDialog.show(MainActivity.this, "Please Wait", null, true, true);
             }
-            */
+
 
             protected String doInBackground(String[] params) {
                 // 파라미터를 받아오는 부분
@@ -97,15 +97,15 @@ public class MatchFregment extends Fragment {
                 }
             }
 
-            /*
+
             }protected void onPostExecute(String s) {
                 super.onPostExecute(s);
                 loading.dismiss();
                 Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
-            */
+
         }
 
         UpdateSearchTask updateSearchTask = new UpdateSearchTask();
         updateSearchTask.execute(strInterests, strNumPeople);
-    }
+    }*/
 }

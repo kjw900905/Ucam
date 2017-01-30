@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -61,7 +60,11 @@ public class SearchSchoolDialog extends Activity {
         int height = (int) (display.getHeight() * 0.7);//Display 사이즈의 70%
         getWindow().getAttributes().width = width;
         getWindow().getAttributes().height = height;
+        this.setFinishOnTouchOutside(false);
+    }
 
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     public void onClickSelectOne(View v) {
@@ -137,12 +140,9 @@ public class SearchSchoolDialog extends Activity {
                 JSONObject c = peoples.getJSONObject(i);
                 String id = c.getString(TAG_ID);
 
-
                 HashMap<String, String> persons = new HashMap<String, String>();
 
                 persons.put(TAG_ID, id);
-
-
                 personList.add(persons);
             }
 
@@ -154,6 +154,7 @@ public class SearchSchoolDialog extends Activity {
 
             list.setAdapter(adapter);
             list.setOnItemClickListener(itemClickListenerOfSchoolList);
+            //personList.clear();
         } catch(Exception exception) {
             exception.printStackTrace();
         }
@@ -164,8 +165,7 @@ public class SearchSchoolDialog extends Activity {
 
             school = adapterView.getAdapter().getItem(pos).toString();
             schoolName =  school.substring(4, school.length()-1);
-
-            Toast.makeText(getApplicationContext(), schoolName, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), schoolName, Toast.LENGTH_SHORT).show();
         }
     };
 

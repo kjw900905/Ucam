@@ -1,5 +1,6 @@
 package com.example.Activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -34,8 +35,11 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        String name = data.getStringExtra("name");
-        School_Name.setText(name);
+        if(resultCode == Activity.RESULT_OK){
+            String name = data.getStringExtra("name");
+            School_Name.setText(name);
+        }
+
     }
 
     @Override
@@ -67,7 +71,6 @@ public class SignUpActivity extends AppCompatActivity {
                 String PW = pw.getText().toString();
                 String StudNum = studNum.getText().toString();
                 String UnivName = univName.getText().toString();
-                String gender = rb.getText().toString();
 
 
                 if (chkString(Name, ID, PW, StudNum, UnivName)) {
@@ -86,6 +89,7 @@ public class SignUpActivity extends AppCompatActivity {
                     String strPw = edtPw.getText().toString();
                     String strStuNum = edtStuNum.getText().toString();
                     String strSchoolName = edtSchoolName.getText().toString();
+                    String gender = rb.getText().toString();
 
                     Insert(strName, strId, strPw, strStuNum, strSchoolName, gender);
 
@@ -168,8 +172,9 @@ public class SignUpActivity extends AppCompatActivity {
 
     public void search_Button(View v) {
 
-        Toast.makeText(getApplicationContext(), Sex, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), Sex, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getApplicationContext(), SearchSchoolDialog.class);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivityForResult(intent, LAUNCHED_ACTIVITY);
 
         //Toast.makeText(getApplicationContext(), "검색중...", Toast.LENGTH_SHORT).show();
@@ -183,7 +188,7 @@ public class SignUpActivity extends AppCompatActivity {
     private boolean chkString(String Name, String ID, String PW, String StudNum, String UnivName) {
         int[] chk = {Name.length(), ID.length(), PW.length(), StudNum.length(), UnivName.length()};
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < chk.length; i++) {
             if (chk[i] <= 0) {
                 Toast.makeText(getApplicationContext(), "정보를 모두 입력해 주세요.", Toast.LENGTH_SHORT).show();
                 return false;
