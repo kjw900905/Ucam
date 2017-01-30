@@ -36,15 +36,14 @@ public class TimeTableAdapter extends BaseAdapter {
             gridView = inflater.inflate(R.layout.timetable_layout, null);
             //ViewGroup.LayoutParams mParams = convertView.getLayoutParams();
             //System.out.print(gridView.getWidth() + " " + gridView.getHeight());
+            //gridView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            gridView.setLayoutParams(new GridView.LayoutParams(getCellWidthDP(), getCellHeightDP()));
 
-            //int h = gridView.getResources().getDisplayMetrics().densityDpi;
-            //gridView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
             // set value into textview
             TextView textView = (TextView) gridView
                     .findViewById(R.id.grid_TextView);
             //Toast.makeText(gridView.getContext(), "   "+gridView.getHeight() + " " + height, Toast.LENGTH_SHORT).show();
-            //textView.setHeight(height);
 
             if (position == selectedPosition) {
                 gridView.setBackgroundColor(Color.BLACK);
@@ -58,15 +57,22 @@ public class TimeTableAdapter extends BaseAdapter {
         return gridView;
     }
 
-    /*private int getCellWidthDP() {
-        int width = context.getResources().getDisplayMetrics().widthPixels;
+    private int getCellWidthDP() {
+        int width = (context.getResources().getDisplayMetrics().widthPixels-40) / 5;
         return width;
     }
 
     private int getCellHeightDP(){
-        int height = context.getResources().getDisplayMetrics().heightPixels;
+        int dp = pxToDp(30);
+        int height = (context.getResources().getDisplayMetrics().heightPixels-100) /11;
         return height;
-    } */
+    }
+
+    private int pxToDp(int px) {
+        int dp = Math.round(px / (context.getResources().getDisplayMetrics().xdpi / context.getResources().getDisplayMetrics().DENSITY_DEFAULT));
+        return dp;
+    }
+
 
     @Override
     public int getCount() {
@@ -84,6 +90,9 @@ public class TimeTableAdapter extends BaseAdapter {
     }
 
     public void setSelectedPosition(int position) {
+
         selectedPosition = position;
     }
+
+
 }
