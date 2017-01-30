@@ -2,6 +2,7 @@ package com.example.Activity;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,13 +38,15 @@ public class TimeTableAdapter extends BaseAdapter {
             //ViewGroup.LayoutParams mParams = convertView.getLayoutParams();
             //System.out.print(gridView.getWidth() + " " + gridView.getHeight());
             //gridView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            gridView.setLayoutParams(new GridView.LayoutParams(getCellWidthDP(), getCellHeightDP()));
+            gridView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
 
             // set value into textview
             TextView textView = (TextView) gridView
                     .findViewById(R.id.grid_TextView);
             //Toast.makeText(gridView.getContext(), "   "+gridView.getHeight() + " " + height, Toast.LENGTH_SHORT).show();
+
+            //Toast.makeText(gridView.getContext(), ""+context.getResources().getDisplayMetrics().heightPixels, Toast.LENGTH_SHORT).show();
 
             if (position == selectedPosition) {
                 gridView.setBackgroundColor(Color.BLACK);
@@ -57,21 +60,19 @@ public class TimeTableAdapter extends BaseAdapter {
         return gridView;
     }
 
-    private int getCellWidthDP() {
-        int width = (context.getResources().getDisplayMetrics().widthPixels-40) / 5;
-        return width;
-    }
-
     private int getCellHeightDP(){
-        int dp = pxToDp(30);
-        int height = (context.getResources().getDisplayMetrics().heightPixels-100) /11;
+        int cellheight2 = (context.getResources().getDisplayMetrics().heightPixels);
+        //int height3 = (pxToDp(height2)- height) / 12;
+        //int cellHeight = (context.getResources().getDisplayMetrics().heightPixels- height);
         return height;
     }
 
-    private int pxToDp(int px) {
-        int dp = Math.round(px / (context.getResources().getDisplayMetrics().xdpi / context.getResources().getDisplayMetrics().DENSITY_DEFAULT));
+    public int pxToDp(int px) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        int dp = Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
         return dp;
     }
+
 
 
     @Override

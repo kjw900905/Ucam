@@ -25,6 +25,7 @@ public class TimeTableFragment extends Fragment {
     GridView gridView;
     int viewHeight = 1;
     TimeTableAdapter timeTableAdapter;
+    TextView t1;
 
     public TimeTableFragment() {
         // Required empty public constructor
@@ -36,12 +37,12 @@ public class TimeTableFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.gridview_timetable, container, false);
 
-
+        t1 = (TextView)view.findViewById(R.id.tuesday);
         gridView = (GridView)view.findViewById(R.id.grid_timetable);
-        viewHeight = gridView.getHeight();
-        timeTableAdapter = new TimeTableAdapter(view.getContext(), viewHeight);
+        timeTableAdapter = new TimeTableAdapter(view.getContext(), t1.getHeight());
         gridView.setAdapter(timeTableAdapter);
-        Toast.makeText(getContext(), "   "+gridView.getHeight() + " " + viewHeight, Toast.LENGTH_SHORT).show();
+        gridView.setVerticalScrollBarEnabled(false);
+        //Toast.makeText(getContext(), "   "+gridView.getHeight() + " " + viewHeight, Toast.LENGTH_SHORT).show();
         gridView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -49,9 +50,10 @@ public class TimeTableFragment extends Fragment {
                 FragmentManager manager = getFragmentManager();
                 manager.beginTransaction().replace(R.id.content_in, editMemInfoFragment).addToBackStack(null).commit();*/
                 //Toast.makeText(getActivity(), ((TextView)view.findViewById(R.id.grid_TextView)).getText(), Toast.LENGTH_SHORT).show();
-                //Toast.makeText(getActivity(), "   "+gridView.getHeight() + " " + viewHeight, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "   "+gridView.getHeight(), Toast.LENGTH_SHORT).show();
                 timeTableAdapter.setSelectedPosition(position);
                 timeTableAdapter.notifyDataSetChanged();
+
             }
         });
 
