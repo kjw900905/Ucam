@@ -70,11 +70,10 @@ public class SearchSchoolDialog extends Activity {
     public void onClickSelectOne(View v) {
         list = (ListView) findViewById(listView);
         personList = new ArrayList<HashMap<String, String>>();
-
         EditText edtId = (EditText) findViewById(R.id.edtId);
-
         String strId = edtId.getText().toString();
-
+        //Toast.makeText(getApplicationContext(), strId, Toast.LENGTH_SHORT).show();
+        if (strId.equals("") || strId == null)  return;
         SelectOne(strId);
     }
 
@@ -123,6 +122,7 @@ public class SearchSchoolDialog extends Activity {
 
             protected  void onPostExecute(String result) {
                 myJSON = result;
+                //Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
                 showList();
             }
         }

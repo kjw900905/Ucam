@@ -27,16 +27,6 @@
         android:layout_alignTop="@+id/edtId"
         android:layout_alignParentEnd="true" />
 
-    <EditText
-        android:id="@+id/edtId"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:layout_marginLeft="130dp"
-        android:layout_alignTop="@+id/txtId"
-        android:layout_centerHorizontal="true" />
-
     <TextView
         android:id="@+id/txtId"
         android:layout_width="wrap_content"
@@ -59,5 +49,15 @@
         android:layout_marginTop="20dp"
         android:id="@+id/btnSetUniversity"
         android:onClick="setUniversity" />
+
+    <EditText
+        android:id="@+id/edtId"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="130dp"
+        android:layout_alignTop="@+id/txtId"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
