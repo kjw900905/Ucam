@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment;
     // php 주소 구성 : "http://(서버 주소)/(php 파일명 + 확장자명)"
     // php 주소 형식 : "http://xxx.xxx.xxx.xxx/xxxxx.php"
     // php 주소 예시 : "http://221.148.86.18/SelectAll.php"
-    private static final String SERVER_URL = "http://117.17.158.173/";
+    /*private static final String SERVER_URL = "http://117.17.158.173/";
     private static final String UPDATE_PHP = "UpdateSearch.php";
 
     public void MatchFragment() {
@@ -107,6 +107,11 @@ import android.support.v4.app.Fragment;
 
         UpdateSearchTask updateSearchTask = new UpdateSearchTask();
         updateSearchTask.execute(strInterests, strNumPeople);
+<<<<<<< HEAD
     }
 
 }*/
+=======
+    }*/
+}
+>>>>>>> c2ecd09f882427815a09efc376c042f41383ae8d

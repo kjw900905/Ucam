@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -38,7 +37,7 @@ public class SearchSchoolDialog extends Activity {
     // php 주소 구성 : "http://(서버 주소)/(php 파일명 + 확장자명)"
     // php 주소 형식 : "http://xxx.xxx.xxx.xxx/xxxxx.php"
     // php 주소 예시 : "http://221.148.86.18/SelectAll.php"
-    private static final String SERVER_URL = "http://192.168.35.16/";
+    private static final String SERVER_URL = "http://192.168.0.13/";
     private static final String SELECT_ONE_PHP = "SelectOne_search_school.php";
 
     private static final String TAG_RESULTS = "result";
@@ -61,17 +60,20 @@ public class SearchSchoolDialog extends Activity {
         int height = (int) (display.getHeight() * 0.7);//Display 사이즈의 70%
         getWindow().getAttributes().width = width;
         getWindow().getAttributes().height = height;
+        this.setFinishOnTouchOutside(false);
+    }
 
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     public void onClickSelectOne(View v) {
         list = (ListView) findViewById(listView);
         personList = new ArrayList<HashMap<String, String>>();
-
         EditText edtId = (EditText) findViewById(R.id.edtId);
-
         String strId = edtId.getText().toString();
-
+        //Toast.makeText(getApplicationContext(), strId, Toast.LENGTH_SHORT).show();
+        if (strId.equals("") || strId == null)  return;
         SelectOne(strId);
     }
 
@@ -120,6 +122,7 @@ public class SearchSchoolDialog extends Activity {
 
             protected  void onPostExecute(String result) {
                 myJSON = result;
+                //Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
                 showList();
             }
         }
@@ -137,12 +140,9 @@ public class SearchSchoolDialog extends Activity {
                 JSONObject c = peoples.getJSONObject(i);
                 String id = c.getString(TAG_ID);
 
-
                 HashMap<String, String> persons = new HashMap<String, String>();
 
                 persons.put(TAG_ID, id);
-
-
                 personList.add(persons);
             }
 
@@ -154,6 +154,7 @@ public class SearchSchoolDialog extends Activity {
 
             list.setAdapter(adapter);
             list.setOnItemClickListener(itemClickListenerOfSchoolList);
+            //personList.clear();
         } catch(Exception exception) {
             exception.printStackTrace();
         }
@@ -164,8 +165,7 @@ public class SearchSchoolDialog extends Activity {
 
             school = adapterView.getAdapter().getItem(pos).toString();
             schoolName =  school.substring(4, school.length()-1);
-
-            Toast.makeText(getApplicationContext(), schoolName, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), schoolName, Toast.LENGTH_SHORT).show();
         }
     };
 
