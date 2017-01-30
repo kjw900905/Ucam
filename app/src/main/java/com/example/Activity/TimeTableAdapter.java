@@ -38,7 +38,7 @@ public class TimeTableAdapter extends BaseAdapter {
             //ViewGroup.LayoutParams mParams = convertView.getLayoutParams();
             //System.out.print(gridView.getWidth() + " " + gridView.getHeight());
             //gridView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            gridView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            gridView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 14));
 
 
             // set value into textview
@@ -61,10 +61,10 @@ public class TimeTableAdapter extends BaseAdapter {
     }
 
     private int getCellHeightDP(){
-        int cellheight2 = (context.getResources().getDisplayMetrics().heightPixels);
+        int cellheight2 = (context.getResources().getDisplayMetrics().heightPixels - 345) / 11;
         //int height3 = (pxToDp(height2)- height) / 12;
         //int cellHeight = (context.getResources().getDisplayMetrics().heightPixels- height);
-        return height;
+        return cellheight2;
     }
 
     public int pxToDp(int px) {
