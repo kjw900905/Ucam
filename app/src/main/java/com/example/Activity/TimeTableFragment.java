@@ -1,6 +1,7 @@
 package com.example.Activity;
 
 
+import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -41,7 +42,8 @@ public class TimeTableFragment extends Fragment {
         gridView = (GridView)view.findViewById(R.id.grid_timetable);
         timeTableAdapter = new TimeTableAdapter(view.getContext(), t1.getHeight());
         gridView.setAdapter(timeTableAdapter);
-        gridView.setVerticalScrollBarEnabled(false);
+        gridView.setSelector(new StateListDrawable());
+        //gridView.setVerticalScrollBarEnabled(false);
         //Toast.makeText(getContext(), "   "+gridView.getHeight() + " " + viewHeight, Toast.LENGTH_SHORT).show();
         gridView.setOnItemClickListener(new OnItemClickListener() {
             @Override
