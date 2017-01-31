@@ -319,4 +319,41 @@ public class MatchFragment extends Fragment {
         UpdateSearchTask updateSearchTask = new UpdateSearchTask();
         updateSearchTask.execute(strInterests, strNumPeople);
     }
+<<<<<<< HEAD
 }
+=======
+
+    // set "관심분야"
+    public void setstrInterests(String strInterests) {
+        m_strInterests = strInterests;
+    }
+
+    // set "세부항목"
+    public void setstrDetailInterests(String strDetailInterests) {
+        m_strDetailInterests = strDetailInterests;
+    }
+
+    // set "인원"
+    public void setstrNumPeople(String strNumPeople) {
+        m_strNumPeople = strNumPeople;
+    }
+
+    // get "관심분야"
+    public String getstrInterests() {
+        return m_strInterests;
+    }
+
+    // get "세부항목"
+    public String getstrDetailInterests() {
+        return m_strDetailInterests;
+    }
+
+    // get "인원"
+    public String getstrNumPeople() {
+        return m_strNumPeople;
+    }
+}
+<<<<<<< HEAD
+*/
+
+>>>>>>> ce289cd3edc20ab9de5bc7c7add9ce076277ea4a

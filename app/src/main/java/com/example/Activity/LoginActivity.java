@@ -63,12 +63,8 @@ public class LoginActivity extends AppCompatActivity {
                     String str_Username_Input = edt_Username_Input.getText().toString();
                     SelectOne(str_Username_Input);
 
-
-
-                    //JSONObject jsonObj = new JSONObject(myJSON);
-
-                    Intent intent = new Intent(getApplicationContext(), InActivity.class);
-                    startActivity(intent);
+                    //Intent intent = new Intent(getApplicationContext(), InActivity.class);
+                    //startActivity(intent);
                 }
             }
         });
@@ -119,7 +115,6 @@ public class LoginActivity extends AppCompatActivity {
                     wr.flush();
 
                     BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-
                     StringBuilder sb = new StringBuilder();
                     String line = null;
 
@@ -139,7 +134,6 @@ public class LoginActivity extends AppCompatActivity {
                 myJSON = result;
                 check_ID_PW();
 
-                //Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -153,7 +147,7 @@ public class LoginActivity extends AppCompatActivity {
             String id = jsonObj.getString(php_ID);
             HashMap<String, String> persons = new HashMap<String, String>();
 
-            Toast.makeText(getApplicationContext(),id,Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "ss",Toast.LENGTH_SHORT).show();
 
             persons.put(php_ID, id);
             personList.add(persons);
