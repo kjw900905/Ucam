@@ -111,7 +111,3 @@ import android.support.v4.app.Fragment;
     }
 
 }*/
-=======
-    }*/
-}
->>>>>>> c2ecd09f882427815a09efc376c042f41383ae8d

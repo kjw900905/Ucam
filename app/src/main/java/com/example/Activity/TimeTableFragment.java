@@ -55,7 +55,6 @@ public class TimeTableFragment extends Fragment {
                 Toast.makeText(getActivity(), "   "+gridView.getHeight(), Toast.LENGTH_SHORT).show();
                 timeTableAdapter.setSelectedPosition(position);
                 timeTableAdapter.notifyDataSetChanged();
-
             }
         });
 
