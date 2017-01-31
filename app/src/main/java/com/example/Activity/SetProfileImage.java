@@ -17,6 +17,9 @@ import android.widget.Toast;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class SetProfileImage extends Activity {
 
@@ -26,12 +29,15 @@ public class SetProfileImage extends Activity {
 
     private Uri mImageCaptureUri;
     private ImageView iv_UserPhoto;
-    private String absolutePath;
+
+    String absolutePath;
+    String fileName;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_profile_image);
+        iv_UserPhoto = (ImageView) findViewById(R.id.imageView);
     }
 
     public void button1(View v){
@@ -87,6 +93,10 @@ public class SetProfileImage extends Activity {
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
 
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss", Locale.US);
+        Date date = new Date();
+        String strDate = formatter.format(date);
+
         if(resultCode != RESULT_OK)
             return;
 
@@ -115,7 +125,7 @@ public class SetProfileImage extends Activity {
 
                 final Bundle extras = data.getExtras();
 
-                String filePath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/ProfileDir/"+System.currentTimeMillis()+".jpg";
+                String filePath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/Download/"+strDate+".jpg";
 
                 if(extras != null){
                     Bitmap photo = extras.getParcelable("data");
