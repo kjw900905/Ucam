@@ -12,6 +12,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.Beans.Variable;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -21,15 +23,10 @@ import java.net.URLEncoder;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    public EditText name, id, pw, studNum, univName, School_Name;
-    public Button Submit_Button;
-    public RadioGroup rg;
-    //public RadioButton btn;
-    //public String Sex;
-
+    private EditText name, id, pw, studNum, univName, School_Name;
+    private Button Submit_Button;
+    private RadioGroup rg;
     private static final int LAUNCHED_ACTIVITY = 1;
-    private static final String SERVER_URL = "http://117.17.158.173/";
-    private static final String INSERT_PHP = "Insert_personal_information.php";
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -129,7 +126,7 @@ public class SignUpActivity extends AppCompatActivity {
                     data += "&" + URLEncoder.encode("schoolName", "UTF-8") + "=" + URLEncoder.encode(schoolName, "UTF-8");
                     data += "&" + URLEncoder.encode("gender", "UTF-8") + "=" + URLEncoder.encode(gender, "UTF-8");
 
-                    URL url = new URL(SERVER_URL + INSERT_PHP);
+                    URL url = new URL(Variable.m_SERVER_URL + Variable.m_PHP_INSERT_PERSONAL_INFORMATION);
                     URLConnection con = url.openConnection();
 
                     con.setDoOutput(true);
