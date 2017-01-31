@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:onClick="onClickSelectOne"
         android:layout_alignTop="@+id/edtId"
+        android:background="@drawable/btn_select"
         android:layout_alignParentEnd="true" />
 
     <TextView
@@ -48,6 +49,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:id="@+id/btnSetUniversity"
+        android:background="@drawable/btn_select"
         android:onClick="setUniversity" />
 
     <EditText

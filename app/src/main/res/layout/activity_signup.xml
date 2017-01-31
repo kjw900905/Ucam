@@ -134,6 +134,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/search_School"
+            android:background="@drawable/btn_select"
             android:onClick="search_Button" />
     </LinearLayout>
 
@@ -185,6 +186,7 @@
         android:text="submit"
         android:layout_width="362dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/btn_select"
         android:id="@+id/submit" />
 
     <Button
@@ -193,6 +195,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:onClick="cancel_Button"
+        android:background="@drawable/btn_select"
         android:id="@+id/cancel" />
 
 </LinearLayout>

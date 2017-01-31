@@ -44,6 +44,7 @@
         android:id="@+id/btn_Set_Clear"
         android:layout_alignEnd="@+id/btn_Select_Pic"
         android:layout_alignStart="@+id/btn_Select_Pic"
+        android:background="@drawable/btn_select"
         android:onClick="button2" />
 
     <TextView
