@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,18 +26,22 @@ public class MatchFragment extends Fragment {
     private String m_strDetailInterests; // 세부항목
     private String m_strNumPeople; // 인원
 
-    private EditText edtInterests; // "관심분야" 에디트
-    private EditText edtDetailInterests; // "세부항목" 에디트
-    private EditText edtNumPeople; // "인원" 에디트
+    private EditText edtInterests; // "관심분야" EditText
+    private EditText edtDetailInterests; // "세부항목" EditText
+    private EditText edtNumPeople; // "인원" EditText
 
-    private Button btnInterests; // "관심분야" 버튼
-    private Button btnDetailInterests; // "세부항목" 버튼
-    private Button btnNumPeople; // "인원" 버튼
-    private Button btnSearch; // "찾기" 버튼
+    private Button btnInterests; // "관심분야" Button
+    private Button btnDetailInterests; // "세부항목" Button
+    private Button btnNumPeople; // "인원" Button
+    private Button btnSearch; // "찾기" Button
 
-    private int selectInterests = 0;
-    private int selectDetailInterests = 0;
-    private int selectNumPeople = 0;
+    private int selectInterests = 0; // "관심분야" RadioButton value
+    private int o_selectInterests = -1; // 이전 "관심분야" value
+    private boolean[] selectDetailInterestsGame = {false, false, false}; // "세부항목"의 "게임" CheckBox value
+    private boolean[] selectDetailInterestsMeal = {false, false, false, false}; // "세부항목"의 "식사" CheckBox value
+    private boolean[] selectDetailInterestsExercise = {false, false, false}; // "세부항목"의 "운동" CheckBox value
+    private boolean[] selectDetailInterestsMajor = {false, false, false}; // "세부항목"의 "전공" CheckBox value
+    private int selectNumPeople = 0; // "인원" RadioButton value
 
     public void MatchFragment() {
         // null
@@ -45,44 +50,184 @@ public class MatchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_match, container, false);
 
-        edtInterests = (EditText)view.findViewById(R.id.edtInterests); // "관심분야" 에디트
-        edtDetailInterests = (EditText)view.findViewById(R.id.edtDetailInterests); // "세부항목" 에디트
-        edtNumPeople = (EditText)view.findViewById(R.id.edtNumPeople); // "인원" 에디트
+        edtInterests = (EditText)view.findViewById(R.id.edtInterests); // "관심분야" EditText
+        edtDetailInterests = (EditText)view.findViewById(R.id.edtDetailInterests); // "세부항목" EditText
+        edtNumPeople = (EditText)view.findViewById(R.id.edtNumPeople); // "인원" EditText
 
-        btnInterests = (Button)view.findViewById(R.id.btnInterests); // "관심분야" 버튼
-        btnDetailInterests = (Button)view.findViewById(R.id.btnDetailInterests); // "세부항목" 버튼
-        btnNumPeople = (Button)view.findViewById(R.id.btnNumPeople); // "인원" 버튼
-        btnSearch = (Button)view.findViewById(R.id.btnSearch); // "찾기" 버튼
+        btnInterests = (Button)view.findViewById(R.id.btnInterests); // "관심분야" Button
+        btnDetailInterests = (Button)view.findViewById(R.id.btnDetailInterests); // "세부항목" Button
+        btnNumPeople = (Button)view.findViewById(R.id.btnNumPeople); // "인원" Button
+        btnSearch = (Button)view.findViewById(R.id.btnSearch); // "찾기" Button
 
-        setstrInterests(edtInterests.getText().toString());
-        setstrDetailInterests(edtDetailInterests.getText().toString());
-        setstrNumPeople(edtNumPeople.getText().toString());
-
-        // "관심분야" 버튼 onClick
-        btnInterests.setOnClickListener(new View.OnClickListener() {
+        // "관심분야" EditText onClick
+        edtInterests.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                new AlertDialog.Builder(this)
-                        .setTitle("관심분야를 선택하세요.")
-                        .setIcon(R.drawable.ic_menu_gallery)
-                        .setSingleChoiceItems(R.array.Interests, selectInterests, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                selectInterests = which;
-                            }
-                        })
-                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                String[] interests = getResources().getStringArray(R.array.Interests);
-                            }
-                        })
-                        .setNegativeButton("취소", null)
-                        .show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+                builder.setTitle("관심분야를 선택하세요.");
+                //builder.setIcon(R.drawable.ic_menu_gallery);
+                builder.setSingleChoiceItems(R.array.Interests, selectInterests, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        selectInterests = which;
+                    }
+                });
+                builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        // [이전에 선택한 것과 다른것을 선택하는 경우(이전 index와 현재 index가 다른 경우)]
+                        // 1. "관심분야" EditText value 변경, "세부항목" EditText value 초기화, "인원" EditText value 초기화
+                        // 2. 이전 index와 현재 index를 일치시킨다.
+                        if(o_selectInterests != selectInterests) {
+                            String[] interests = getResources().getStringArray(R.array.Interests); // app/res/values/strings.xml의 <string-array name="Interests">
+                            edtInterests.setText(interests[selectInterests]); // "관심분야" EditText value 변경
+                            edtDetailInterests.setText(""); // "세부항목" EditText value 초기화
+                            edtNumPeople.setText(""); // "인원" EditText value 초기화
+                            o_selectInterests = selectInterests; // 이전 index와 현재 index 일치
+                        }
+                    }
+                });
+                builder.setNegativeButton("취소", null);
+                builder.show();
             }
         });
 
-        // "세부항목" 버튼 onClick
+        // "관심분야" Button onClick
+        btnInterests.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+                builder.setTitle("관심분야를 선택하세요.");
+                //builder.setIcon(R.drawable.ic_menu_gallery);
+                builder.setSingleChoiceItems(R.array.Interests, selectInterests, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        selectInterests = which;
+                    }
+                });
+                builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        // [이전에 선택한 것과 다른것을 선택하는 경우(이전 index와 현재 index가 다른 경우)]
+                        // 1. "관심분야" EditText value 변경, "세부항목" EditText value 초기화, "인원" EditText value 초기화
+                        // 2. 이전 index와 현재 index를 일치시킨다.
+                        if(o_selectInterests != selectInterests) {
+                            String[] interests = getResources().getStringArray(R.array.Interests); // app/res/values/strings.xml의 <string-array name="Interests">
+                            edtInterests.setText(interests[selectInterests]); // "관심분야" EditText value 변경
+                            edtDetailInterests.setText(""); // "세부항목" EditText value 초기화
+                            edtNumPeople.setText(""); // "인원" EditText value 초기화
+                            o_selectInterests = selectInterests; // 이전 index와 현재 index 일치
+                        }
+                    }
+                });
+                builder.setNegativeButton("취소", null);
+                builder.show();
+            }
+        });
+
+        // "세부항목" EditText onClick
+        edtDetailInterests.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+                if(TextUtils.isEmpty(edtInterests.getText())) { // "관심분야"를 선택하지 않았을때 메세지 출력
+                    builder.setTitle("알림");
+                    //builder.setIcon(R.drawable.ic_menu_gallery);
+                    builder.setMessage("관심분야를 먼저 선택해주세요.");
+                } else { // "관심분야"를 선택한 경우에는 각 "관심분야"에 맞는 항목 출력
+                    builder.setTitle("세부항목을 선택하세요.");
+                    //builder.setIcon(R.drawable.ic_menu_gallery);
+                    if(selectInterests == 0) { // "관심분야"의 "게임" 선택
+                        builder.setMultiChoiceItems(R.array.DetailInterests_Game, selectDetailInterestsGame, new DialogInterface.OnMultiChoiceClickListener() {
+                            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                                selectDetailInterestsGame[which] = isChecked;
+                            }
+                        });
+                        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                String[] game = getResources().getStringArray(R.array.DetailInterests_Game);
+                                String result = ""; // EditText에 넣어주기 위한 String
+                                int numCheckedValue = 0; // 체크되어 있는 항목의 개수
+
+                                // 체크되어 있는 항목이 몇개인지 확인
+                                for(int i=0; i<selectDetailInterestsGame.length; i++) {
+                                    if(selectDetailInterestsGame[i]) {
+                                        numCheckedValue ++;
+                                    }
+                                }
+
+                                // 체크되어 있는 항목의 개수 (-1)개 만큼 쉼표(,)를 붙여준다.
+                                for(int i=0; i<selectDetailInterestsGame.length; i++) {
+                                    if(selectDetailInterestsGame[i]) {
+                                        result += game[i];
+                                        if(numCheckedValue != 1) {
+                                            result += ", ";
+                                            numCheckedValue --;
+                                        }
+                                    }
+                                }
+
+                                edtDetailInterests.setText(result); // "세부항목" EditText value 변경
+                                edtNumPeople.setText(""); // "인원" EditText value 초기화
+                            }
+                        });
+                    } else if(selectInterests == 1) { // "관심분야"의 "식사"
+
+                    }
+                    builder.setNegativeButton("취소", null);
+                }
+                builder.show();
+            }
+        });
+
+        // "세부항목" Button onClick
         btnDetailInterests.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
+                if(TextUtils.isEmpty(edtInterests.getText())) { // "관심분야"를 선택하지 않았을때 메세지 출력
+                    builder.setTitle("알림");
+                    //builder.setIcon(R.drawable.ic_menu_gallery);
+                    builder.setMessage("관심분야를 먼저 선택해주세요.");
+                } else { // "관심분야"를 선택한 경우에는 각 "관심분야"에 맞는 항목 출력
+                    builder.setTitle("세부항목을 선택하세요.");
+                    //builder.setIcon(R.drawable.ic_menu_gallery);
+                    if (selectInterests == 0) { // "관심분야"의 "게임" 선택
+                        builder.setMultiChoiceItems(R.array.DetailInterests_Game, selectDetailInterestsGame, new DialogInterface.OnMultiChoiceClickListener() {
+                            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                                selectDetailInterestsGame[which] = isChecked;
+                            }
+                        });
+                        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                String[] game = getResources().getStringArray(R.array.DetailInterests_Game);
+                                String result = ""; // EditText에 넣어주기 위한 String
+                                int numCheckedValue = 0; // 체크되어 있는 항목의 개수
+
+                                // 체크되어 있는 항목이 몇개인지 확인
+                                for (int i = 0; i < selectDetailInterestsGame.length; i++) {
+                                    if (selectDetailInterestsGame[i]) {
+                                        numCheckedValue++;
+                                    }
+                                }
+
+                                // 체크되어 있는 항목의 개수 (-1)개 만큼 쉼표(,)를 붙여준다.
+                                for (int i = 0; i < selectDetailInterestsGame.length; i++) {
+                                    if (selectDetailInterestsGame[i]) {
+                                        result += game[i];
+                                        if (numCheckedValue != 1) {
+                                            result += ", ";
+                                            numCheckedValue--;
+                                        }
+                                    }
+                                }
+
+                                edtDetailInterests.setText(result); // "세부항목" EditText value 변경
+                                edtNumPeople.setText(""); // "인원" EditText value 초기화
+                            }
+                        });
+                    } else if (selectInterests == 1) { // "관심분야"의 "식사"
+
+                    }
+                    builder.setNegativeButton("취소", null);
+                }
+                builder.show();
             }
         });
 
@@ -100,12 +245,7 @@ public class MatchFragment extends Fragment {
             }
         });
 
-
         return view;
-    }
-
-    public void btnInterestsClick(View view) {
-        final Char
     }
 
     public void UpdateSearch(String strInterests, String strNumPeople) {
@@ -172,32 +312,32 @@ public class MatchFragment extends Fragment {
         updateSearchTask.execute(strInterests, strNumPeople);
     }
 
-    // set 관심분야
+    // set "관심분야"
     public void setstrInterests(String strInterests) {
         m_strInterests = strInterests;
     }
 
-    // set 세부항목
+    // set "세부항목"
     public void setstrDetailInterests(String strDetailInterests) {
         m_strDetailInterests = strDetailInterests;
     }
 
-    // get 인원
+    // set "인원"
     public void setstrNumPeople(String strNumPeople) {
         m_strNumPeople = strNumPeople;
     }
 
-    // get 관심분야
+    // get "관심분야"
     public String getstrInterests() {
         return m_strInterests;
     }
 
-    // get 세부항목
+    // get "세부항목"
     public String getstrDetailInterests() {
         return m_strDetailInterests;
     }
 
-    // get 인원
+    // get "인원"
     public String getstrNumPeople() {
         return m_strNumPeople;
     }
