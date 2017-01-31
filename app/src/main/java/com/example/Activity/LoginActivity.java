@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.Beans.Variable;
 import com.example.kjw90.ucam.FindIdPwActivity;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -21,8 +22,6 @@ import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import static com.example.Activity.R.id.finding_Button;
 import static com.example.Activity.R.id.sign_In_Button;
@@ -41,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText username;
     private EditText password;
 
-    private ArrayList<HashMap<String, String>> personList;
+    JSONArray person = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,15 +59,14 @@ public class LoginActivity extends AppCompatActivity {
                 if(chk_ID_PW(username, password)) {
 
                     EditText edt_Username_Input = (EditText) findViewById(R.id.username_Input);
+                    EditText edt_Password_Input = (EditText) findViewById(R.id.password_Input);
                     String str_Username_Input = edt_Username_Input.getText().toString();
-                    SelectOne(str_Username_Input);
+                    String str_Password_Input = edt_Password_Input.getText().toString();
+                    //Toast.makeText(getApplicationContext(), str_Username_Input , Toast.LENGTH_SHORT).show();
+                    SelectOne(str_Username_Input, str_Password_Input);
 
-
-
-                    //JSONObject jsonObj = new JSONObject(myJSON);
-
-                    Intent intent = new Intent(getApplicationContext(), InActivity.class);
-                    startActivity(intent);
+                    //Intent intent = new Intent(getApplicationContext(), InActivity.class);
+                    //startActivity(intent);
                 }
             }
         });
@@ -92,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void SelectOne(String str_Username_Input) {
+    public void SelectOne(String str_Username_Input, String str_Password_Input) {
         class SelectOneTask extends AsyncTask<String, Void, String> {
             /*ProgressDialog loading;
 
@@ -104,10 +102,12 @@ public class LoginActivity extends AppCompatActivity {
 
             protected String doInBackground(String[] params) {
                 String temp_ID = (String) params[0];
+                String temp_PW = (String) params[1];
 
                 try {
                     String data = "";
-                    data += URLEncoder.encode(php_ID, "UTF-8") + "=" + URLEncoder.encode(temp_ID, "UTF-8");
+                    data += URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(temp_ID, "UTF-8");
+                    data += "&" + URLEncoder.encode("password", "UTF-8") + "=" + URLEncoder.encode(temp_PW, "UTF-8");
 
                     URL url = new URL(Variable.m_SERVER_URL + Variable.m_PHP_CHECK_ID_PW);
                     URLConnection con = url.openConnection();
@@ -137,26 +137,42 @@ public class LoginActivity extends AppCompatActivity {
 
             protected  void onPostExecute(String result) {
                 myJSON = result;
+                //Toast.makeText(getApplicationContext(), result , Toast.LENGTH_SHORT).show();
                 check_ID_PW();
-
-                //Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
             }
         }
 
         SelectOneTask selectOneTask = new SelectOneTask();
-        selectOneTask.execute(str_Username_Input);
+        selectOneTask.execute(str_Username_Input, str_Password_Input);
     }
 
     public void check_ID_PW(){
         try {
             JSONObject jsonObj = new JSONObject(myJSON);
-            String id = jsonObj.getString(php_ID);
-            HashMap<String, String> persons = new HashMap<String, String>();
+            person = jsonObj.getJSONArray("result");
 
-            Toast.makeText(getApplicationContext(),id,Toast.LENGTH_SHORT).show();
 
-            persons.put(php_ID, id);
-            personList.add(persons);
+
+            if(person.optString(0, "false").equals("false")) {
+                Toast.makeText(getApplicationContext(), "없음", Toast.LENGTH_SHORT).show();
+            } else {
+                String id = person.getJSONObject(0).getString(php_ID);
+                String password = person.getJSONObject(0).getString("password");
+                Toast.makeText(getApplicationContext(), id + "and" + password, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), InActivity.class);
+                startActivity(intent);
+
+            }
+
+
+            //Toast.makeText(getApplicationContext(), id, Toast.LENGTH_SHORT).show();
+
+            /*
+
+            if(TextUtils.isEmpty(personList.get(0).toString())) {
+
+            }
+            */
 
         } catch(Exception exception) {
             exception.printStackTrace();

@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
 import com.example.Beans.Variable;
 
@@ -165,7 +164,7 @@ public class SearchSchoolDialog extends Activity {
 
             temp_School_Name = adapterView.getAdapter().getItem(pos).toString();
             school_Name =  temp_School_Name.substring(16, temp_School_Name.length()-1);
-            Toast.makeText(getApplicationContext(), school_Name, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), school_Name, Toast.LENGTH_SHORT).show();
         }
     };
 
