@@ -63,10 +63,10 @@ public class LoginActivity extends AppCompatActivity {
                     String str_Username_Input = edt_Username_Input.getText().toString();
                     String str_Password_Input = edt_Password_Input.getText().toString();
                     //Toast.makeText(getApplicationContext(), str_Username_Input , Toast.LENGTH_SHORT).show();
-                    SelectOne(str_Username_Input, str_Password_Input);
+                    //SelectOne(str_Username_Input, str_Password_Input);
 
-                    //Intent intent = new Intent(getApplicationContext(), InActivity.class);
-                    //startActivity(intent);
+                    Intent intent = new Intent(getApplicationContext(), InActivity.class);
+                    startActivity(intent);
                 }
             }
         });
@@ -138,10 +138,6 @@ public class LoginActivity extends AppCompatActivity {
                 myJSON = result;
                 //Toast.makeText(getApplicationContext(), result , Toast.LENGTH_SHORT).show();
                 check_ID_PW();
-<<<<<<< HEAD
-=======
-
->>>>>>> e6b059f03832590572b8c147c6cbe287f640c858
             }
         }
 
@@ -153,12 +149,7 @@ public class LoginActivity extends AppCompatActivity {
         try {
             JSONObject jsonObj = new JSONObject(myJSON);
             person = jsonObj.getJSONArray("result");
-
-<<<<<<< HEAD
-=======
-            Toast.makeText(getApplicationContext(), "ss",Toast.LENGTH_SHORT).show();
->>>>>>> e6b059f03832590572b8c147c6cbe287f640c858
-
+            //Toast.makeText(getApplicationContext(), "ss",Toast.LENGTH_SHORT).show();
 
             if(person.optString(0, "false").equals("false")) {
                 Toast.makeText(getApplicationContext(), "없음", Toast.LENGTH_SHORT).show();
