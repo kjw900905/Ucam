@@ -1,0 +1,15 @@
+package com.example.Beans;
+
+public class Variable {
+    // php 주소 구성 : "http://(서버 주소)/(php 파일명 + 확장자명)"
+    // php 주소 형식 : "http://xxx.xxx.xxx.xxx/xxxxx.php"
+    // php 주소 예시 : "http://221.148.86.18/SelectAll.php"
+    public static final String m_SERVER_URL = "http://117.17.158.173";
+    public static final String m_PHP_SELECTONE_SEARCH_SCHOOL = "/SelectOne_search_school.php";
+    public static final String m_PHP_INSERT_PERSONAL_INFORMATION = "/Insert_personal_information.php";
+    public static final String m_PHP_UPDATE_SEARCH = "/Update_Search.php"; // MatchFragment에서 매치에 사용하는 php
+    
+    public Variable() {
+        // null
+    }
+}

@@ -38,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 //Limited Access to clarify whether the information is corresponding with DB
                 if(chk_ID_PW(username, password)) {
+                    //SelectOne(strId);
                     Intent intent = new Intent(getApplicationContext(), InActivity.class);
                     startActivity(intent);
                 }
