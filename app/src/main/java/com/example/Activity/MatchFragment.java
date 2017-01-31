@@ -1,3 +1,4 @@
+/*
 package com.example.Activity;
 
 import android.content.DialogInterface;
@@ -202,4 +203,8 @@ import java.net.URLEncoder;
         return m_strNumPeople;
     }
 }
+<<<<<<< HEAD
 */
+=======
+*/
+>>>>>>> 73600f2419ee5a7ccc7613bc260e789427508c9b
