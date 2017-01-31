@@ -8,20 +8,22 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 
 public class EditMemInfoFragment extends Fragment {
 
     EditText name, id, pw, studNum, univName;
-    CheckBox male, female;
+    RadioGroup rdGroupEdit;
 
     public EditMemInfoFragment() {
         // Required empty public constructor
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_edit_mem_info, container, false);
@@ -31,24 +33,7 @@ public class EditMemInfoFragment extends Fragment {
         pw = (EditText)view.findViewById(R.id.input_Pw_Edit);
         studNum = (EditText)view.findViewById(R.id.input_Stu_Num_Edit);
         univName = (EditText)view.findViewById(R.id.input_School_Name_Edit);
-        male = (CheckBox)view.findViewById(R.id.check_Box_M_Edit);
-        female = (CheckBox)view.findViewById(R.id.checkBoxW_Edit);
-
-        CallToShowText(name, id, pw, studNum, univName, male, female);
-
-        male.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "남성", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        female.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "여성", Toast.LENGTH_SHORT).show();
-            }
-        });
+        rdGroupEdit = (RadioGroup)view.findViewById(R.id.rdGroup_Edit);
 
         // Inflate the layout for this fragment
         Button btnSearch = (Button)view.findViewById(R.id.search_School_Edit);
@@ -80,8 +65,11 @@ public class EditMemInfoFragment extends Fragment {
                 String PW = pw.getText().toString();
                 String StudNum = studNum.getText().toString();
                 String UnivName = univName.getText().toString();
+                String gender;
+                int radioCheck = rdGroupEdit.getCheckedRadioButtonId();
+                RadioButton rb = (RadioButton)container.findViewById(radioCheck);
 
-                if(chkString_Edit(Name, ID, PW, StudNum, UnivName) && chkMaleFemale_Edit(male, female)) {
+                if(chkString_Edit(Name, ID, PW, StudNum, UnivName)) {
                     Toast.makeText(getActivity(), "회원정보 수정 완료", Toast.LENGTH_LONG).show();
                     getActivity().onBackPressed();
                 }
@@ -118,21 +106,6 @@ public class EditMemInfoFragment extends Fragment {
         return true;
     }
 
-    private boolean chkMaleFemale_Edit(CheckBox male, CheckBox female){
-        boolean isMaleChecked = male.isChecked();
-        boolean isFemaleChecked = female.isChecked();
-
-        if(isMaleChecked && isFemaleChecked){
-            Toast.makeText(getActivity(), "양성애자가 아니시라면 한 가지 성별만 선택하십시오.\n", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        else if(isMaleChecked || isFemaleChecked){
-            return true;
-        }
-
-        Toast.makeText(getActivity(), "성별을 체크해 주세요.", Toast.LENGTH_SHORT).show();
-        return false;
-    }
 
     private void CallToShowText(EditText name, EditText id, EditText pw, EditText studNum, EditText univName,
                                 CheckBox male, CheckBox female){
