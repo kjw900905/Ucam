@@ -17,40 +17,17 @@
         android:layout_marginTop="150dp">
     </ListView>
 
-    <Button
-        android:id="@+id/btnSelectOne"
-        android:text="선택조회"
-        android:layout_marginLeft="60dp"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:onClick="onClickSelectOne"
-        android:layout_alignTop="@+id/edtId"
-        android:background="@drawable/btn_select"
-        android:layout_alignParentEnd="true" />
-
     <TextView
         android:id="@+id/txtId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="학교명"
+        android:textColor="#ffffff"
         android:textSize="20dp"
         android:gravity="center"
         android:textStyle="bold"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="22dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:text="설정 완료"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/edtId"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:id="@+id/btnSetUniversity"
-        android:background="@drawable/btn_select"
-        android:onClick="setUniversity" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="34dp" />
 
     <EditText
         android:id="@+id/edtId"
@@ -58,8 +35,28 @@
         android:layout_height="wrap_content"
         android:textSize="20dp"
         android:textStyle="bold"
-        android:layout_marginLeft="130dp"
-        android:layout_alignTop="@+id/txtId"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="25dp" />
+
+    <Button
+        android:id="@+id/btnSelectOne"
+        android:text="선택조회"
+        android:layout_marginLeft="20dp"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:onClick="onClickSelectOne"
+        android:background="@drawable/btn_select"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="90dp"/>
+
+    <Button
+        android:text="설정 완료"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="90dp"
+        android:id="@+id/btnSetUniversity"
+        android:background="@drawable/btn_select"
+        android:onClick="setUniversity"
+        android:layout_marginLeft="200dp"/>
 
 </RelativeLayout>
