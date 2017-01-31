@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -13,7 +14,7 @@
             android:id="@+id/txtInterests"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="20dp"
             android:text="관심분야"
             android:textStyle="bold"
             android:gravity="left"/>
@@ -31,7 +32,7 @@
             android:id="@+id/btnInterests"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="10dp"
             android:text="선택"
             android:textStyle="bold"
             android:gravity="center"
@@ -48,7 +49,7 @@
             android:id="@+id/txtDetailInterests"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="20dp"
             android:text="세부항목"
             android:textStyle="bold"
             android:gravity="left"/>
@@ -66,7 +67,7 @@
             android:id="@+id/btnDetailInterests"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="27dp"
             android:text="선택"
             android:textStyle="bold"
             android:gravity="center"
@@ -84,8 +85,8 @@
             android:id="@+id/txtNumPeople"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:text="  인원  "
+            android:layout_marginLeft="20dp"
+            android:text="   인원   "
             android:textStyle="bold"
             android:gravity="left"/>
 
@@ -102,7 +103,7 @@
             android:id="@+id/btnNumPeople"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="44dp"
             android:text="선택"
             android:textStyle="bold"
             android:gravity="center"
