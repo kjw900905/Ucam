@@ -119,7 +119,6 @@ public class LoginActivity extends AppCompatActivity {
                     wr.flush();
 
                     BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-
                     StringBuilder sb = new StringBuilder();
                     String line = null;
 
@@ -139,6 +138,10 @@ public class LoginActivity extends AppCompatActivity {
                 myJSON = result;
                 //Toast.makeText(getApplicationContext(), result , Toast.LENGTH_SHORT).show();
                 check_ID_PW();
+<<<<<<< HEAD
+=======
+
+>>>>>>> e6b059f03832590572b8c147c6cbe287f640c858
             }
         }
 
@@ -151,6 +154,10 @@ public class LoginActivity extends AppCompatActivity {
             JSONObject jsonObj = new JSONObject(myJSON);
             person = jsonObj.getJSONArray("result");
 
+<<<<<<< HEAD
+=======
+            Toast.makeText(getApplicationContext(), "ss",Toast.LENGTH_SHORT).show();
+>>>>>>> e6b059f03832590572b8c147c6cbe287f640c858
 
 
             if(person.optString(0, "false").equals("false")) {

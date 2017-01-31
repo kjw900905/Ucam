@@ -26,7 +26,7 @@
             android:layout_marginLeft="20dp"
             android:hint="관심분야를 선택해주세요."
             android:gravity="left"
-            android:clickable="false"/>
+            android:focusableInTouchMode="false"/>
 
         <Button
             android:id="@+id/btnInterests"
@@ -35,8 +35,8 @@
             android:layout_marginLeft="10dp"
             android:text="선택"
             android:textStyle="bold"
-            android:gravity="center"
-            android:onClick="btnInterestsClick"/>
+            android:background="@drawable/btn_select"
+            android:gravity="center"/>
     </LinearLayout>
 
     <LinearLayout
@@ -61,7 +61,7 @@
             android:layout_marginLeft="20dp"
             android:hint="세부항목 선택해주세요."
             android:gravity="left"
-            android:clickable="false"/>
+            android:focusableInTouchMode="false"/>
 
         <Button
             android:id="@+id/btnDetailInterests"
@@ -70,9 +70,8 @@
             android:layout_marginLeft="27dp"
             android:text="선택"
             android:textStyle="bold"
-            android:gravity="center"
-            android:clickable="false"
-            android:onClick="btnDetailInterestsClick"/>
+            android:background="@drawable/btn_select"
+            android:gravity="center"/>
     </LinearLayout>
 
     <LinearLayout
@@ -97,7 +96,7 @@
             android:layout_marginLeft="20dp"
             android:hint="인원을 선택해주세요."
             android:gravity="left"
-            android:clickable="false"/>
+            android:focusableInTouchMode="false"/>
 
         <Button
             android:id="@+id/btnNumPeople"
@@ -105,10 +104,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="44dp"
             android:text="선택"
+            android:background="@drawable/btn_select"
             android:textStyle="bold"
-            android:gravity="center"
-            android:clickable="false"
-            android:onClick="btnNumPeopleClick"/>
+            android:gravity="center"/>
     </LinearLayout>
 
     <LinearLayout
@@ -122,9 +120,8 @@
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:text="찾기"
+            android:background="@drawable/btn_select"
             android:textStyle="bold"
-            android:gravity="center"
-            android:clickable="false"
-            android:onClick="btnSearchClick"/>
+            android:gravity="center"/>
     </LinearLayout>
 </LinearLayout>
