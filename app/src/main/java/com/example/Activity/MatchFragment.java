@@ -20,7 +20,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
-public class MatchFragment extends Fragment {
+/*public class MatchFragment extends Fragment {
     private String m_strInterests; // 관심분야
     private String m_strDetailInterests; // 세부항목
     private String m_strNumPeople; // 인원
@@ -110,14 +110,14 @@ public class MatchFragment extends Fragment {
 
     public void UpdateSearch(String strInterests, String strNumPeople) {
         class UpdateSearchTask extends AsyncTask<String, Void, String> {
-            /*
+
             ProgressDialog loading;
 
             protected void onPreExecute() {
                 super.onPreExecute();
                 loading = ProgressDialog.show(MainActivity.this, "Please Wait", null, true, true);
             }
-            */
+
 
             protected String doInBackground(String[] params) {
                 // 파라미터를 받아오는 부분
@@ -160,12 +160,12 @@ public class MatchFragment extends Fragment {
                 }
             }
 
-            /*
+
             }protected void onPostExecute(String s) {
                 super.onPostExecute(s);
                 loading.dismiss();
                 Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
-            */
+
         }
 
         UpdateSearchTask updateSearchTask = new UpdateSearchTask();
@@ -202,3 +202,4 @@ public class MatchFragment extends Fragment {
         return m_strNumPeople;
     }
 }
+*/
