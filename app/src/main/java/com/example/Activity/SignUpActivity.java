@@ -24,11 +24,11 @@ public class SignUpActivity extends AppCompatActivity {
     public EditText name, id, pw, studNum, univName, School_Name;
     public Button Submit_Button;
     public RadioGroup rg;
-    public RadioButton btn;
-    public String Sex;
+    //public RadioButton btn;
+    //public String Sex;
 
     private static final int LAUNCHED_ACTIVITY = 1;
-    private static final String SERVER_URL = "http://192.168.0.13/";
+    private static final String SERVER_URL = "http://117.17.158.173/";
     private static final String INSERT_PHP = "Insert_personal_information.php";
 
     @Override
