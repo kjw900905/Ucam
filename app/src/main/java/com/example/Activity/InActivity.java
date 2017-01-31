@@ -108,7 +108,9 @@ public class InActivity extends AppCompatActivity
             FragmentManager manager= getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.content_in, editMemInfoFragment).addToBackStack(null).commit();
         } else if (id == R.id.nav_matching) {
-
+            MatchFragment matchFragment = new MatchFragment();
+            FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction().replace(R.id.content_in, matchFragment).addToBackStack(null).commit();
         } else if (id == R.id.nav_appointment) {
 
         } else if (id == R.id.nav_preference) {
