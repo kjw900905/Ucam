@@ -1,3 +1,4 @@
+/*
 package com.example.Activity;
 
 import android.content.DialogInterface;
@@ -117,7 +118,7 @@ public class MatchFragment extends Fragment {
                 super.onPreExecute();
                 loading = ProgressDialog.show(MainActivity.this, "Please Wait", null, true, true);
             }
-            */
+
 
             protected String doInBackground(String[] params) {
                 // 파라미터를 받아오는 부분
@@ -165,7 +166,7 @@ public class MatchFragment extends Fragment {
                 super.onPostExecute(s);
                 loading.dismiss();
                 Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
-            */
+
         }
 
         UpdateSearchTask updateSearchTask = new UpdateSearchTask();
@@ -202,3 +203,4 @@ public class MatchFragment extends Fragment {
         return m_strNumPeople;
     }
 }
+*/
