@@ -1,5 +1,6 @@
 package com.example.Activity;
 
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.example.Beans.Variable;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -31,6 +34,10 @@ public class MatchFragment extends Fragment {
     private Button btnNumPeople; // "인원" 버튼
     private Button btnSearch; // "찾기" 버튼
 
+    private int selectInterests = 0;
+    private int selectDetailInterests = 0;
+    private int selectNumPeople = 0;
+
     public void MatchFragment() {
         // null
     }
@@ -51,11 +58,24 @@ public class MatchFragment extends Fragment {
         setstrDetailInterests(edtDetailInterests.getText().toString());
         setstrNumPeople(edtNumPeople.getText().toString());
 
-        /*
         // "관심분야" 버튼 onClick
         btnInterests.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-
+                new AlertDialog.Builder(this)
+                        .setTitle("관심분야를 선택하세요.")
+                        .setIcon(R.drawable.ic_menu_gallery)
+                        .setSingleChoiceItems(R.array.Interests, selectInterests, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                selectInterests = which;
+                            }
+                        })
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                String[] interests = getResources().getStringArray(R.array.Interests);
+                            }
+                        })
+                        .setNegativeButton("취소", null)
+                        .show();
             }
         });
 
@@ -79,15 +99,13 @@ public class MatchFragment extends Fragment {
                 //UpdateSearch(getstrInterests(), getstrDetailInterests(), getstrNumPeople());
             }
         });
-        */
+
 
         return view;
     }
 
     public void btnInterestsClick(View view) {
-        new AlertDialog.Builder(this)
-                .setTitle("관심분야를 선택하세요.")
-                .setSingleChoiceItems(R.);
+        final Char
     }
 
     public void UpdateSearch(String strInterests, String strNumPeople) {
@@ -113,7 +131,7 @@ public class MatchFragment extends Fragment {
                     data += "&" + URLEncoder.encode("numpeople", "UTF-8") + "=" + URLEncoder.encode(strNumPeople, "UTF-8");
 
                     // 서버와 연결을 시도하는 부분
-                    URL url = new URL(+ UPDATE_PHP);
+                    URL url = new URL(Variable.m_SERVER_URL + Variable.m_PHP_UPDATE_SEARCH);
                     URLConnection con = url.openConnection();
 
                     // 서버로 전달하는 데이터가 있는 경우에 outputstream을 이용하는 부분
