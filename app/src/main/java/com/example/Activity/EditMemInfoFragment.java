@@ -148,7 +148,7 @@ public class EditMemInfoFragment extends Fragment {
                     data += "&" + URLEncoder.encode("gender", "UTF-8") + "=" + URLEncoder.encode(gender, "UTF-8");
 
                     // 서버와 연결을 시도하는 부분
-                    URL url = new URL(Variable.m_SERVER_URL + Variable.m_PHP_UPDATE_SEARCH);
+                    URL url = new URL(Variable.m_SERVER_URL + Variable.m_PHP_UPDATE);
 
                     URLConnection con = url.openConnection();
 
