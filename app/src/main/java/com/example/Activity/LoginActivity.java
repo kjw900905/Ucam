@@ -59,12 +59,9 @@ public class LoginActivity extends AppCompatActivity {
         log_In_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-<<<<<<< HEAD
                 //Toast.makeText(getApplicationContext(), Environment.getExternalStorageState(), Toast.LENGTH_SHORT).show();
                 //Limited Access to clarify whether the information is corresponding with DB
-=======
 
->>>>>>> 04dac78815087a63f505104ea0b412636dc68f5f
                 if(chk_ID_PW(username, password)) {
 
                     EditText edt_Username_Input = (EditText) findViewById(R.id.username_Input);
@@ -72,12 +69,9 @@ public class LoginActivity extends AppCompatActivity {
                     String str_Username_Input = edt_Username_Input.getText().toString();
                     String str_Password_Input = edt_Password_Input.getText().toString();
 
-<<<<<<< HEAD
                     //Intent intent = new Intent(getApplicationContext(), InActivity.class);
                     //startActivity(intent);
-=======
                     SelectOne(str_Username_Input, str_Password_Input);
->>>>>>> 04dac78815087a63f505104ea0b412636dc68f5f
                 }
             }
         });
