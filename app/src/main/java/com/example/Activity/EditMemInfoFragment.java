@@ -13,16 +13,14 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.Beans.Variable;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-
-import static com.example.Beans.Variable.m_PHP_UPDATE;
-import static com.example.Beans.Variable.m_PHP_UPDATE_SEARCH;
-import static com.example.Beans.Variable.m_SERVER_URL;
 
 
 public class EditMemInfoFragment extends Fragment {
@@ -105,6 +103,7 @@ public class EditMemInfoFragment extends Fragment {
 
         for(int i = 0; i < 6; i++){
             if(chk[i].length() <= 0){
+
                 Toast.makeText(getActivity(), "정보를 모두 입력해 주세요.", Toast.LENGTH_SHORT).show();
                 return false;
             }
@@ -151,7 +150,7 @@ public class EditMemInfoFragment extends Fragment {
                     data += "&" + URLEncoder.encode("gender", "UTF-8") + "=" + URLEncoder.encode(gender, "UTF-8");
 
                     // 서버와 연결을 시도하는 부분
-                    URL url = new URL(m_SERVER_URL + m_PHP_UPDATE);
+                    URL url = new URL(Variable.m_SERVER_URL + Variable.m_PHP_UPDATE);
                     URLConnection con = url.openConnection();
 
                     // 서버로 전달하는 데이터가 있는 경우에 outputstream을 이용하는 부분
@@ -201,8 +200,6 @@ public class EditMemInfoFragment extends Fragment {
         String PW = "Test PW";
         String StudNum = "11111111";
         String UnivName = "띵지머";
-        Boolean isMaleChecked = true;
-        Boolean isFemaleChecked = false;
 
         name.setText(Name);
         id.setText(ID);
