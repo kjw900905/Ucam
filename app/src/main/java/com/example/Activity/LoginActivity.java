@@ -60,6 +60,8 @@ public class LoginActivity extends AppCompatActivity {
         log_In_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Toast.makeText(getApplicationContext(), Environment.getExternalStorageState(), Toast.LENGTH_SHORT).show();
+                //Limited Access to clarify whether the information is corresponding with DB
 
                 if(chk_ID_PW(username, password)) {
 
@@ -68,6 +70,8 @@ public class LoginActivity extends AppCompatActivity {
                     String str_Username_Input = edt_Username_Input.getText().toString();
                     String str_Password_Input = edt_Password_Input.getText().toString();
 
+                    //Intent intent = new Intent(getApplicationContext(), InActivity.class);
+                    //startActivity(intent);
                     SelectOne(str_Username_Input, str_Password_Input);
                 }
             }

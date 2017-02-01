@@ -110,14 +110,14 @@ public class InActivity extends AppCompatActivity
 
 
         if (id == R.id.nav_time_table) {
-            /*
+
             TimeTableFragment timeTableFragment = new TimeTableFragment();
             FragmentManager manager= getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.content_in, timeTableFragment).addToBackStack(null).commit();
-            */
-            DrawTimeTableFragment drawTimeTableFragment = new DrawTimeTableFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.content_in, drawTimeTableFragment).addToBackStack(null).commit();
+
+            //DrawTimeTableFragment drawTimeTableFragment = new DrawTimeTableFragment();
+            //FragmentManager fragmentManager = getSupportFragmentManager();
+            //fragmentManager.beginTransaction().replace(R.id.content_in, drawTimeTableFragment).addToBackStack(null).commit();
         } else if (id == R.id.nav_edit_mem_info) {
             EditMemInfoFragment editMemInfoFragment = new EditMemInfoFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();

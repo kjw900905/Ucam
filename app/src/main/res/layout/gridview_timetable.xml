@@ -140,81 +140,81 @@
             android:paddingRight="5dp"/>
         </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+            <!-- 가로 -->
+            <TextView
+                android:id="@+id/monday"
+                android:layout_width="0px"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:text="월"
+                android:gravity="center"
+                android:textStyle="bold"/>
 
-                <!-- 가로 -->
-                <TextView
-                    android:id="@+id/monday"
-                    android:layout_width="0px"
-                    android:layout_height="30dp"
-                    android:layout_weight="1"
-                    android:text="월"
-                    android:gravity="center"
-                    android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/tuesday"
+                android:layout_width="0px"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:text="화"
+                android:gravity="center"
+                android:textStyle="bold"/>
 
-                <TextView
-                    android:id="@+id/tuesday"
-                    android:layout_width="0px"
-                    android:layout_height="30dp"
-                    android:layout_weight="1"
-                    android:text="화"
-                    android:gravity="center"
-                    android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/wednesday"
+                android:layout_width="0px"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:text="수"
+                android:gravity="center"
+                android:textStyle="bold"/>
 
-                <TextView
-                    android:id="@+id/wednesday"
-                    android:layout_width="0px"
-                    android:layout_height="30dp"
-                    android:layout_weight="1"
-                    android:text="수"
-                    android:gravity="center"
-                    android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/thursday"
+                android:layout_width="0px"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:text="목"
+                android:gravity="center"
+                android:textStyle="bold"/>
 
-                <TextView
-                    android:id="@+id/thursday"
-                    android:layout_width="0px"
-                    android:layout_height="30dp"
-                    android:layout_weight="1"
-                    android:text="목"
-                    android:gravity="center"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:id="@+id/friday"
-                    android:layout_width="0px"
-                    android:layout_height="30dp"
-                    android:layout_weight="1"
-                    android:text="금"
-                    android:gravity="center"
-                    android:textStyle="bold"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <GridView
-                    android:id="@+id/grid_timetable"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:stretchMode="columnWidth"
-                    android:numColumns="5"
-                    android:verticalSpacing="1dp"
-                    android:horizontalSpacing="1dp"
-                    android:background="#777777"
-                    android:scrollbarAlwaysDrawVerticalTrack="false"
-                    android:scrollbarAlwaysDrawHorizontalTrack="false">
-                </GridView>
-            </LinearLayout>
+            <TextView
+                android:id="@+id/friday"
+                android:layout_width="0px"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:text="금"
+                android:gravity="center"
+                android:textStyle="bold"/>
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <GridView
+                android:id="@+id/grid_timetable"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:stretchMode="columnWidth"
+                android:numColumns="5"
+                android:verticalSpacing="1dp"
+                android:horizontalSpacing="1dp"
+                android:background="#777777"
+                android:scrollbarAlwaysDrawVerticalTrack="false"
+                android:scrollbarAlwaysDrawHorizontalTrack="false">
+            </GridView>
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>
