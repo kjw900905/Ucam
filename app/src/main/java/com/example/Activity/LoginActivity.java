@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         log_In_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //Toast.makeText(getApplicationContext(), Environment.getExternalStorageState(), Toast.LENGTH_SHORT).show();
                 //Limited Access to clarify whether the information is corresponding with DB
                 if(chk_ID_PW(username, password)) {
 
@@ -66,8 +66,8 @@ public class LoginActivity extends AppCompatActivity {
                     //Toast.makeText(getApplicationContext(), str_Username_Input , Toast.LENGTH_SHORT).show();
                     //SelectOne(str_Username_Input, str_Password_Input);
 
-                    Intent intent = new Intent(getApplicationContext(), InActivity.class);
-                    startActivity(intent);
+                    //Intent intent = new Intent(getApplicationContext(), InActivity.class);
+                    //startActivity(intent);
                 }
             }
         });

@@ -3,23 +3,25 @@ package com.example.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class TimeTableAdapter extends BaseAdapter {
+
     private Context context;
-    private int height;
+    private int rootViewHeight;
+    private int dayViewHeight;
     private int selectedPosition = -1;
 
-    public TimeTableAdapter(Context context, int height) {
+    public TimeTableAdapter(Context context, int rootViewHeight, int dayViewHeight) {
         this.context = context;
-        this.height = height;
+        this.rootViewHeight = rootViewHeight;
+        this.dayViewHeight = dayViewHeight;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -33,20 +35,12 @@ public class TimeTableAdapter extends BaseAdapter {
 
             gridView = new View(context);
 
-            // get layout from mobile.xml
             gridView = inflater.inflate(R.layout.timetable_layout, null);
-            //ViewGroup.LayoutParams mParams = convertView.getLayoutParams();
-            //System.out.print(gridView.getWidth() + " " + gridView.getHeight());
-            //gridView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            //gridView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getCellHeightDP()));
-
+            int cellHeight = (rootViewHeight - dayViewHeight) / 12 - dpToPx(1);
+            gridView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, cellHeight));
 
             // set value into textview
-            TextView textView = (TextView) gridView
-                    .findViewById(R.id.grid_TextView);
-            //Toast.makeText(gridView.getContext(), "   "+gridView.getHeight() + " " + height, Toast.LENGTH_SHORT).show();
-
-            //Toast.makeText(gridView.getContext(), ""+context.getResources().getDisplayMetrics().heightPixels, Toast.LENGTH_SHORT).show();
+            TextView textView = (TextView) gridView.findViewById(R.id.grid_TextView);
 
             if (position == selectedPosition) {
                 gridView.setBackgroundColor(Color.BLACK);
@@ -60,24 +54,19 @@ public class TimeTableAdapter extends BaseAdapter {
         return gridView;
     }
 
-    private int getCellHeightDP(){
-        int cellheight2 = (context.getResources().getDisplayMetrics().heightPixels) / 12;
-        //int height3 = (pxToDp(height2)- height) / 12;
-        //int cellHeight = (context.getResources().getDisplayMetrics().heightPixels- height);
-        return cellheight2;
-    }
-
     public int pxToDp(int px) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         int dp = Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
         return dp;
     }
 
-
+    public int dpToPx(int dp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
+    }
 
     @Override
     public int getCount() {
-        return 55;
+        return 60;
     }
 
     @Override
@@ -94,6 +83,4 @@ public class TimeTableAdapter extends BaseAdapter {
 
         selectedPosition = position;
     }
-
-
 }
