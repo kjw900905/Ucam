@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 public class InActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -61,8 +62,14 @@ public class InActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             //Skips one activity to go back twice
-            if(getSupportFragmentManager().getBackStackEntryCount() == 1){
+            FragmentManager fm = getSupportFragmentManager();
+            int backStackNum = fm.getBackStackEntryCount();
+            if(backStackNum == 1) {
                 finish();
+            } else if(backStackNum > 2) {
+                for(int i = backStackNum; i > 2; i--) {
+                    fm.popBackStack();
+                }
             }
             super.onBackPressed();
         }
