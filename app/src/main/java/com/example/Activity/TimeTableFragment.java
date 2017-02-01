@@ -4,18 +4,15 @@ package com.example.Activity;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.app.Activity;
-import android.os.Bundle;
+import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 //import com.example.kjw90.ucam.R;
 
@@ -36,22 +33,24 @@ public class TimeTableFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.gridview_timetable, container, false);
+        final View view = inflater.inflate(R.layout.gridview_timetable, container, false);
 
-        t1 = (TextView)view.findViewById(R.id.tuesday);
-        gridView = (GridView)view.findViewById(R.id.grid_timetable);
-        timeTableAdapter = new TimeTableAdapter(view.getContext(), t1.getHeight());
-        gridView.setAdapter(timeTableAdapter);
+        t1 = (TextView) view.findViewById(R.id.tuesday);
+        t1.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                timeTableAdapter = new TimeTableAdapter(getContext(), view.getHeight(), t1.getHeight());
+                gridView.setAdapter(timeTableAdapter);
+
+                t1.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+            }
+        });
+
+        gridView = (GridView) view.findViewById(R.id.grid_timetable);
         gridView.setSelector(new StateListDrawable());
-        //gridView.setVerticalScrollBarEnabled(false);
-        //Toast.makeText(getContext(), "   "+gridView.getHeight() + " " + viewHeight, Toast.LENGTH_SHORT).show();
         gridView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                /*EditMemInfoFragment editMemInfoFragment = new EditMemInfoFragment();
-                FragmentManager manager = getFragmentManager();
-                manager.beginTransaction().replace(R.id.content_in, editMemInfoFragment).addToBackStack(null).commit();*/
-                //Toast.makeText(getActivity(), ((TextView)view.findViewById(R.id.grid_TextView)).getText(), Toast.LENGTH_SHORT).show();
                 Toast.makeText(getActivity(), "   "+gridView.getHeight(), Toast.LENGTH_SHORT).show();
                 timeTableAdapter.setSelectedPosition(position);
                 timeTableAdapter.notifyDataSetChanged();
@@ -60,5 +59,4 @@ public class TimeTableFragment extends Fragment {
 
         return view;
     }
-
 }

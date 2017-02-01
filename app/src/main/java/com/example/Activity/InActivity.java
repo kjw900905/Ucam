@@ -15,8 +15,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.Beans.Student;
+
 public class InActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    protected Student myInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +27,9 @@ public class InActivity extends AppCompatActivity
         setContentView(R.layout.activity_in);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Intent intent = getIntent();
+        myInfo = (Student)intent.getSerializableExtra("myInfo");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

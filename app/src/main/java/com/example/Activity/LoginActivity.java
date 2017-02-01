@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.Beans.Student;
 import com.example.Beans.Variable;
 import com.example.kjw90.ucam.FindIdPwActivity;
 
@@ -179,7 +180,18 @@ public class LoginActivity extends AppCompatActivity {
                 alert.setMessage("아이디, 비밀번호를 확인하십시오.");
                 alert.show();
             } else {
+                JSONObject c = person.getJSONObject(0);
+
+                String name = c.getString("name");
+                String id = c.getString("id");
+                String password = c.getString("password");
+                String studentNumber = c.getString("studentNumber");
+                String schoolName = c.getString("schoolName");
+                String gender = c.getString("gender");
+
                 Intent intent = new Intent(getApplicationContext(), InActivity.class);
+                intent.putExtra("myinfo", new Student(name, id, password, studentNumber, schoolName, gender));
+                finish();
                 startActivity(intent);
             }
         } catch(Exception exception) {
