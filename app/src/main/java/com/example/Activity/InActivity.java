@@ -16,6 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.kjw90.ucam.ChatFragment;
+
 public class InActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -125,6 +127,10 @@ public class InActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_preference) {
 
+        } else if (id == R.id.nav_chat) {
+            ChatFragment chatFragment = new ChatFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.content_in, chatFragment).addToBackStack(null).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
