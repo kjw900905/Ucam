@@ -9,6 +9,7 @@ public class Variable {
     public final static String m_PHP_INSERT_PERSONAL_INFORMATION = "/Insert_personal_information.php";
     public final static String m_PHP_CHECK_ID_PW = "/Check_ID_PW.php";
     public final static String m_PHP_UPDATE_SEARCH = "/Update_Search.php"; // MatchFragment에서 매치에 사용하는 php
+    public final static String m_PHP_UPDATE = "/Update.php";
 
     // java.com.example.Activity.DrawTimeTable 에서 사용하는 상수 ============================================================= //
     public final static String[] m_DAY = {"월", "화", "수", "목", "금"};
