@@ -1,4 +1,4 @@
-package com.example.kjw90.ucam;
+package com.example.Activity;
 
 import android.content.Context;
 import android.net.Uri;
