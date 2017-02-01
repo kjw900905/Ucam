@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 public class InActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -61,8 +62,14 @@ public class InActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             //Skips one activity to go back twice
-            if(getSupportFragmentManager().getBackStackEntryCount() == 1){
+            FragmentManager fm = getSupportFragmentManager();
+            int backStackNum = fm.getBackStackEntryCount();
+            if(backStackNum == 1) {
                 finish();
+            } else if(backStackNum > 2) {
+                for(int i = backStackNum; i > 2; i--) {
+                    fm.popBackStack();
+                }
             }
             super.onBackPressed();
         }
@@ -98,17 +105,22 @@ public class InActivity extends AppCompatActivity
 
 
         if (id == R.id.nav_time_table) {
+            /*
             TimeTableFragment timeTableFragment = new TimeTableFragment();
             FragmentManager manager= getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.content_in, timeTableFragment).addToBackStack(null).commit();
+            */
+            DrawTimeTableFragment drawTimeTableFragment = new DrawTimeTableFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.content_in, drawTimeTableFragment).addToBackStack(null).commit();
         } else if (id == R.id.nav_edit_mem_info) {
             EditMemInfoFragment editMemInfoFragment = new EditMemInfoFragment();
-            FragmentManager manager= getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.content_in, editMemInfoFragment).addToBackStack(null).commit();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.content_in, editMemInfoFragment).addToBackStack(null).commit();
         } else if (id == R.id.nav_matching) {
             MatchFragment matchFragment = new MatchFragment();
-            FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.content_in, matchFragment).addToBackStack(null).commit();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.content_in, matchFragment).addToBackStack(null).commit();
         } else if (id == R.id.nav_appointment) {
 
         } else if (id == R.id.nav_preference) {

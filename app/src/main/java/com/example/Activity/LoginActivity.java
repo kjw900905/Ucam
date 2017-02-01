@@ -63,10 +63,15 @@ public class LoginActivity extends AppCompatActivity {
                     EditText edt_Password_Input = (EditText) findViewById(R.id.password_Input);
                     String str_Username_Input = edt_Username_Input.getText().toString();
                     String str_Password_Input = edt_Password_Input.getText().toString();
+
                     SelectOne(str_Username_Input, str_Password_Input);
 
-                    //Intent intent = new Intent(getApplicationContext(), InActivity.class);
-                    //startActivity(intent);
+                    //Toast.makeText(getApplicationContext(), str_Username_Input , Toast.LENGTH_SHORT).show();
+                    //SelectOne(str_Username_Input, str_Password_Input);
+
+
+                    Intent intent = new Intent(getApplicationContext(), InActivity.class);
+                    startActivity(intent);
                 }
             }
         });
@@ -149,15 +154,14 @@ public class LoginActivity extends AppCompatActivity {
         try {
             JSONObject jsonObj = new JSONObject(myJSON);
             person = jsonObj.getJSONArray("result");
-
             //Toast.makeText(getApplicationContext(), "ss",Toast.LENGTH_SHORT).show();
 
             if(person.optString(0, "false").equals("false")) {
                 Toast.makeText(getApplicationContext(), "없음", Toast.LENGTH_SHORT).show();
             } else {
-                //String id = person.getJSONObject(0).getString(php_ID);
-                //String password = person.getJSONObject(0).getString("password");
-                //Toast.makeText(getApplicationContext(), id + "and" + password, Toast.LENGTH_SHORT).show();
+                String id = person.getJSONObject(0).getString(php_ID);
+                String password = person.getJSONObject(0).getString("password");
+                Toast.makeText(getApplicationContext(), id + "and" + password, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), InActivity.class);
                 startActivity(intent);
 
