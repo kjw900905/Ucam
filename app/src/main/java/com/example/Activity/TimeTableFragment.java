@@ -51,7 +51,7 @@ public class TimeTableFragment extends Fragment {
         gridView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), "   "+gridView.getHeight(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "   "+ position, Toast.LENGTH_SHORT).show();
                 timeTableAdapter.setSelectedPosition(position);
                 timeTableAdapter.notifyDataSetChanged();
             }
