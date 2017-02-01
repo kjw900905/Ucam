@@ -4,12 +4,23 @@ public class Variable {
     // php 주소 구성 : "http://(서버 주소)/(php 파일명 + 확장자명)"
     // php 주소 형식 : "http://xxx.xxx.xxx.xxx/xxxxx.php"
     // php 주소 예시 : "http://221.148.86.18/SelectAll.php"
-    public final static String m_SERVER_URL = "http://192.168.0.23";
+    public final static String m_SERVER_URL = "http://192.168.0.13";
     public final static String m_PHP_SELECTONE_SEARCH_SCHOOL = "/SelectOne_search_school.php";
     public final static String m_PHP_INSERT_PERSONAL_INFORMATION = "/Insert_personal_information.php";
     public final static String m_PHP_CHECK_ID_PW = "/Check_ID_PW.php";
     public final static String m_PHP_UPDATE_SEARCH = "/Update_Search.php"; // MatchFragment에서 매치에 사용하는 php
     public final static String m_PHP_UPDATE = "/Update.php";
+    public final static String m_PHP_DELETE = "/Delete.php";
+    public final static String m_PHP_SELECT_ONE = "/SelectOne.php";
+    public final static String m_PHP_INSERT_TIME_TABLE_DETAIL = "/InsertTimeTableDetail.php";
+    public final static String m_PHP_SELECTALL_TIME_TABLE_DETAIL = "/SelectAllTimeTableDetail.php";
+
+    public final static String m_TAG_NAME = "name";
+    public final static String m_TAG_ID = "id";
+    public final static String m_TAG_PW = "password";
+    public final static String m_TAG_STUD_NUM = "studentNumber";
+    public final static String m_TAG_SCHOOL = "schoolName";
+    public final static String m_TAG_GENDER = "gender";
 
     // java.com.example.Activity.DrawTimeTable 에서 사용하는 상수 ============================================================= //
     public final static String[] m_DAY = {"월", "화", "수", "목", "금"};

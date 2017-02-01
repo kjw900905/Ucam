@@ -7,16 +7,18 @@ import java.io.Serializable;
  */
 
 public class Student implements Serializable{
-    private String m_Student_Num;       //학번
     private String m_Name;               //이름
     private String m_Id;                 //ID
+    private String m_PW;                //PW
+    private String m_Student_Num;       //학번
     private String m_University;           //학교
     private String m_Gender;            //성별
 
-    public Student(String student_Num, String name, String id, String university, String gender){
-        m_Student_Num = student_Num;
+    public Student(String name, String id, String password, String student_Num, String university, String gender){
         m_Name = name;
         m_Id = id;
+        m_PW = password;
+        m_Student_Num = student_Num;
         m_University = university;
         m_Gender = gender;
     }

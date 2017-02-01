@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.Beans.Student;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -42,7 +45,9 @@ public class SetProfileImageFragment extends Fragment {
     private ImageView iv_UserPhoto;
     private TextView select_Pic;
     private Button set_Clear;
-    private ImageView iv_Nav_Header;
+
+    private String get_Profile_Image;
+    private String update_Profile_Image;
 
     String absolutePath;
     String fileName;
@@ -57,7 +62,13 @@ public class SetProfileImageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_set_profile_image, container, false);
 
+        Student mStudent = (Student)getArguments().getSerializable("myInfo");
+
         iv_UserPhoto = (ImageView) view.findViewById(R.id.profile_ImageView);
+
+        //Bitmap bm = BitmapFactory.decodeFile(absolutePath);
+        //iv_UserPhoto.setImageBitmap(bm);
+
         select_Pic = (TextView) view.findViewById(R.id.btn_Select_Pic);
         set_Clear = (Button) view.findViewById(R.id.btn_Set_Clear);
 
@@ -76,29 +87,30 @@ public class SetProfileImageFragment extends Fragment {
         return view;
     }
     public void onClickProcessSelectPic(View v){
-        new AlertDialog.Builder(getActivity()).setTitle("업로드할 이미지 선택");
-        new AlertDialog.Builder(getActivity()).setCancelable(false);
-        new AlertDialog.Builder(getActivity()).setPositiveButton("사진 촬영", new DialogInterface.OnClickListener() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("업로드할 이미지 선택");
+        builder.setCancelable(false);
+        builder.setPositiveButton("사진 촬영", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 doTakePhotoAction();
                 Toast.makeText(getActivity(), "사진 촬영", Toast.LENGTH_SHORT).show();
             }
         });
-        new AlertDialog.Builder(getActivity()).setNeutralButton("취소", new DialogInterface.OnClickListener() {
+        builder.setNeutralButton("취소", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(getActivity(), "취소 버튼이 눌렸습니다.", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
 
             }
         });
-        new AlertDialog.Builder(getActivity()).setNegativeButton("앨범 선택", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("앨범 선택", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog2, int which) {
                 doTakeAlbumAction();
                 Toast.makeText(getActivity(), "앨범 선택", Toast.LENGTH_SHORT).show();
 
             }
         });
-        new AlertDialog.Builder(getActivity()).show();
+        builder.show();
     }
 
     public void doTakePhotoAction(){
@@ -197,7 +209,8 @@ public class SetProfileImageFragment extends Fragment {
 
     public void onClickProcessSetClear(View view){
         Toast.makeText(getActivity(), "프로필 사진이 업데이트 되었습니다.", Toast.LENGTH_LONG).show();
-        getActivity().finish();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentManager.beginTransaction().remove(SetProfileImageFragment.this).commit();
+        fragmentManager.popBackStack();
     }
-
 }
