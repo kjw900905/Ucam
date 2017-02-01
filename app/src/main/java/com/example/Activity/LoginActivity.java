@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +30,8 @@ import static com.example.Activity.R.id.sign_In_Button;
 import static com.example.Activity.R.id.sign_Up_Button;
 
 public class LoginActivity extends AppCompatActivity {
+    boolean doubleBackToExitPressedOnce = false; //두 번 뒤로가기 시 종료하는 지에 대한 여부를 판단하는 불 변수
+
     public Button log_In_Button;
 
     private TextView join_Button;
@@ -148,6 +151,25 @@ public class LoginActivity extends AppCompatActivity {
 
         SelectOneTask selectOneTask = new SelectOneTask();
         selectOneTask.execute(str_Username_Input, str_Password_Input);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "한번 더 뒤로가기를 누르시면 종료합니다", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
 
     public void check_ID_PW(){
