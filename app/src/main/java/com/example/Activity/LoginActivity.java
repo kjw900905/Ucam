@@ -1,9 +1,10 @@
 package com.example.Activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -56,7 +57,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                //Limited Access to clarify whether the information is corresponding with DB
                 if(chk_ID_PW(username, password)) {
 
                     EditText edt_Username_Input = (EditText) findViewById(R.id.username_Input);
@@ -65,13 +65,6 @@ public class LoginActivity extends AppCompatActivity {
                     String str_Password_Input = edt_Password_Input.getText().toString();
 
                     SelectOne(str_Username_Input, str_Password_Input);
-
-                    //Toast.makeText(getApplicationContext(), str_Username_Input , Toast.LENGTH_SHORT).show();
-                    //SelectOne(str_Username_Input, str_Password_Input);
-
-
-                    Intent intent = new Intent(getApplicationContext(), InActivity.class);
-                    startActivity(intent);
                 }
             }
         });
@@ -132,7 +125,6 @@ public class LoginActivity extends AppCompatActivity {
                         sb.append(line);
                         break;
                     }
-
                     return sb.toString().trim();
                 } catch(Exception exception) {
                     return new String(exception.getMessage());
@@ -141,7 +133,6 @@ public class LoginActivity extends AppCompatActivity {
 
             protected  void onPostExecute(String result) {
                 myJSON = result;
-                Toast.makeText(getApplicationContext(), Environment.getExternalStorageState(), Toast.LENGTH_SHORT).show();
                 check_ID_PW();
             }
         }
@@ -154,34 +145,25 @@ public class LoginActivity extends AppCompatActivity {
         try {
             JSONObject jsonObj = new JSONObject(myJSON);
             person = jsonObj.getJSONArray("result");
-            //Toast.makeText(getApplicationContext(), "ss",Toast.LENGTH_SHORT).show();
 
             if(person.optString(0, "false").equals("false")) {
-                Toast.makeText(getApplicationContext(), "없음", Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
+                alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                alert.setMessage("아이디, 비밀번호를 확인하십시오.");
+                alert.show();
             } else {
-                String id = person.getJSONObject(0).getString(php_ID);
-                String password = person.getJSONObject(0).getString("password");
-                Toast.makeText(getApplicationContext(), id + "and" + password, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), InActivity.class);
                 startActivity(intent);
-
             }
-
-
-            //Toast.makeText(getApplicationContext(), id, Toast.LENGTH_SHORT).show();
-
-            /*
-
-            if(TextUtils.isEmpty(personList.get(0).toString())) {
-
-            }
-            */
-
         } catch(Exception exception) {
             exception.printStackTrace();
         }
     }
-
 
     public boolean chk_ID_PW(EditText id, EditText pw) {
         String ID = id.getText().toString();
@@ -191,22 +173,6 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Please enter username and password", Toast.LENGTH_SHORT).show();
             return false;
         }
-
-        /* TODO: Relate with DB Information (b/w Registered information and Username & Password)
-        *  As the purpose of this method is exception handling,
-        *  DO NOT FORGET TO RETURN THE BOOLEAN VALUE OF DECISION
-        *  (true or false)
-        * */
-
-
-        //If the whole conditions are satisfied
         return true;
     }
 }
-
-/*
-    public void signIn(View v){
-        Toast.makeText(getApplicationContext(), "로그인 완료", Toast.LENGTH_LONG).show();
-        finish();
-    }
-*/

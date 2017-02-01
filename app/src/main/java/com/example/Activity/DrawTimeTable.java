@@ -29,7 +29,7 @@ public class DrawTimeTable extends View {
                 paint.setStrokeWidth(3);
                 paint.setTextSize(30);
 
-                canvas.drawRect();
+                //canvas.drawRect();
             }
         }
     }

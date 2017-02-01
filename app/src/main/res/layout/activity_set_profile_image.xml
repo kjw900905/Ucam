@@ -34,15 +34,13 @@
         android:id="@+id/btn_Set_Clear"
         android:layout_alignEnd="@+id/btn_Select_Pic"
         android:layout_alignStart="@+id/btn_Select_Pic"
-        android:background="@drawable/btn_select"
-        android:onClick="button2" />
+        android:background="@drawable/btn_select" />
 
     <TextView
         android:id="@+id/btn_Select_Pic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="사진 선택"
-        android:onClick="button1"
         android:textSize="24sp"
         android:gravity="center"
         android:layout_below="@+id/profile_ImageView"

@@ -14,7 +14,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 public class InActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -125,6 +124,10 @@ public class InActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_preference) {
 
+        }else if (id == R.id.nav_set_profile_image) {
+            SetProfileImageFragment setProfileImageFragment = new SetProfileImageFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.content_in, setProfileImageFragment).addToBackStack(null).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
