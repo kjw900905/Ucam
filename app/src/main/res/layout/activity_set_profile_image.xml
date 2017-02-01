@@ -15,16 +15,6 @@
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true" />
 
-    <ImageView
-        android:layout_height="173dp"
-        app:srcCompat="@drawable/image_ddager"
-        android:id="@+id/imageView"
-        android:layout_width="230dp"
-        android:layout_marginTop="33dp"
-        android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:background="@android:color/darker_gray" />
-
     <TextView
         android:text="프로필 사진"
         android:textColor="#ff000000"
@@ -44,20 +34,28 @@
         android:id="@+id/btn_Set_Clear"
         android:layout_alignEnd="@+id/btn_Select_Pic"
         android:layout_alignStart="@+id/btn_Select_Pic"
-        android:background="@drawable/btn_select"
-        android:onClick="button2" />
+        android:background="@drawable/btn_select" />
 
     <TextView
         android:id="@+id/btn_Select_Pic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="사진 선택"
-        android:onClick="button1"
         android:textSize="24sp"
         android:gravity="center"
-        android:layout_below="@+id/imageView"
-        android:layout_alignStart="@+id/imageView"
+        android:layout_below="@+id/profile_ImageView"
+        android:layout_alignStart="@+id/profile_ImageView"
         android:background="@android:color/holo_blue_light"
-        android:layout_alignEnd="@+id/imageView" />
+        android:layout_alignEnd="@+id/profile_ImageView" />
+
+    <ImageView
+        android:layout_height="173dp"
+        app:srcCompat="@drawable/image_ddager"
+        android:id="@+id/profile_ImageView"
+        android:layout_width="230dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="61dp"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

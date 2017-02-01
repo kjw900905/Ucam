@@ -1,6 +1,7 @@
+
 package com.example.Activity;
 
-import android.app.Activity;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,9 +10,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedOutputStream;
@@ -21,7 +27,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class SetProfileImage extends Activity {
+import static android.app.Activity.RESULT_OK;
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class SetProfileImageFragment extends Fragment {
 
     private static final int PICK_FROM_CAMERA = 0;
     private static final int PICK_FROM_ALBUM = 1;
@@ -29,49 +40,65 @@ public class SetProfileImage extends Activity {
 
     private Uri mImageCaptureUri;
     private ImageView iv_UserPhoto;
+    private TextView select_Pic;
+    private Button set_Clear;
     private ImageView iv_Nav_Header;
 
     String absolutePath;
     String fileName;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_set_profile_image);
-        iv_UserPhoto = (ImageView) findViewById(R.id.profile_ImageView);
+
+    public SetProfileImageFragment() {
+        // Required empty public constructor
     }
 
-    public void button1(View v){
-        new AlertDialog.Builder(this)
 
-                .setTitle("업로드할 이미지 선택")
-                //.setIcon(R.drawable.ic_launcher)
-                //.setMessage("다이얼로그 내용")
-                .setCancelable(false)
-                .setPositiveButton("사진 촬영", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        doTakePhotoAction();
-                        Toast.makeText(SetProfileImage.this, "사진 촬영", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .setNeutralButton("취소", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(SetProfileImage.this, "취소 버튼이 눌렸습니다.", Toast.LENGTH_SHORT).show();
-                        dialog.dismiss();
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_set_profile_image, container, false);
 
-                    }
-                })
-                .setNegativeButton("앨범 선택", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog2, int which){
-                        doTakeAlbumAction();
-                        Toast.makeText(SetProfileImage.this, "앨범 선택", Toast.LENGTH_SHORT).show();
+        iv_UserPhoto = (ImageView) view.findViewById(R.id.profile_ImageView);
+        select_Pic = (TextView) view.findViewById(R.id.btn_Select_Pic);
+        set_Clear = (Button) view.findViewById(R.id.btn_Set_Clear);
 
-                    }
-                })
-                .show();
+        select_Pic.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                onClickProcessSelectPic(view);
+            }
+        });
+
+        set_Clear.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                onClickProcessSetClear(view);
+            }
+        });
+
+        return view;
+    }
+    public void onClickProcessSelectPic(View v){
+        new AlertDialog.Builder(getActivity()).setTitle("업로드할 이미지 선택");
+        new AlertDialog.Builder(getActivity()).setCancelable(false);
+        new AlertDialog.Builder(getActivity()).setPositiveButton("사진 촬영", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                doTakePhotoAction();
+                Toast.makeText(getActivity(), "사진 촬영", Toast.LENGTH_SHORT).show();
+            }
+        });
+        new AlertDialog.Builder(getActivity()).setNeutralButton("취소", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getActivity(), "취소 버튼이 눌렸습니다.", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+
+            }
+        });
+        new AlertDialog.Builder(getActivity()).setNegativeButton("앨범 선택", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog2, int which) {
+                doTakeAlbumAction();
+                Toast.makeText(getActivity(), "앨범 선택", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        new AlertDialog.Builder(getActivity()).show();
     }
 
     public void doTakePhotoAction(){
@@ -159,7 +186,7 @@ public class SetProfileImage extends Activity {
             out = new BufferedOutputStream(new FileOutputStream(copyFile));
             bitmap.compress(Bitmap.CompressFormat.JPEG,100,out);
 
-            sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(copyFile)));
+            getActivity().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(copyFile)));
 
             out.flush();
             out.close();
@@ -168,8 +195,9 @@ public class SetProfileImage extends Activity {
         }
     }
 
-    public void button2(View view){
-        Toast.makeText(getApplicationContext(), "프로필 사진이 업데이트 되었습니다.", Toast.LENGTH_LONG).show();
-        finish();
+    public void onClickProcessSetClear(View view){
+        Toast.makeText(getActivity(), "프로필 사진이 업데이트 되었습니다.", Toast.LENGTH_LONG).show();
+        getActivity().finish();
     }
+
 }

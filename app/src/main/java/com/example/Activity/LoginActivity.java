@@ -1,9 +1,11 @@
 package com.example.Activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
+import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +31,8 @@ import static com.example.Activity.R.id.sign_In_Button;
 import static com.example.Activity.R.id.sign_Up_Button;
 
 public class LoginActivity extends AppCompatActivity {
+    boolean doubleBackToExitPressedOnce = false; //두 번 뒤로가기 시 종료하는 지에 대한 여부를 판단하는 불 변수
+
     public Button log_In_Button;
 
     private TextView join_Button;
@@ -55,19 +59,25 @@ public class LoginActivity extends AppCompatActivity {
         log_In_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+<<<<<<< HEAD
                 //Toast.makeText(getApplicationContext(), Environment.getExternalStorageState(), Toast.LENGTH_SHORT).show();
                 //Limited Access to clarify whether the information is corresponding with DB
+=======
+
+>>>>>>> 04dac78815087a63f505104ea0b412636dc68f5f
                 if(chk_ID_PW(username, password)) {
 
                     EditText edt_Username_Input = (EditText) findViewById(R.id.username_Input);
                     EditText edt_Password_Input = (EditText) findViewById(R.id.password_Input);
                     String str_Username_Input = edt_Username_Input.getText().toString();
                     String str_Password_Input = edt_Password_Input.getText().toString();
-                    //Toast.makeText(getApplicationContext(), str_Username_Input , Toast.LENGTH_SHORT).show();
-                    //SelectOne(str_Username_Input, str_Password_Input);
 
+<<<<<<< HEAD
                     //Intent intent = new Intent(getApplicationContext(), InActivity.class);
                     //startActivity(intent);
+=======
+                    SelectOne(str_Username_Input, str_Password_Input);
+>>>>>>> 04dac78815087a63f505104ea0b412636dc68f5f
                 }
             }
         });
@@ -128,7 +138,6 @@ public class LoginActivity extends AppCompatActivity {
                         sb.append(line);
                         break;
                     }
-
                     return sb.toString().trim();
                 } catch(Exception exception) {
                     return new String(exception.getMessage());
@@ -137,7 +146,6 @@ public class LoginActivity extends AppCompatActivity {
 
             protected  void onPostExecute(String result) {
                 myJSON = result;
-                //Toast.makeText(getApplicationContext(), result , Toast.LENGTH_SHORT).show();
                 check_ID_PW();
             }
         }
@@ -146,38 +154,48 @@ public class LoginActivity extends AppCompatActivity {
         selectOneTask.execute(str_Username_Input, str_Password_Input);
     }
 
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "한번 더 뒤로가기를 누르시면 종료합니다", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
+    }
+
     public void check_ID_PW(){
         try {
             JSONObject jsonObj = new JSONObject(myJSON);
             person = jsonObj.getJSONArray("result");
-            //Toast.makeText(getApplicationContext(), "ss",Toast.LENGTH_SHORT).show();
 
             if(person.optString(0, "false").equals("false")) {
-                Toast.makeText(getApplicationContext(), "없음", Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
+                alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                alert.setMessage("아이디, 비밀번호를 확인하십시오.");
+                alert.show();
             } else {
-                String id = person.getJSONObject(0).getString(php_ID);
-                String password = person.getJSONObject(0).getString("password");
-                Toast.makeText(getApplicationContext(), id + "and" + password, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), InActivity.class);
                 startActivity(intent);
-
             }
-
-
-            //Toast.makeText(getApplicationContext(), id, Toast.LENGTH_SHORT).show();
-
-            /*
-
-            if(TextUtils.isEmpty(personList.get(0).toString())) {
-
-            }
-            */
-
         } catch(Exception exception) {
             exception.printStackTrace();
         }
     }
-
 
     public boolean chk_ID_PW(EditText id, EditText pw) {
         String ID = id.getText().toString();
@@ -187,22 +205,6 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Please enter username and password", Toast.LENGTH_SHORT).show();
             return false;
         }
-
-        /* TODO: Relate with DB Information (b/w Registered information and Username & Password)
-        *  As the purpose of this method is exception handling,
-        *  DO NOT FORGET TO RETURN THE BOOLEAN VALUE OF DECISION
-        *  (true or false)
-        * */
-
-
-        //If the whole conditions are satisfied
         return true;
     }
 }
-
-/*
-    public void signIn(View v){
-        Toast.makeText(getApplicationContext(), "로그인 완료", Toast.LENGTH_LONG).show();
-        finish();
-    }
-*/
