@@ -194,7 +194,7 @@ public class LoginActivity extends AppCompatActivity {
                 String gender = c.getString("gender");
 
                 Intent intent = new Intent(getApplicationContext(), InActivity.class);
-                intent.putExtra("myinfo", new Student(name, id, password, studentNumber, schoolName, gender));
+                intent.putExtra("myInfo", new Student(name, id, password, studentNumber, schoolName, gender));
                 finish();
                 startActivity(intent);
             }

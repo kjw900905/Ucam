@@ -115,6 +115,10 @@ public class InActivity extends AppCompatActivity
             FragmentManager manager= getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.content_in, timeTableFragment).addToBackStack(null).commit();
 
+            Bundle bundle = new Bundle(1);
+            bundle.putSerializable("myInfo", myInfo);
+            timeTableFragment.setArguments(bundle);
+
             //DrawTimeTableFragment drawTimeTableFragment = new DrawTimeTableFragment();
             //FragmentManager fragmentManager = getSupportFragmentManager();
             //fragmentManager.beginTransaction().replace(R.id.content_in, drawTimeTableFragment).addToBackStack(null).commit();
@@ -122,10 +126,18 @@ public class InActivity extends AppCompatActivity
             EditMemInfoFragment editMemInfoFragment = new EditMemInfoFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.content_in, editMemInfoFragment).addToBackStack(null).commit();
+
+            Bundle bundle = new Bundle(1);
+            bundle.putSerializable("myInfo", myInfo);
+            editMemInfoFragment.setArguments(bundle);
         } else if (id == R.id.nav_matching) {
             MatchFragment matchFragment = new MatchFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.content_in, matchFragment).addToBackStack(null).commit();
+
+            Bundle bundle = new Bundle(1);
+            bundle.putSerializable("myInfo", myInfo);
+            matchFragment.setArguments(bundle);
         } else if (id == R.id.nav_appointment) {
 
         } else if (id == R.id.nav_preference) {
@@ -134,10 +146,18 @@ public class InActivity extends AppCompatActivity
             SetProfileImageFragment setProfileImageFragment = new SetProfileImageFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.content_in, setProfileImageFragment).addToBackStack(null).commit();
+
+            Bundle bundle = new Bundle(1);
+            bundle.putSerializable("myInfo", myInfo);
+            setProfileImageFragment.setArguments(bundle);
         } else if (id == R.id.nav_chat) {
             ChatFragment chatFragment = new ChatFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.content_in, chatFragment).addToBackStack(null).commit();
+
+            Bundle bundle = new Bundle(1);
+            bundle.putSerializable("myInfo", myInfo);
+            chatFragment.setArguments(bundle);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

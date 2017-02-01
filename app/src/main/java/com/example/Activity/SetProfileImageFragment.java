@@ -21,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.Beans.Student;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -59,6 +61,8 @@ public class SetProfileImageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_set_profile_image, container, false);
+
+        Student mStudent = (Student)getArguments().getSerializable("myInfo");
 
         iv_UserPhoto = (ImageView) view.findViewById(R.id.profile_ImageView);
 
