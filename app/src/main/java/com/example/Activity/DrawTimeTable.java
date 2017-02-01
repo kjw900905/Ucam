@@ -12,6 +12,7 @@ public class DrawTimeTable extends View {
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-
+        float scaleX = canvas.getWidth() / 1080f;
+        float scaleY = canvas.getHeight() / 1920f;
     }
 }
