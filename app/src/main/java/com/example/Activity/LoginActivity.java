@@ -63,7 +63,6 @@ public class LoginActivity extends AppCompatActivity {
                     EditText edt_Password_Input = (EditText) findViewById(R.id.password_Input);
                     String str_Username_Input = edt_Username_Input.getText().toString();
                     String str_Password_Input = edt_Password_Input.getText().toString();
-                    Toast.makeText(getApplicationContext(),  Environment.getDataDirectory().getAbsolutePath() , Toast.LENGTH_SHORT).show();
                     SelectOne(str_Username_Input, str_Password_Input);
 
                     //Intent intent = new Intent(getApplicationContext(), InActivity.class);
@@ -137,7 +136,7 @@ public class LoginActivity extends AppCompatActivity {
 
             protected  void onPostExecute(String result) {
                 myJSON = result;
-                //Toast.makeText(getApplicationContext(), result , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), Environment.getExternalStorageState(), Toast.LENGTH_SHORT).show();
                 check_ID_PW();
             }
         }

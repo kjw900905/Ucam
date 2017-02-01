@@ -29,6 +29,7 @@ public class SetProfileImage extends Activity {
 
     private Uri mImageCaptureUri;
     private ImageView iv_UserPhoto;
+    private ImageView iv_Nav_Header;
 
     String absolutePath;
     String fileName;
@@ -37,7 +38,7 @@ public class SetProfileImage extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_profile_image);
-        iv_UserPhoto = (ImageView) findViewById(R.id.imageView);
+        iv_UserPhoto = (ImageView) findViewById(R.id.profile_ImageView);
     }
 
     public void button1(View v){
@@ -130,7 +131,6 @@ public class SetProfileImage extends Activity {
                 if(extras != null){
                     Bitmap photo = extras.getParcelable("data");
                     iv_UserPhoto.setImageBitmap(photo);
-
                     storeCropImage(photo,filePath);
                     absolutePath = filePath;
                     break;
