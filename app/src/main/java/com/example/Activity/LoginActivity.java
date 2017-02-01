@@ -4,12 +4,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-<<<<<<< HEAD
-import android.support.v7.app.AlertDialog;
-=======
-import android.os.Environment;
 import android.os.Handler;
->>>>>>> f28117f2ff5e04bd56666073a1f82add690827e3
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;

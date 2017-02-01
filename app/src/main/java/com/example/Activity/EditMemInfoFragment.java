@@ -21,10 +21,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> f28117f2ff5e04bd56666073a1f82add690827e3
 public class EditMemInfoFragment extends Fragment {
 
     EditText name, id, pw, studNum, univName;
@@ -152,11 +148,8 @@ public class EditMemInfoFragment extends Fragment {
                     data += "&" + URLEncoder.encode("gender", "UTF-8") + "=" + URLEncoder.encode(gender, "UTF-8");
 
                     // 서버와 연결을 시도하는 부분
-<<<<<<< HEAD
                     URL url = new URL(Variable.m_SERVER_URL + Variable.m_PHP_UPDATE_SEARCH);
-=======
-                    URL url = new URL(Variable.m_SERVER_URL + Variable.m_PHP_UPDATE);
->>>>>>> f28117f2ff5e04bd56666073a1f82add690827e3
+
                     URLConnection con = url.openConnection();
 
                     // 서버로 전달하는 데이터가 있는 경우에 outputstream을 이용하는 부분
@@ -176,7 +169,7 @@ public class EditMemInfoFragment extends Fragment {
                     while((line = reader.readLine()) != null) {
                         sb.append(line);
                         break;
-                    }
+                }
 
                     // onPostExecute 부분으로 스트링을 전달함
                     return sb.toString().trim();

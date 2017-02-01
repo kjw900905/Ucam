@@ -28,12 +28,9 @@
             android:label="회원가입" />
         <activity
             android:name="com.example.kjw90.ucam.FindIdPwActivity"
-<<<<<<< HEAD
+
             android:label="ID/PW 찾기"></activity>
-=======
-            android:label="ID/PW 찾기" />
         <activity android:name=".SetProfileImage" />
->>>>>>> f28117f2ff5e04bd56666073a1f82add690827e3
         <activity
             android:name=".SearchSchoolDialog"
             android:theme="@android:style/Theme.Dialog" />

@@ -79,14 +79,12 @@ public class SetProfileImageFragment extends Fragment {
         new AlertDialog.Builder(getActivity()).setTitle("업로드할 이미지 선택");
         new AlertDialog.Builder(getActivity()).setCancelable(false);
         new AlertDialog.Builder(getActivity()).setPositiveButton("사진 촬영", new DialogInterface.OnClickListener() {
-            @Override
             public void onClick(DialogInterface dialog, int which) {
                 doTakePhotoAction();
                 Toast.makeText(getActivity(), "사진 촬영", Toast.LENGTH_SHORT).show();
             }
         });
         new AlertDialog.Builder(getActivity()).setNeutralButton("취소", new DialogInterface.OnClickListener() {
-            @Override
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(getActivity(), "취소 버튼이 눌렸습니다.", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
@@ -94,7 +92,6 @@ public class SetProfileImageFragment extends Fragment {
             }
         });
         new AlertDialog.Builder(getActivity()).setNegativeButton("앨범 선택", new DialogInterface.OnClickListener() {
-            @Override
             public void onClick(DialogInterface dialog2, int which) {
                 doTakeAlbumAction();
                 Toast.makeText(getActivity(), "앨범 선택", Toast.LENGTH_SHORT).show();
