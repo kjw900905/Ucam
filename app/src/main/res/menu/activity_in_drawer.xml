@@ -19,13 +19,17 @@
             android:icon="@drawable/ic_menu_appointment"
             android:title="예약" />
         <item
-        android:id="@+id/nav_preference"
-        android:icon="@drawable/ic_menu_preference"
-        android:title="관심분야" />
+            android:id="@+id/nav_preference"
+            android:icon="@drawable/ic_menu_preference"
+            android:title="관심분야" />
         <item
             android:id="@+id/nav_set_profile_image"
             android:icon="@drawable/image_ddager"
             android:title="프로필 사진 설정" />
+        <item
+            android:id="@+id/nav_chat"
+            android:icon="@drawable/ic_menu_chat"
+            android:title="채팅" />
     </group>
 
 </menu>

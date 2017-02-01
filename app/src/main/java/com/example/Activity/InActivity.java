@@ -124,10 +124,17 @@ public class InActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_preference) {
 
+<<<<<<< HEAD
         }else if (id == R.id.nav_set_profile_image) {
             SetProfileImageFragment setProfileImageFragment = new SetProfileImageFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.content_in, setProfileImageFragment).addToBackStack(null).commit();
+=======
+        } else if (id == R.id.nav_chat) {
+            ChatFragment chatFragment = new ChatFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.content_in, chatFragment).addToBackStack(null).commit();
+>>>>>>> f28117f2ff5e04bd56666073a1f82add690827e3
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
