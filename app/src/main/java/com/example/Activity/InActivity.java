@@ -1,5 +1,6 @@
 package com.example.Activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,17 +10,20 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.Beans.Student;
 
 public class InActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     protected Student myInfo;
+    boolean doubleBackToExitPressedOnce = false; //두 번 뒤로가기 시 종료하는 지에 대한 여부를 판단하는 불 변수
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +74,27 @@ public class InActivity extends AppCompatActivity
             FragmentManager fm = getSupportFragmentManager();
             int backStackNum = fm.getBackStackEntryCount();
             if(backStackNum == 1) {
-                finish();
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);     // 여기서 this는 Activity의 this
+
+// 여기서 부터는 알림창의 속성 설정
+                builder.setTitle("종료")        // 제목 설정
+                        .setMessage("UCam을 종료하시겠습니까?")        // 메세지 설정
+                        .setCancelable(false)        // 뒤로 버튼 클릭시 취소 가능 설정
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener(){
+                            // 확인 버튼 클릭시 설정
+                            public void onClick(DialogInterface dialog, int whichButton){
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("취소", new DialogInterface.OnClickListener(){
+                            // 취소 버튼 클릭시 설정
+                            public void onClick(DialogInterface dialog, int whichButton){
+                                dialog.cancel();
+                            }
+                        });
+
+                AlertDialog dialog = builder.create();    // 알림창 객체 생성
+                dialog.show();    // 알림창 띄우기
             } else if(backStackNum > 2) {
                 for(int i = backStackNum; i > 2; i--) {
                     fm.popBackStack();
