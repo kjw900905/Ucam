@@ -12,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 //import com.example.kjw90.ucam.R;
 
@@ -33,6 +32,9 @@ public class TimeTableFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+        final InActivity inActivity = (InActivity)getActivity();
+
         final View view = inflater.inflate(R.layout.gridview_timetable, container, false);
 
         t1 = (TextView) view.findViewById(R.id.tuesday);
@@ -51,9 +53,10 @@ public class TimeTableFragment extends Fragment {
         gridView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), "   "+ position, Toast.LENGTH_SHORT).show();
                 timeTableAdapter.setSelectedPosition(position);
                 timeTableAdapter.notifyDataSetChanged();
+
+                inActivity.timeTable_Fragment_To_setUp_Fragment(1, position);
             }
         });
 

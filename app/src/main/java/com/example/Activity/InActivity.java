@@ -164,8 +164,16 @@ public class InActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    public void set_Profile(View view){
-        Intent intent = new Intent(getApplicationContext(), SetProfileImage.class);
-        startActivity(intent);
+
+    public void timeTable_Fragment_To_setUp_Fragment(int sequence, int position) {
+        if (sequence == 1) {
+            SetUpFragment setUpFragment= new SetUpFragment();
+            FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction().replace(R.id.content_in, setUpFragment).addToBackStack(null).commit();
+
+            Bundle bundle = new Bundle(1);
+            bundle.putInt("position", position);
+            setUpFragment.setArguments(bundle);
+        }
     }
 }

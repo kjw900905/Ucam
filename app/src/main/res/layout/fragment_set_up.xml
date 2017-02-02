@@ -153,4 +153,13 @@
         android:layout_marginTop="89dp"
         android:id="@+id/color_Test" />
 
+    <Button
+        android:text="설정완료"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="76dp"
+        android:id="@+id/set_Color" />
+
 </RelativeLayout>
