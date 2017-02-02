@@ -47,6 +47,14 @@ public class Student implements Serializable{
         m_Id = id;
     }
 
+    public String getPW(){
+        return m_PW;
+    }
+
+    public void setPW(String pw){
+        m_PW = pw;
+    }
+
     public String getUniversity() {
         return m_University;
     }
