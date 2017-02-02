@@ -39,12 +39,12 @@ public class TimeTableAdapter extends BaseAdapter {
             int cellHeight = (rootViewHeight - dayViewHeight) / 12 - dpToPx(1);
             gridView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, cellHeight));
 
-            // set value into textview
+            //set value into textview
             TextView textView = (TextView) gridView.findViewById(R.id.grid_TextView);
 
             if (position == selectedPosition) {
-                //gridView.setBackgroundColor(Color.BLACK);
-                textView.setBackgroundColor(Color.BLUE);
+                gridView.setBackgroundColor(Color.BLACK);
+                //textView.setBackgroundColor(Color.BLUE);
             } else {
                 gridView.setBackgroundColor(Color.TRANSPARENT);
             }
