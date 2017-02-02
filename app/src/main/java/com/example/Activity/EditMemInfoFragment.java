@@ -1,8 +1,12 @@
 package com.example.Activity;
 
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.WindowDecorActionBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,11 +35,7 @@ import java.util.HashMap;
 
 public class EditMemInfoFragment extends Fragment {
 
-    EditText name, id, pw, studNum, univName;
-    RadioGroup rdGroupEdit;
-    JSONArray peoples = null;
-    Student studData;
-    String myJSON;
+    EditText CurrentPw, NewPw, NewPw_Re;
 
     public EditMemInfoFragment() {
         // Required empty public constructor
@@ -47,40 +47,40 @@ public class EditMemInfoFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_edit_mem_info, container, false);
 
-        /* TODO: ID를 InActivity로부터 받아서 탐색.
-        *  - 현 상태는 null로 초기화
-        *  - SelectOne 내부의 showStudInfo 함수 자료탐색 오류 수정 필요
-        * */
-        String Searching_ID = null;
+        final Student mStudent = (Student)getArguments().getSerializable("myInfo");
 
-        name = (EditText) view.findViewById(R.id.input_Name_Edit);
-        id = (EditText) view.findViewById(R.id.input_Id_Edit);
-        pw = (EditText) view.findViewById(R.id.input_Pw_Edit);
-        studNum = (EditText) view.findViewById(R.id.input_Stu_Num_Edit);
-        univName = (EditText) view.findViewById(R.id.input_School_Name_Edit);
-        rdGroupEdit = (RadioGroup) view.findViewById(R.id.rdGroup_Edit);
-
-        SelectOne(Searching_ID);
-
-        // Inflate the layout for this fragment
-        Button btnSearch = (Button) view.findViewById(R.id.search_School_Edit);
-        btnSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "검색중...", Toast.LENGTH_SHORT).show();
-                //TODO: 검색 관련 코드 추가
-            }
-        });
+        CurrentPw = (EditText)view.findViewById(R.id.input_Current_Pw);
+        NewPw = (EditText)view.findViewById(R.id.input_New_Pw);
+        NewPw_Re = (EditText)view.findViewById(R.id.re_Input_New_Pw);
 
         Button btnUnregister = (Button) view.findViewById(R.id.unregister_Button);
         btnUnregister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "회원탈퇴 완료\n이전 정보는 열람할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());     // 여기서 this는 Activity의 this
 
-                Delete(id.getText().toString());
+// 여기서 부터는 알림창의 속성 설정
+                builder.setTitle("회원탈퇴")        // 제목 설정
+                        .setMessage("정말로 탈퇴하시겠습니까?")        // 메세지 설정
+                        .setCancelable(false)        // 뒤로 버튼 클릭시 취소 가능 설정
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener(){
+                            // 확인 버튼 클릭시 설정
+                            public void onClick(DialogInterface dialog, int whichButton){
 
-                getActivity().onBackPressed();
+                                Delete(mStudent.getId());
+                                Toast.makeText(getActivity(), "회원탈퇴 완료\n이전 정보는 열람할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                                getActivity().finish();
+                            }
+                        })
+                        .setNegativeButton("취소", new DialogInterface.OnClickListener(){
+                            // 취소 버튼 클릭시 설정
+                            public void onClick(DialogInterface dialog, int whichButton){
+                                dialog.cancel();
+                            }
+                        });
+
+                AlertDialog dialog = builder.create();    // 알림창 객체 생성
+                dialog.show();    // 알림창 띄우기
             }
         });
 
@@ -89,17 +89,35 @@ public class EditMemInfoFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                String Name = name.getText().toString();
-                String ID = id.getText().toString();
-                String PW = pw.getText().toString();
-                String StudNum = studNum.getText().toString();
-                String UnivName = univName.getText().toString();
-                int radioCheck = rdGroupEdit.getCheckedRadioButtonId();
-                RadioButton rb = (RadioButton) container.findViewById(radioCheck);
-                String Gender = rb.getText().toString();
 
-                if (chkString_Edit(Name, ID, PW, StudNum, UnivName, Gender)) {
-                    Toast.makeText(getActivity(), "회원정보 수정 완료", Toast.LENGTH_LONG).show();
+                String Name = mStudent.getName();
+                String ID = mStudent.getId();
+                String StudNum = mStudent.getStudent_Num();
+                String UnivName = mStudent.getUniversity();
+                String Gender = mStudent.getGender();
+
+                String PW = mStudent.getPW();
+                String CurrentPwStr = CurrentPw.getText().toString();
+                String NewPwStr = NewPw.getText().toString();
+                String NewPwReStr = NewPw_Re.getText().toString();
+                boolean isResetAvailable = true;
+
+                if(CurrentPwStr.length() == 0 || NewPwStr.length() == 0 || NewPwReStr.length() == 0) {
+                    Toast.makeText(getActivity(), "정보를 모두 입력하여 주십시요.", Toast.LENGTH_SHORT).show();
+                    isResetAvailable = false;
+                } else if (!(PW.equals(CurrentPwStr))) {
+                    Toast.makeText(getActivity(), "현재 비밀번호가 틀립니다.", Toast.LENGTH_SHORT).show();
+                    isResetAvailable = false;
+                } else if (!(NewPwStr.equals(NewPwReStr))) {
+                    Toast.makeText(getActivity(), "새 비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
+                    isResetAvailable = false;
+                } else if (NewPwStr.equals(CurrentPwStr)) {
+                    Toast.makeText(getActivity(), "새 비밀번호를 입력하여 주십시요.\n비밀번호가 변경되지 않았습니다.", Toast.LENGTH_SHORT).show();
+                    isResetAvailable = false;
+                }
+
+                if (chkString_Edit(Name, ID, NewPwStr, StudNum, UnivName, Gender, isResetAvailable)) {
+                    Toast.makeText(getActivity(), "회원정보 수정 완료", Toast.LENGTH_SHORT).show();
                     getActivity().onBackPressed();
                 }
             }
@@ -117,7 +135,7 @@ public class EditMemInfoFragment extends Fragment {
         return view;
     }
 
-    private boolean chkString_Edit(String Name, String ID, String PW, String StudNum, String UnivName, String Gender) {
+    private boolean chkString_Edit(String Name, String ID, String PW, String StudNum, String UnivName, String Gender, boolean isResetAvailable) {
         String[] chk = {Name, ID, PW, StudNum, UnivName, Gender};
 
         for (int i = 0; i < 6; i++) {
@@ -128,7 +146,9 @@ public class EditMemInfoFragment extends Fragment {
             }
         }
 
-        if(Gender != "Male" || Gender != "Female") {
+        if(!(Gender.equals("Male") || Gender.equals("Female"))) {
+            return false;
+        } else if(!isResetAvailable) {
             return false;
         }
 
@@ -213,89 +233,6 @@ public class EditMemInfoFragment extends Fragment {
 
         UpdateTask updateTask = new UpdateTask();
         updateTask.execute(strName, strId, strPw, strStuNum, strSchoolName, gender);
-    }
-
-    public void SelectOne(String strId) {
-        class SelectOneTask extends AsyncTask<String, Void, String> {
-            /*ProgressDialog loading;
-
-            protected void onPreExecute() {
-                super.onPreExecute();
-                loading = ProgressDialog.show(MainActivity.this, "Please Wait", null, true, true);
-            }
-            */
-
-            protected String doInBackground(String[] params) {
-                String id = (String) params[0];
-
-                try {
-                    String data = "";
-                    data += URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(id, "UTF-8");
-
-                    URL url = new URL(Variable.m_SERVER_URL + Variable.m_PHP_SELECT_ONE);
-                    URLConnection con = url.openConnection();
-
-                    con.setDoOutput(true);
-                    OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
-
-                    wr.write(data);
-                    wr.flush();
-
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-
-                    StringBuilder sb = new StringBuilder();
-                    String line = null;
-
-                    // Read Server Response
-                    while((line = reader.readLine()) != null) {
-                        sb.append(line);
-                        break;
-                    }
-
-                    return sb.toString().trim();
-                } catch(Exception exception) {
-                    return new String(exception.getMessage());
-                }
-            }
-
-            protected  void onPostExecute(String result) {
-                myJSON = result;
-                showStudInfo();
-            }
-        }
-
-        SelectOneTask selectOneTask = new SelectOneTask();
-        selectOneTask.execute(strId);
-    }
-
-    private void showStudInfo() {
-        try {
-            JSONObject jsonObj = new JSONObject(myJSON);
-            peoples = jsonObj.getJSONArray("result");
-
-            JSONObject c = peoples.getJSONObject(0);
-            String NAME = c.getString(Variable.m_TAG_NAME);
-            String ID = c.getString(Variable.m_TAG_ID);
-            String PW = c.getString(Variable.m_TAG_PW);
-            String STUD_NUM = c.getString(Variable.m_TAG_STUD_NUM);
-            String SCHOOL = c.getString(Variable.m_TAG_SCHOOL);
-            String GENDER = c.getString(Variable.m_TAG_GENDER);
-
-            name.setText(NAME);
-            id.setText(ID);
-            pw.setText(PW);
-            studNum.setText(STUD_NUM);
-            univName.setText(SCHOOL);
-
-            if(GENDER == "Male") {
-                rdGroupEdit.check(R.id.rd_Male_Edit);
-            } else if(GENDER == "Female") {
-                rdGroupEdit.check(R.id.rd_Female_Edit);
-            }
-
-        } catch(Exception exception) {
-            exception.printStackTrace();
-        }
     }
 
     public void Delete(String strId) {
