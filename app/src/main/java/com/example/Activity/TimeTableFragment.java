@@ -56,7 +56,7 @@ public class TimeTableFragment extends Fragment {
                 timeTableAdapter.setSelectedPosition(position);
                 timeTableAdapter.notifyDataSetChanged();
 
-                inActivity.timeTable_Fragment_To_setUp_Fragment(1, position);
+                inActivity.change_Fragment(1, position);
             }
         });
 

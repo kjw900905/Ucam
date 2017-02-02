@@ -165,15 +165,19 @@ public class InActivity extends AppCompatActivity
         return true;
     }
 
-    public void timeTable_Fragment_To_setUp_Fragment(int sequence, int position) {
-        if (sequence == 1) {
-            SetUpFragment setUpFragment= new SetUpFragment();
+    public void change_Fragment(int sequence, int position) {
+        if(sequence == 1) {
+            SetUpFragment setUpFragment = new SetUpFragment();
             FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.content_in, setUpFragment).addToBackStack(null).commit();
 
             Bundle bundle = new Bundle(1);
             bundle.putInt("position", position);
             setUpFragment.setArguments(bundle);
+        }else if(sequence == 2){
+            TimeTableFragment timeTableFragment = new TimeTableFragment();
+            FragmentManager manager= getSupportFragmentManager();
+            manager.beginTransaction().replace(R.id.content_in, timeTableFragment).addToBackStack(null).commit();
         }
     }
 }
