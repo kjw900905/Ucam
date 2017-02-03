@@ -99,8 +99,8 @@ public class InActivity extends AppCompatActivity
                 for(int i = backStackNum; i > 2; i--) {
                     fm.popBackStack();
                 }
+                super.onBackPressed();
             }
-            super.onBackPressed();
         }
     }
 
