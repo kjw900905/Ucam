@@ -29,7 +29,7 @@ public class ChatFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
 
-        FirebaseMessaging.getInstance().subscribeToTopic("notice");
+
 
         return view;
     }
