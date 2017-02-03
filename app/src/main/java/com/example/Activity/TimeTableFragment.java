@@ -1,35 +1,35 @@
 package com.example.Activity;
 
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.StateListDrawable;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.GridView;
-import android.widget.TextView;
-import android.widget.Toast;
+        import android.graphics.Color;
+        import android.graphics.drawable.ColorDrawable;
+        import android.graphics.drawable.StateListDrawable;
+        import android.os.AsyncTask;
+        import android.os.Bundle;
+        import android.support.v4.app.Fragment;
+        import android.view.LayoutInflater;
+        import android.view.View;
+        import android.view.ViewGroup;
+        import android.view.ViewTreeObserver;
+        import android.widget.AdapterView;
+        import android.widget.AdapterView.OnItemClickListener;
+        import android.widget.GridView;
+        import android.widget.TextView;
+        import android.widget.Toast;
 
-import com.example.Beans.TimeTableDetail;
-import com.example.Beans.Variable;
+        import com.example.Beans.TimeTableDetail;
+        import com.example.Beans.Variable;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+        import org.json.JSONArray;
+        import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
-import java.util.ArrayList;
+        import java.io.BufferedReader;
+        import java.io.InputStreamReader;
+        import java.io.OutputStreamWriter;
+        import java.net.URL;
+        import java.net.URLConnection;
+        import java.net.URLEncoder;
+        import java.util.ArrayList;
 
 //import com.example.kjw90.ucam.R;
 
