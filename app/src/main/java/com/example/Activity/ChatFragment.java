@@ -1,6 +1,6 @@
 package com.example.Activity;
 
-//import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessaging;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,7 +29,7 @@ public class ChatFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
 
-        //FirebaseMessaging.getInstance().subscribeToTopic("notice");
+        FirebaseMessaging.getInstance().subscribeToTopic("notice");
 
         return view;
     }
