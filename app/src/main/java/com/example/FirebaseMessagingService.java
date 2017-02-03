@@ -1,7 +1,6 @@
+/*
 package com.example;
-/**
- * Created by HKH on 2016-06-28.
- */
+
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -34,7 +33,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
     private void sendPushNotification(String message) {
         System.out.println("received message : " + message);
-        Intent intent = new Intent(this, ChatFragment.class);
+        Intent intent = new Intent(this, ChatFragment.class);*/
         /* TODO: 불러오는 프래그먼트 및 액티비티를 설정한다. (그 외 기타 설정 및 참고 사항들)
         *  다음 코드를 해당 클래스에 추가한다:
         *  (1) import com.google.firebase.messaging.FirebaseMessaging; //맨 위에
@@ -50,10 +49,10 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         *  - 세부 알림 설정 사항을 위해서는 다음 사이트를 참고한다 (추가되는 코드들이 있으니 반드시 확인할 것):
         *  >> https://trandent.com/board/Android/detail/745
         * */
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-                PendingIntent.FLAG_ONE_SHOT);
-
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
+//                PendingIntent.FLAG_ONE_SHOT);
+/*
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.ic_announcement_black_24dp).setLargeIcon(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher) )
@@ -68,9 +67,8 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         PowerManager pm = (PowerManager) this.getSystemService(Context.POWER_SERVICE);
         PowerManager.WakeLock wakelock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "TAG");
         wakelock.acquire(5000);
+*/
+//        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+//    }
 
-        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
-    }
-
-}
-
+//}
