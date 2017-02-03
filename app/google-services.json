@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "482527589779",
+    "firebase_url": "https://ucam-30353.firebaseio.com",
+    "project_id": "ucam-30353",
+    "storage_bucket": "ucam-30353.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:482527589779:android:8647c6c5b9218091",
+        "android_client_info": {
+          "package_name": "com.example.kjw90.ucam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "482527589779-uatuk5ut9lsppa0fjvaan9hi9rb1jv4q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPqWiZbta45yJ3szspZv_cFtUJC4_IbqY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

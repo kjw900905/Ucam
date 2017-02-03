@@ -94,12 +94,12 @@ public class InActivity extends AppCompatActivity
 
                 AlertDialog dialog = builder.create();    // 알림창 객체 생성
                 dialog.show();    // 알림창 띄우기
-            } else if(backStackNum > 2) {
+            } else if(backStackNum > 1) {
                 for(int i = backStackNum; i > 2; i--) {
                     fm.popBackStack();
                 }
+                super.onBackPressed();
             }
-            super.onBackPressed();
         }
     }
 
