@@ -33,7 +33,6 @@ public class TimeTableAdapter extends BaseAdapter {
 
         View gridView;
 
-
         if (convertView == null) {
 
             gridView = new View(context);
@@ -48,7 +47,7 @@ public class TimeTableAdapter extends BaseAdapter {
             if (position == selectedPosition) {
                 gridView.setBackgroundColor(Color.BLACK);
 
-                textView.setBackgroundColor(Color.BLUE);
+                //textView.setBackgroundColor(Color.BLUE);
             } else {
                 //gridView.setBackgroundColor(Color.TRANSPARENT);
                 gridView.setBackgroundColor(Color.BLACK);

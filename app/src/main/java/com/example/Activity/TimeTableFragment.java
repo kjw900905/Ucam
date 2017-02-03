@@ -1,35 +1,35 @@
 package com.example.Activity;
 
 
-        import android.graphics.Color;
-        import android.graphics.drawable.ColorDrawable;
-        import android.graphics.drawable.StateListDrawable;
-        import android.os.AsyncTask;
-        import android.os.Bundle;
-        import android.support.v4.app.Fragment;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.view.ViewTreeObserver;
-        import android.widget.AdapterView;
-        import android.widget.AdapterView.OnItemClickListener;
-        import android.widget.GridView;
-        import android.widget.TextView;
-        import android.widget.Toast;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.StateListDrawable;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.GridView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-        import com.example.Beans.TimeTableDetail;
-        import com.example.Beans.Variable;
+import com.example.Beans.TimeTableDetail;
+import com.example.Beans.Variable;
 
-        import org.json.JSONArray;
-        import org.json.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-        import java.io.BufferedReader;
-        import java.io.InputStreamReader;
-        import java.io.OutputStreamWriter;
-        import java.net.URL;
-        import java.net.URLConnection;
-        import java.net.URLEncoder;
-        import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 
 //import com.example.kjw90.ucam.R;
 
@@ -56,6 +56,7 @@ public class TimeTableFragment extends Fragment {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.gridview_timetable, container, false);
 
+
         t1 = (TextView) view.findViewById(R.id.tuesday);
         t1.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -66,6 +67,7 @@ public class TimeTableFragment extends Fragment {
                 t1.getViewTreeObserver().removeGlobalOnLayoutListener(this);
             }
         });
+
 
         for(int i = 0; i < Variable.m_TIME.length; i++) {
             for(int j = 0; j < Variable.m_DAY.length; j++) {
@@ -83,6 +85,13 @@ public class TimeTableFragment extends Fragment {
         //arrayTimeTableDetail.get(12).setfield("Y");
 
         gridView = (GridView) view.findViewById(R.id.grid_timetable);
+
+        //View v = gridView.getChildAt(2);
+        //Toast.makeText(getActivity(), ""+v, Toast.LENGTH_SHORT).show();
+        //TextView a = (TextView)gridView.findViewById(R.id.time1);
+        //a.setBackgroundColor(Color.BLUE);
+        //v.setBackgroundColor(Color.BLUE);
+
         gridView.setSelector(new StateListDrawable());
         gridView.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -91,15 +100,16 @@ public class TimeTableFragment extends Fragment {
                 timeTableAdapter.setSelectedPosition(position);
                 timeTableAdapter.notifyDataSetChanged();
 
-                TextView test = (TextView)view.findViewById(R.id.grid_TextView);
+
+                TextView selectedView = (TextView)view.findViewById(R.id.grid_TextView);
                 //change_Color(view);
-                ColorDrawable colorCode = (ColorDrawable)test.getBackground();
+                ColorDrawable colorCode = (ColorDrawable)selectedView.getBackground();
                 int color = colorCode.getColor();
                 //Toast.makeText(getActivity(),""+color,Toast.LENGTH_SHORT).show();
                 if(color == -1){
-                    test.setBackgroundColor(Color.BLUE);
+                    selectedView.setBackgroundColor(Color.BLUE);
                 }else{
-                    test.setBackgroundColor(Color.WHITE);
+                    selectedView.setBackgroundColor(Color.WHITE);
                 }
 
 
