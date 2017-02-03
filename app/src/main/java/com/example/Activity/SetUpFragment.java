@@ -38,13 +38,14 @@ public class SetUpFragment extends Fragment {
 
         //testColor.setBackgroundColor(rb.getDrawingCacheBackgroundColor());
 
-
+/*
         set_Color =  (Button) view.findViewById(R.id.btn_set_Color);
         set_Color.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 inActivity.change_Fragment(2, position);
             }
         });
+        */
         return view;
     }
 

@@ -29,7 +29,10 @@ public class TimeTableAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+//        Toast.makeText(convertView.getContext(), ""+position, Toast.LENGTH_SHORT).show();
+
         View gridView;
+
 
         if (convertView == null) {
 
@@ -44,9 +47,11 @@ public class TimeTableAdapter extends BaseAdapter {
 
             if (position == selectedPosition) {
                 gridView.setBackgroundColor(Color.BLACK);
-                //textView.setBackgroundColor(Color.BLUE);
+
+                textView.setBackgroundColor(Color.BLUE);
             } else {
-                gridView.setBackgroundColor(Color.TRANSPARENT);
+                //gridView.setBackgroundColor(Color.TRANSPARENT);
+                gridView.setBackgroundColor(Color.BLACK);
             }
         } else {
             gridView = (View) convertView;

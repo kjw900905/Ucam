@@ -16,7 +16,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.Beans.Student;
 
@@ -188,7 +187,7 @@ public class InActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
+/*
     public void change_Fragment(int sequence, int position) {
         if(sequence == 1) {
             SetUpFragment setUpFragment = new SetUpFragment();
@@ -204,4 +203,5 @@ public class InActivity extends AppCompatActivity
             manager.beginTransaction().replace(R.id.content_in, timeTableFragment).addToBackStack(null).commit();
         }
     }
+    */
 }
