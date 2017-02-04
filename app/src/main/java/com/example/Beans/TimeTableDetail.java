@@ -4,6 +4,7 @@ public class TimeTableDetail {
     private String m_day;
     private String m_time;
     private String m_field;
+    private String m_position;
 
     public TimeTableDetail() {
         // null
@@ -21,6 +22,8 @@ public class TimeTableDetail {
         m_field = field;
     }
 
+    public void setposition(String position){ m_position = position;}
+
     public String getday() {
         return m_day;
     }
@@ -32,4 +35,6 @@ public class TimeTableDetail {
     public String getfield() {
         return m_field;
     }
+
+    public String getposition(){return m_position;}
 }
