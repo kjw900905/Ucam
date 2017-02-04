@@ -95,11 +95,14 @@ public class TimeTableAdapter extends BaseAdapter {
         }
 
         SelectOne(user_ID);
-        positionArrayList = new ArrayList<String>();
+        
+        //positionArrayList = new ArrayList<String>();
+        //String test = positionArrayList.get(0);
+        //Toast.makeText(gridView.getContext(), positionArrayList.get(0), Toast.LENGTH_SHORT).show();
         for(int i = 0 ; i < positionArrayList.size() ; i++ ){
             if(position == Integer.parseInt(positionArrayList.get(i))){
-                //TextView textView = (TextView)gridView.findViewById(R.id.grid_TextView);
-                //textView.setBackgroundColor(Color.BLUE);
+                TextView textView = (TextView)gridView.findViewById(R.id.grid_TextView);
+                textView.setBackgroundColor(Color.BLUE);
             }
         }
 
@@ -175,7 +178,7 @@ public class TimeTableAdapter extends BaseAdapter {
                     String data = "";
                     data += URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(temp_ID, "UTF-8");
 
-                    URL url = new URL(Variable.m_SERVER_URL + Variable.m_PHP_SELECTONE_POSITION);
+                    URL url = new URL(Variable.m_SERVER_URL + Variable.m_PHP_SELECT_POSITION);
                     URLConnection con = url.openConnection();
 
                     con.setDoOutput(true);
@@ -208,8 +211,8 @@ public class TimeTableAdapter extends BaseAdapter {
         SelectOneTask selectOneTask = new SelectOneTask();
         selectOneTask.execute(str_User_ID);
     }
-    public void getPosition(){
 
+    public void getPosition(){
         try {
             JSONObject jsonObj = new JSONObject(myJSON);
             getPosition = jsonObj.getJSONArray("result");
