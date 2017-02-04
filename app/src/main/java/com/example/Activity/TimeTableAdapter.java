@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.Beans.TimeTableDetail;
+
+import java.util.ArrayList;
 
 import com.example.Beans.TimeTableDetail;
 import com.example.Beans.Variable;
@@ -42,7 +48,11 @@ public class TimeTableAdapter extends BaseAdapter {
         this.context = context;
         this.rootViewHeight = rootViewHeight;
         this.dayViewHeight = dayViewHeight;
+<<<<<<< HEAD
         this.user_ID = user_ID;
+=======
+        //notifyDataSetChanged();
+>>>>>>> bc4ad963010a4250cea274180232fa4a601f675e
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -54,25 +64,38 @@ public class TimeTableAdapter extends BaseAdapter {
 
         View gridView;
 
+
         if (convertView == null) {
 
             gridView = new View(context);
 
             gridView = inflater.inflate(R.layout.timetable_layout, null);
+
+            /*if(position==2){
+                //gridView.setBackgroundColor(Color.BLUE);
+                //Toast.makeText(gridView.getContext(), "sds"+ position, Toast.LENGTH_SHORT).show();
+                //TextView textView = (TextView)gridView.findViewById(R.id.grid_TextView);
+                //textView.setBackgroundColor(Color.BLUE);
+            }*/
+
+            for(int i=0; i<arrayTimeTableDetail.size(); i++){
+                if(arrayTimeTableDetail.get(i).getfield().equals("Y")){
+                    Log.d(arrayTimeTableDetail.get(i).getposition(), "실행");
+                    Log.w(arrayTimeTableDetail.get(i).getposition(), "실행");
+                    Log.i(arrayTimeTableDetail.get(i).getposition(), "실행");
+                    Log.e(arrayTimeTableDetail.get(i).getposition(), "실행");
+                    //Toast.makeText(gridView.getContext(), arrayTimeTableDetail.get(i).getposition(), Toast.LENGTH_SHORT).show();
+                    TextView textView = (TextView)gridView.findViewById(R.id.grid_TextView);
+                    textView.setBackgroundColor(Color.BLUE);
+                }
+            }
+
+
             int cellHeight = (rootViewHeight - dayViewHeight) / 12 - dpToPx(1);
             gridView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, cellHeight));
-
             //set value into textview
             TextView textView = (TextView) gridView.findViewById(R.id.grid_TextView);
 
-            if (position == selectedPosition) {
-                gridView.setBackgroundColor(Color.BLACK);
-
-                //textView.setBackgroundColor(Color.BLUE);
-            } else {
-                //gridView.setBackgroundColor(Color.TRANSPARENT);
-                gridView.setBackgroundColor(Color.BLACK);
-            }
         } else {
             gridView = (View) convertView;
         }
@@ -141,6 +164,7 @@ public class TimeTableAdapter extends BaseAdapter {
     public void setArrayTimeTableDetail(ArrayList<TimeTableDetail> arrayTimeTableDetail){
         this.arrayTimeTableDetail = arrayTimeTableDetail;
     }
+<<<<<<< HEAD
 
     public void SelectOne(String str_User_ID) {
         class SelectOneTask extends AsyncTask<String, Void, String> {
@@ -205,4 +229,6 @@ public class TimeTableAdapter extends BaseAdapter {
             exception.printStackTrace();
         }
     }
+=======
+>>>>>>> bc4ad963010a4250cea274180232fa4a601f675e
 }
