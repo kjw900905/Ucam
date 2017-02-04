@@ -7,6 +7,7 @@ import android.graphics.drawable.StateListDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.Beans.Student;
 import com.example.Beans.TimeTableDetail;
 import com.example.Beans.Variable;
 
@@ -51,8 +53,10 @@ public class TimeTableFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        final Student mStudent = (Student)getArguments().getSerializable("myInfo");
+
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.gridview_timetable, container, false);
 
@@ -61,13 +65,12 @@ public class TimeTableFragment extends Fragment {
         t1.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                timeTableAdapter = new TimeTableAdapter(getContext(), view.getHeight(), t1.getHeight());
+                timeTableAdapter = new TimeTableAdapter(getContext(), view.getHeight(), t1.getHeight(), mStudent.getId());
                 gridView.setAdapter(timeTableAdapter);
 
                 t1.getViewTreeObserver().removeGlobalOnLayoutListener(this);
             }
         });
-
 
         for(int i = 0; i < Variable.m_TIME.length; i++) {
             for(int j = 0; j < Variable.m_DAY.length; j++) {
@@ -102,14 +105,35 @@ public class TimeTableFragment extends Fragment {
 
 
                 TextView selectedView = (TextView)view.findViewById(R.id.grid_TextView);
-                //change_Color(view);
                 ColorDrawable colorCode = (ColorDrawable)selectedView.getBackground();
                 int color = colorCode.getColor();
-                //Toast.makeText(getActivity(),""+color,Toast.LENGTH_SHORT).show();
                 if(color == -1){
                     selectedView.setBackgroundColor(Color.BLUE);
+                    String user_Id = mStudent.getId();
+                    String day = arrayTimeTableDetail.get(position).getday();
+                    String time = arrayTimeTableDetail.get(position).gettime();
+                    String selected_Position = String.valueOf(position);
+                    arrayTimeTableDetail.get(position).setfield("T");
+
+                    //Toast.makeText(getActivity(), selected_Position, Toast.LENGTH_SHORT).show();
+
+                    Insert(user_Id, day, time, selected_Position);
+                    //timeTableAdapter.setArrayTimeTableDetail(arrayTimeTableDetail);
+                    //gridView.setAdapter(timeTableAdapter);
+                    //timeTableAdapter.notifyDataSetChanged();
+                    //Toast.makeText(getActivity(), day + " " + time, Toast.LENGTH_SHORT).show();
                 }else{
                     selectedView.setBackgroundColor(Color.WHITE);
+                    String user_Id = mStudent.getId();
+                    String day = arrayTimeTableDetail.get(position).getday();
+                    String time = arrayTimeTableDetail.get(position).gettime();
+                    arrayTimeTableDetail.get(position).setfield("F");
+                    String selected_Position = String.valueOf(position);
+
+                    Delete(user_Id, day, time, selected_Position);
+                    //timeTableAdapter.setArrayTimeTableDetail(arrayTimeTableDetail);
+                    //gridView.setAdapter(timeTableAdapter);
+                    //timeTableAdapter.notifyDataSetChanged();
                 }
 
 
@@ -121,7 +145,7 @@ public class TimeTableFragment extends Fragment {
         // 여기서부터는 Insert 부분입니다.
 
         // 여기서부터는 SelectAll 부분입니다.
-        SelectAllTimeTableDetail("test");
+        //SelectAllTimeTableDetail("test");
 
         return view;
     }
@@ -147,7 +171,7 @@ public class TimeTableFragment extends Fragment {
                     String data = "";
                     data += URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(id, "UTF-8");
 
-                    URL url = new URL(Variable.m_SERVER_URL + Variable.m_PHP_SELECTALL_TIME_TABLE_DETAIL);
+                    URL url = new URL(Variable.m_SERVER_URL + Variable.m_PHP_INSERT_TIME_TABLE_DETAIL);
                     URLConnection con = url.openConnection();
 
                     con.setDoOutput(true);
@@ -213,4 +237,134 @@ public class TimeTableFragment extends Fragment {
             exception.printStackTrace();
         }
     }
+
+    public void Insert(String str_Id, String str_Day ,String str_Time, String str_Position) {
+        class InsertTask extends AsyncTask<String, Void, String> {
+            /*ProgressDialog loading;
+
+            protected void onPreExecute() {
+                super.onPreExecute();
+                loading = ProgressDialog.show(MainActivity.this, "Please Wait", null, true, true);
+            }
+            */
+
+            protected String doInBackground(String[] params) {
+                String id = (String) params[0];
+                String day = (String) params[1];
+                String time = (String) params[2];
+                String position = (String) params[3];
+
+                try {
+                    String data = "";
+                    data += URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(id, "UTF-8");
+                    data += "&" + URLEncoder.encode("day", "UTF-8") + "=" + URLEncoder.encode(day, "UTF-8");
+                    data += "&" + URLEncoder.encode("time", "UTF-8") + "=" + URLEncoder.encode(time, "UTF-8");
+                    data += "&" + URLEncoder.encode("position", "UTF-8") + "=" + URLEncoder.encode(position, "UTF-8");
+
+                    Log.e(position, "첫번째");
+                    URL url = new URL(Variable.m_SERVER_URL + Variable.m_PHP_INSERT_TIME_TABLE_DETAIL);
+                    URLConnection con = url.openConnection();
+
+                    con.setDoOutput(true);
+                    OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
+
+                    wr.write(data);
+                    wr.flush();
+
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
+                    StringBuilder sb = new StringBuilder();
+                    String line = null;
+
+
+
+                    // Read Server Response
+                    while((line = reader.readLine()) != null) {
+                        sb.append(line);
+                        break;
+                    }
+
+                    return sb.toString().trim();
+                } catch(Exception exception) {
+                    return new String(exception.getMessage());
+                }
+            }
+
+            /*
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                loading.dismiss();
+                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+            }
+            */
+        }
+
+        InsertTask insertTask = new InsertTask();
+        Log.e("1", "두번째" + str_Position);
+        insertTask.execute(str_Id, str_Day, str_Time, str_Position);
+    }
+
+    public void Delete(String str_ID, String str_Day, String str_Time, String str_Position) {
+        class DeleteTask extends AsyncTask<String, Void, String> {
+            /*ProgressDialog loading;
+
+            protected void onPreExecute() {
+                super.onPreExecute();
+                loading = ProgressDialog.show(MainActivity.this, "Please Wait", null, true, true);
+            }
+            */
+
+            protected String doInBackground(String[] params) {
+                String id = (String) params[0];
+                String day = (String) params[1];
+                String time = (String) params[2];
+                String position = (String) params[3];
+
+                try {
+                    String data = "";
+                    data += URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(id, "UTF-8");
+                    data += "&" + URLEncoder.encode("day", "UTF-8") + "=" + URLEncoder.encode(day, "UTF-8");
+                    data += "&" + URLEncoder.encode("time", "UTF-8") + "=" + URLEncoder.encode(time, "UTF-8");
+                    data += "&" + URLEncoder.encode("position", "UTF-8") + "=" + URLEncoder.encode(position, "UTF-8");
+
+                    URL url = new URL(Variable.m_SERVER_URL + Variable.m_PHP_DELETE_TIME_TABLE_DETAIL);
+                    URLConnection con = url.openConnection();
+
+                    con.setDoOutput(true);
+                    OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
+
+                    wr.write(data);
+                    wr.flush();
+
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
+                    StringBuilder sb = new StringBuilder();
+                    String line = null;
+
+                    // Read Server Response
+                    while((line = reader.readLine()) != null) {
+                        sb.append(line);
+                        break;
+                    }
+
+                    return sb.toString().trim();
+                } catch(Exception exception) {
+                    return new String(exception.getMessage());
+                }
+            }
+
+            /*
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                loading.dismiss();
+                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+            }
+            */
+        }
+
+        DeleteTask deleteTask = new DeleteTask();
+        deleteTask.execute(str_ID, str_Day, str_Time, str_Position);
+    }
+
+
 }
