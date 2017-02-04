@@ -112,17 +112,14 @@ public class TimeTableFragment extends Fragment {
                     String user_Id = mStudent.getId();
                     String day = arrayTimeTableDetail.get(position).getday();
                     String time = arrayTimeTableDetail.get(position).gettime();
-<<<<<<< HEAD
+
                     String selected_Position = String.valueOf(position);
                     arrayTimeTableDetail.get(position).setfield("T");
 
                     //Toast.makeText(getActivity(), selected_Position, Toast.LENGTH_SHORT).show();
 
                     Insert(user_Id, day, time, selected_Position);
-=======
-                    arrayTimeTableDetail.get(position).setfield("T");
-                    Insert(user_Id, day, time);
->>>>>>> bc4ad963010a4250cea274180232fa4a601f675e
+
                     //timeTableAdapter.setArrayTimeTableDetail(arrayTimeTableDetail);
                     //gridView.setAdapter(timeTableAdapter);
                     //timeTableAdapter.notifyDataSetChanged();
@@ -132,14 +129,10 @@ public class TimeTableFragment extends Fragment {
                     String user_Id = mStudent.getId();
                     String day = arrayTimeTableDetail.get(position).getday();
                     String time = arrayTimeTableDetail.get(position).gettime();
-                    arrayTimeTableDetail.get(position).setfield("F");
-<<<<<<< HEAD
                     String selected_Position = String.valueOf(position);
+                    arrayTimeTableDetail.get(position).setfield("F");
 
                     Delete(user_Id, day, time, selected_Position);
-=======
-                    Delete(user_Id, day, time);
->>>>>>> bc4ad963010a4250cea274180232fa4a601f675e
                     //timeTableAdapter.setArrayTimeTableDetail(arrayTimeTableDetail);
                     //gridView.setAdapter(timeTableAdapter);
                     //timeTableAdapter.notifyDataSetChanged();
@@ -250,11 +243,8 @@ public class TimeTableFragment extends Fragment {
         }
     }
 
-<<<<<<< HEAD
     public void Insert(String str_Id, String str_Day ,String str_Time, String str_Position) {
-=======
-    public void Insert(String str_Id, String str_Day ,String str_Time) {
->>>>>>> bc4ad963010a4250cea274180232fa4a601f675e
+
         class InsertTask extends AsyncTask<String, Void, String> {
             /*ProgressDialog loading;
 
@@ -268,23 +258,17 @@ public class TimeTableFragment extends Fragment {
                 String id = (String) params[0];
                 String day = (String) params[1];
                 String time = (String) params[2];
-<<<<<<< HEAD
                 String position = (String) params[3];
-=======
->>>>>>> bc4ad963010a4250cea274180232fa4a601f675e
+
 
                 try {
                     String data = "";
                     data += URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(id, "UTF-8");
                     data += "&" + URLEncoder.encode("day", "UTF-8") + "=" + URLEncoder.encode(day, "UTF-8");
                     data += "&" + URLEncoder.encode("time", "UTF-8") + "=" + URLEncoder.encode(time, "UTF-8");
-<<<<<<< HEAD
                     data += "&" + URLEncoder.encode("position", "UTF-8") + "=" + URLEncoder.encode(position, "UTF-8");
 
                     Log.e(position, "첫번째");
-=======
-
->>>>>>> bc4ad963010a4250cea274180232fa4a601f675e
                     URL url = new URL(Variable.m_SERVER_URL + Variable.m_PHP_INSERT_TIME_TABLE_DETAIL);
                     URLConnection con = url.openConnection();
 
@@ -323,18 +307,10 @@ public class TimeTableFragment extends Fragment {
         }
 
         InsertTask insertTask = new InsertTask();
-<<<<<<< HEAD
-        Log.e("1", "두번째" + str_Position);
         insertTask.execute(str_Id, str_Day, str_Time, str_Position);
     }
 
     public void Delete(String str_ID, String str_Day, String str_Time, String str_Position) {
-=======
-        insertTask.execute(str_Id, str_Day, str_Time);
-    }
-
-    public void Delete(String str_ID, String str_Day, String str_Time) {
->>>>>>> bc4ad963010a4250cea274180232fa4a601f675e
         class DeleteTask extends AsyncTask<String, Void, String> {
             /*ProgressDialog loading;
 
@@ -348,20 +324,15 @@ public class TimeTableFragment extends Fragment {
                 String id = (String) params[0];
                 String day = (String) params[1];
                 String time = (String) params[2];
-<<<<<<< HEAD
                 String position = (String) params[3];
-=======
->>>>>>> bc4ad963010a4250cea274180232fa4a601f675e
 
                 try {
                     String data = "";
                     data += URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(id, "UTF-8");
                     data += "&" + URLEncoder.encode("day", "UTF-8") + "=" + URLEncoder.encode(day, "UTF-8");
                     data += "&" + URLEncoder.encode("time", "UTF-8") + "=" + URLEncoder.encode(time, "UTF-8");
-<<<<<<< HEAD
                     data += "&" + URLEncoder.encode("position", "UTF-8") + "=" + URLEncoder.encode(position, "UTF-8");
-=======
->>>>>>> bc4ad963010a4250cea274180232fa4a601f675e
+
 
                     URL url = new URL(Variable.m_SERVER_URL + Variable.m_PHP_DELETE_TIME_TABLE_DETAIL);
                     URLConnection con = url.openConnection();
@@ -399,12 +370,6 @@ public class TimeTableFragment extends Fragment {
         }
 
         DeleteTask deleteTask = new DeleteTask();
-<<<<<<< HEAD
         deleteTask.execute(str_ID, str_Day, str_Time, str_Position);
-=======
-        deleteTask.execute(str_ID, str_Day, str_Time);
->>>>>>> bc4ad963010a4250cea274180232fa4a601f675e
     }
-
-
 }

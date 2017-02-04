@@ -43,11 +43,10 @@ public class TimeTableAdapter extends BaseAdapter {
         this.context = context;
         this.rootViewHeight = rootViewHeight;
         this.dayViewHeight = dayViewHeight;
-<<<<<<< HEAD
+
         this.user_ID = user_ID;
-=======
+
         //notifyDataSetChanged();
->>>>>>> bc4ad963010a4250cea274180232fa4a601f675e
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -99,8 +98,8 @@ public class TimeTableAdapter extends BaseAdapter {
         positionArrayList = new ArrayList<String>();
         for(int i = 0 ; i < positionArrayList.size() ; i++ ){
             if(position == Integer.parseInt(positionArrayList.get(i))){
-                TextView textView = (TextView)gridView.findViewById(R.id.grid_TextView);
-                textView.setBackgroundColor(Color.BLUE);
+                //TextView textView = (TextView)gridView.findViewById(R.id.grid_TextView);
+                //textView.setBackgroundColor(Color.BLUE);
             }
         }
 
@@ -159,7 +158,6 @@ public class TimeTableAdapter extends BaseAdapter {
     public void setArrayTimeTableDetail(ArrayList<TimeTableDetail> arrayTimeTableDetail){
         this.arrayTimeTableDetail = arrayTimeTableDetail;
     }
-<<<<<<< HEAD
 
     public void SelectOne(String str_User_ID) {
         class SelectOneTask extends AsyncTask<String, Void, String> {
@@ -224,6 +222,5 @@ public class TimeTableAdapter extends BaseAdapter {
             exception.printStackTrace();
         }
     }
-=======
->>>>>>> bc4ad963010a4250cea274180232fa4a601f675e
+
 }
