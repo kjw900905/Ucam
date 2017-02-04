@@ -12,11 +12,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.Beans.TimeTableDetail;
-
-import java.util.ArrayList;
 
 import com.example.Beans.TimeTableDetail;
 import com.example.Beans.Variable;
