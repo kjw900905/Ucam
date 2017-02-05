@@ -9,6 +9,7 @@ public class Variable {
     public final static String m_PHP_SELECT_POSITION = "/SelectPosition.php";
     public final static String m_PHP_INSERT_PERSONAL_INFORMATION = "/Insert_personal_information.php";
     public final static String m_PHP_CHECK_ID_PW = "/Check_ID_PW.php";
+    public final static String m_PHP_CHECK_TIME_TABLE = "/Check_Time_Table.php";
     public final static String m_PHP_UPDATE_SEARCH = "/Update_Search.php"; // MatchFragment에서 매치에 사용하는 php
     public final static String m_PHP_UPDATE = "/Update.php";
     public final static String m_PHP_DELETE = "/Delete.php";
