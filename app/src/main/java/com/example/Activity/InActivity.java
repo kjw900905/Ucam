@@ -34,6 +34,10 @@ public class InActivity extends AppCompatActivity
         Intent intent = getIntent();
         myInfo = (Student)intent.getSerializableExtra("myInfo");
 
+        //SelectOne(myInfo.getId());
+        ///positionArrayList = new ArrayList<String>();
+        //Toast.makeText(getApplicationContext(), positionArrayList.get(0), Toast.LENGTH_SHORT).show();
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,7 +137,6 @@ public class InActivity extends AppCompatActivity
 
 
         if (id == R.id.nav_time_table) {
-
             TimeTableFragment timeTableFragment = new TimeTableFragment();
             FragmentManager manager= getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.content_in, timeTableFragment).addToBackStack(null).commit();
@@ -187,21 +190,4 @@ public class InActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-/*
-    public void change_Fragment(int sequence, int position) {
-        if(sequence == 1) {
-            SetUpFragment setUpFragment = new SetUpFragment();
-            FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.content_in, setUpFragment).addToBackStack(null).commit();
-
-            Bundle bundle = new Bundle(1);
-            bundle.putInt("position", position);
-            setUpFragment.setArguments(bundle);
-        }else if(sequence == 2){
-            TimeTableFragment timeTableFragment = new TimeTableFragment();
-            FragmentManager manager= getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.content_in, timeTableFragment).addToBackStack(null).commit();
-        }
-    }
-    */
 }

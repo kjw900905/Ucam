@@ -64,14 +64,14 @@ public class TimeTableAdapter extends BaseAdapter {
             gridView = new View(context);
 
             gridView = inflater.inflate(R.layout.timetable_layout, null);
-
-            /*if(position==2){
+/*
+            if(position==2){
                 //gridView.setBackgroundColor(Color.BLUE);
                 //Toast.makeText(gridView.getContext(), "sds"+ position, Toast.LENGTH_SHORT).show();
                 //TextView textView = (TextView)gridView.findViewById(R.id.grid_TextView);
                 //textView.setBackgroundColor(Color.BLUE);
-            }*/
-
+            }
+*/
             for(int i=0; i<arrayTimeTableDetail.size(); i++){
                 if(arrayTimeTableDetail.get(i).getfield().equals("Y")){
                     Log.d(arrayTimeTableDetail.get(i).getposition(), "실행");
@@ -94,9 +94,9 @@ public class TimeTableAdapter extends BaseAdapter {
             gridView = (View) convertView;
         }
 
-        SelectOne(user_ID);
-        
-        //positionArrayList = new ArrayList<String>();
+        SelectOne(user_ID, gridView, position);
+
+        positionArrayList = new ArrayList<String>();
         //String test = positionArrayList.get(0);
         //Toast.makeText(gridView.getContext(), positionArrayList.get(0), Toast.LENGTH_SHORT).show();
         for(int i = 0 ; i < positionArrayList.size() ; i++ ){
@@ -162,7 +162,7 @@ public class TimeTableAdapter extends BaseAdapter {
         this.arrayTimeTableDetail = arrayTimeTableDetail;
     }
 
-    public void SelectOne(String str_User_ID) {
+    public void SelectOne(String str_User_ID, final View gridView, final int viewPosition) {
         class SelectOneTask extends AsyncTask<String, Void, String> {
             /*ProgressDialog loading;
 
@@ -170,7 +170,7 @@ public class TimeTableAdapter extends BaseAdapter {
                 super.onPreExecute();
                 loading = ProgressDialog.show(MainActivity.this, "Please Wait", null, true, true);
             }
-            */
+          */
 
             protected String doInBackground(String[] params) {
                 String temp_ID = (String) params[0];
@@ -204,7 +204,7 @@ public class TimeTableAdapter extends BaseAdapter {
 
             protected  void onPostExecute(String result) {
                 myJSON = result;
-                getPosition();
+                getPosition(gridView, viewPosition);
             }
         }
 
@@ -212,18 +212,23 @@ public class TimeTableAdapter extends BaseAdapter {
         selectOneTask.execute(str_User_ID);
     }
 
-    public void getPosition(){
+    public void getPosition(View gridView, int viewPosition) {
         try {
             JSONObject jsonObj = new JSONObject(myJSON);
             getPosition = jsonObj.getJSONArray("result");
-            for(int i = 0 ; i < getPosition.length(); i++){
+            for (int i = 0; i < getPosition.length(); i++) {
                 JSONObject c = getPosition.getJSONObject(i);
                 String position = c.getString("position");
                 positionArrayList.add(position);
+                int selectPosition = Integer.parseInt(position);
+                if(viewPosition == selectPosition) {
+                    TextView textView = (TextView) gridView.findViewById(R.id.grid_TextView);
+                    textView.setBackgroundColor(Color.BLUE);
+                }
+
             }
-        } catch(Exception exception) {
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
     }
-
 }
