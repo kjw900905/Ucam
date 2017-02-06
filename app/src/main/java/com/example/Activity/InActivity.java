@@ -105,6 +105,7 @@ public class InActivity extends AppCompatActivity implements NavigationView.OnNa
                             // 확인 버튼 클릭시 설정
                             public void onClick(DialogInterface dialog, int whichButton){
                                 finish();
+
                             }
                         })
                         .setNegativeButton("취소", new DialogInterface.OnClickListener(){
@@ -273,9 +274,7 @@ public class InActivity extends AppCompatActivity implements NavigationView.OnNa
         try {
             JSONObject jsonObj = new JSONObject(myJSON);
             person = jsonObj.getJSONArray("result");
-
             if(person.isNull(0)) {
-
                 NotDbMainFragment notdbMainFragment = new NotDbMainFragment();
                 FragmentManager manager= getSupportFragmentManager();
                 manager.beginTransaction().add(R.id.content_in, notdbMainFragment).addToBackStack(null).commit();
@@ -313,5 +312,4 @@ public class InActivity extends AppCompatActivity implements NavigationView.OnNa
             exception.printStackTrace();
         }
     }
-
 }
