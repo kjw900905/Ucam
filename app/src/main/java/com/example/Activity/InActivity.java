@@ -4,9 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -53,6 +51,7 @@ public class InActivity extends AppCompatActivity implements NavigationView.OnNa
         ///positionArrayList = new ArrayList<String>();
         //Toast.makeText(getApplicationContext(), positionArrayList.get(0), Toast.LENGTH_SHORT).show();
 
+        /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +60,7 @@ public class InActivity extends AppCompatActivity implements NavigationView.OnNa
                         .setAction("Action", null).show();
             }
         });
+        */
 
         SelectOne(myInfo.getId(), toolbar);
 /*
@@ -196,13 +196,13 @@ public class InActivity extends AppCompatActivity implements NavigationView.OnNa
             bundle.putSerializable("myInfo", myInfo);
             setProfileImageFragment.setArguments(bundle);
         } else if (id == R.id.nav_chat) {
-            ChatFragment chatFragment = new ChatFragment();
+            ChatRoomFragment chatRoomFragment = new ChatRoomFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.content_in, chatFragment).addToBackStack(null).commit();
+            fragmentManager.beginTransaction().replace(R.id.content_in, chatRoomFragment).addToBackStack(null).commit();
 
             Bundle bundle = new Bundle(1);
             bundle.putSerializable("myInfo", myInfo);
-            chatFragment.setArguments(bundle);
+            chatRoomFragment.setArguments(bundle);
         }else if (id == R.id.nav_set_table_color) {
             /*
             SetUpFragment setUpFragment = new SetUpFragment();
@@ -274,9 +274,7 @@ public class InActivity extends AppCompatActivity implements NavigationView.OnNa
         try {
             JSONObject jsonObj = new JSONObject(myJSON);
             person = jsonObj.getJSONArray("result");
-
             if(person.isNull(0)) {
-
                 NotDbMainFragment notdbMainFragment = new NotDbMainFragment();
                 FragmentManager manager= getSupportFragmentManager();
                 manager.beginTransaction().add(R.id.content_in, notdbMainFragment).addToBackStack(null).commit();
@@ -314,5 +312,4 @@ public class InActivity extends AppCompatActivity implements NavigationView.OnNa
             exception.printStackTrace();
         }
     }
-
 }
