@@ -2,6 +2,7 @@ package com.example.Activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -18,10 +19,24 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.Beans.Student;
+import com.example.Beans.Variable;
 
-public class InActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
+
+public class InActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     protected Student myInfo;
+
+    String myJSON;
+    JSONArray person = null;
+
     boolean doubleBackToExitPressedOnce = false; //두 번 뒤로가기 시 종료하는 지에 대한 여부를 판단하는 불 변수
 
     @Override
@@ -47,6 +62,8 @@ public class InActivity extends AppCompatActivity
             }
         });
 
+        SelectOne(myInfo.getId(), toolbar);
+/*
         NotDbMainFragment notdbMainFragment = new NotDbMainFragment();
         FragmentManager manager= getSupportFragmentManager();
         manager.beginTransaction().add(R.id.content_in, notdbMainFragment).addToBackStack(null).commit();
@@ -59,6 +76,7 @@ public class InActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+*/
     }
 
     public void set_Schedule_Button(View v){
@@ -184,10 +202,116 @@ public class InActivity extends AppCompatActivity
             Bundle bundle = new Bundle(1);
             bundle.putSerializable("myInfo", myInfo);
             chatFragment.setArguments(bundle);
+        }else if (id == R.id.nav_set_table_color) {
+            /*
+            SetUpFragment setUpFragment = new SetUpFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.content_in, setUpFragment).addToBackStack(null).commit();
+
+            Bundle bundle = new Bundle(1);
+            bundle.putSerializable("myInfo", myInfo);
+            setUpFragment.setArguments(bundle);
+            */
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public void SelectOne(final String str_ID, final Toolbar toolbar) {
+        class SelectOneTask extends AsyncTask<String, Void, String> {
+            /*ProgressDialog loading;
+
+            protected void onPreExecute() {
+                super.onPreExecute();
+                loading = ProgressDialog.show(MainActivity.this, "Please Wait", null, true, true);
+            }
+            */
+
+            protected String doInBackground(String[] params) {
+                String temp_ID = (String) params[0];
+                try {
+                    String data = "";
+                    data += URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(temp_ID, "UTF-8");
+
+                    URL url = new URL(Variable.m_SERVER_URL + Variable.m_PHP_CHECK_TIME_TABLE);
+                    URLConnection con = url.openConnection();
+
+                    con.setDoOutput(true);
+                    OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
+
+                    wr.write(data);
+                    wr.flush();
+
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                    StringBuilder sb = new StringBuilder();
+                    String line = null;
+
+                    // Read Server Response
+                    while((line = reader.readLine()) != null) {
+                        sb.append(line);
+                        break;
+                    }
+                    return sb.toString().trim();
+                } catch(Exception exception) {
+                    return new String(exception.getMessage());
+                }
+            }
+
+            protected  void onPostExecute(String result) {
+                myJSON = result;
+                check_ID_PW(toolbar);
+            }
+        }
+
+        SelectOneTask selectOneTask = new SelectOneTask();
+        selectOneTask.execute(str_ID);
+    }
+
+    public void check_ID_PW(Toolbar toolbar){
+        try {
+            JSONObject jsonObj = new JSONObject(myJSON);
+            person = jsonObj.getJSONArray("result");
+
+            if(person.isNull(0)) {
+
+                NotDbMainFragment notdbMainFragment = new NotDbMainFragment();
+                FragmentManager manager= getSupportFragmentManager();
+                manager.beginTransaction().add(R.id.content_in, notdbMainFragment).addToBackStack(null).commit();
+
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                        this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                drawer.setDrawerListener(toggle);
+                toggle.syncState();
+
+                NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+                navigationView.setNavigationItemSelectedListener(this);
+
+            } else {
+
+                TimeTableFragment timeTableFragment = new TimeTableFragment();
+                FragmentManager manager= getSupportFragmentManager();
+                manager.beginTransaction().replace(R.id.content_in, timeTableFragment).addToBackStack(null).commit();
+
+                Bundle bundle = new Bundle(1);
+                bundle.putSerializable("myInfo", myInfo);
+                timeTableFragment.setArguments(bundle);
+
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                        this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                drawer.setDrawerListener(toggle);
+                toggle.syncState();
+
+                NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+                navigationView.setNavigationItemSelectedListener(this);
+
+            }
+        } catch(Exception exception) {
+            exception.printStackTrace();
+        }
+    }
+
 }

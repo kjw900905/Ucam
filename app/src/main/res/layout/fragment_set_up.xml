@@ -5,16 +5,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/set_up_layout"
     tools:context=".SetUpFragment">
+
+    <TextView
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="89dp"
+        android:id="@+id/color_Test" />
+
+    <Button
+        android:text="설정완료"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="76dp"
+        android:id="@+id/btn_set_Color" />
 
     <HorizontalScrollView
         android:layout_width="175dp"
         android:layout_height="50dp"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:layout_marginRight="82dp"
-        android:layout_marginEnd="82dp">
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/color_Test">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -144,22 +160,5 @@
             </RadioGroup>
         </LinearLayout>
     </HorizontalScrollView>
-
-    <TextView
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="89dp"
-        android:id="@+id/color_Test" />
-
-    <Button
-        android:text="설정완료"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="76dp"
-        android:id="@+id/btn_set_Color" />
 
 </RelativeLayout>

@@ -1,5 +1,6 @@
 package com.example.Activity;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 
 
 public class SetUpFragment extends Fragment {
@@ -23,32 +25,101 @@ public class SetUpFragment extends Fragment {
 
         Bundle extra = getArguments();
         final int position = extra.getInt("position");
-        View view = inflater.inflate(R.layout.fragment_set_up, container, false);
+        final View view = inflater.inflate(R.layout.fragment_set_up, container, false);
+        //View view = inflater.inflate(R.layout.color_test, container, false);
+
+
+
 
         RadioGroup rg = (RadioGroup)view.findViewById(R.id.select_Color);
-
         int radioCheck = rg.getCheckedRadioButtonId();
-        RadioButton rb = (RadioButton) container.findViewById(radioCheck);
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int checkedID) {
+                RadioButton rb = (RadioButton) view.findViewById(checkedID);
+                ColorDrawable color = (ColorDrawable)rb.getBackground();
+                int selectedColor = color.getColor();
+                RelativeLayout mLayout = (RelativeLayout)view.findViewById(R.id.set_up_layout);
+                mLayout.setBackgroundColor(selectedColor);
+            }
+        });
 
-//        ColorDrawable color = (ColorDrawable)rb.getBackground();
-//        int selectedColor = color.getColor();
-
+//        RadioButton rb = (RadioButton) view.findViewById(rg.getCheckedRadioButtonId());
+//        String id = rb.getText().toString();
+ //       Toast.makeText(getActivity(), id, Toast.LENGTH_SHORT).show();
 
         //TextView testColor = (TextView)view.findViewById(R.id.color_Test);
 
         //testColor.setBackgroundColor(rb.getDrawingCacheBackgroundColor());
 
-/*
-        set_Color =  (Button) view.findViewById(R.id.btn_set_Color);
-        set_Color.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view){
-                inActivity.change_Fragment(2, position);
-            }
-        });
-        */
+
         return view;
     }
+    /*
+    public void onClick(View v){
+        switch (v.getId()){
+            case R.id.color_Black:
+                TextView colorText = (TextView)v.findViewById(R.id.color_Black);
+                ColorDrawable color = (ColorDrawable)colorText.getBackground();
+                int selectedColor = color.getColor();
+                //가져온 색깔 디비에 저장
+            case R.id.color_Black:
+                TextView colorText = (TextView)v.findViewById(R.id.color_Black);
+                ColorDrawable color = (ColorDrawable)colorText.getBackground();
+                int selectedColor = color.getColor();
+                //가져온 색깔 디비에 저장
+            case R.id.color_Black:
+                TextView colorText = (TextView)v.findViewById(R.id.color_Black);
+                ColorDrawable color = (ColorDrawable)colorText.getBackground();
+                int selectedColor = color.getColor();
+                //가져온 색깔 디비에 저장
+            case R.id.color_Black:
+                TextView colorText = (TextView)v.findViewById(R.id.color_Black);
+                ColorDrawable color = (ColorDrawable)colorText.getBackground();
+                int selectedColor = color.getColor();
+                //가져온 색깔 디비에 저장
+            case R.id.color_Black:
+                TextView colorText = (TextView)v.findViewById(R.id.color_Black);
+                ColorDrawable color = (ColorDrawable)colorText.getBackground();
+                int selectedColor = color.getColor();
+                //가져온 색깔 디비에 저장
+            case R.id.color_Black:
+                TextView colorText = (TextView)v.findViewById(R.id.color_Black);
+                ColorDrawable color = (ColorDrawable)colorText.getBackground();
+                int selectedColor = color.getColor();
+                //가져온 색깔 디비에 저장
+            case R.id.color_Black:
+                TextView colorText = (TextView)v.findViewById(R.id.color_Black);
+                ColorDrawable color = (ColorDrawable)colorText.getBackground();
+                int selectedColor = color.getColor();
+                //가져온 색깔 디비에 저장
+            case R.id.color_Black:
+                TextView colorText = (TextView)v.findViewById(R.id.color_Black);
+                ColorDrawable color = (ColorDrawable)colorText.getBackground();
+                int selectedColor = color.getColor();
+                //가져온 색깔 디비에 저장
+            case R.id.color_Black:
+                TextView colorText = (TextView)v.findViewById(R.id.color_Black);
+                ColorDrawable color = (ColorDrawable)colorText.getBackground();
+                int selectedColor = color.getColor();
+                //가져온 색깔 디비에 저장
+            case R.id.color_Black:
+                TextView colorText = (TextView)v.findViewById(R.id.color_Black);
+                ColorDrawable color = (ColorDrawable)colorText.getBackground();
+                int selectedColor = color.getColor();
+                //가져온 색깔 디비에 저장
+            case R.id.color_Black:
+                TextView colorText = (TextView)v.findViewById(R.id.color_Black);
+                ColorDrawable color = (ColorDrawable)colorText.getBackground();
+                int selectedColor = color.getColor();
+                //가져온 색깔 디비에 저장
+            case R.id.color_Black:
+                TextView colorText = (TextView)v.findViewById(R.id.color_Black);
+                ColorDrawable color = (ColorDrawable)colorText.getBackground();
+                int selectedColor = color.getColor();
+                //가져온 색깔 디비에 저장
+        }
 
-
-
+    }
+    */
 }
