@@ -1,5 +1,6 @@
 package com.example.Activity;
 
+import com.example.Beans.Student;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -41,8 +43,8 @@ public class ChatRoomFragment extends Fragment {
     private ListView listView;
     private ArrayAdapter<String> arrayAdapter;
     private ArrayList<String> list_of_rooms = new ArrayList<>();
-    private String name;
-    private DatabaseReference root = FirebaseDatabase.getInstance().getReference().getRoot();
+    private DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+    Student mStudent;
 
     public ChatRoomFragment() {
         // Required empty public constructor
@@ -59,6 +61,8 @@ public class ChatRoomFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
 
+        mStudent = (Student)getArguments().getSerializable("myInfo");
+
         add_room = (Button) view.findViewById(R.id.btn_add_room);
         room_name = (EditText) view.findViewById(R.id.room_name_edittext);
         listView = (ListView) view.findViewById(R.id.listViewConv);
@@ -67,14 +71,16 @@ public class ChatRoomFragment extends Fragment {
 
         listView.setAdapter(arrayAdapter);
 
-        request_user_name();
+        //request_user_name();
 
         add_room.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Map<String, Object> map = new HashMap<String, Object>();
-                map.put(room_name.getText().toString(), "");
-                root.updateChildren(map);
+                //Map<String, Object> map = new HashMap<String, Object>();
+                //map.put(room_name.getText().toString(), "");
+                //root.updateChildren(map);
+                root.child("chats").child(room_name.getText().toString()).child("title").setValue(" ");
+                root.child("chats").child(room_name.getText().toString()).child("memberNumber").setValue(" ");
             }
         });
 
@@ -82,14 +88,24 @@ public class ChatRoomFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                Set<String> set = new HashSet<String>();
+                /*Set<String> set = new HashSet<String>();
                 Iterator i = dataSnapshot.getChildren().iterator();
 
                 while(i.hasNext()) {
-                    set.add(((DataSnapshot)i.next()).getKey());
+                    set.add(((DataSnapshot)i.next()).getValue().toString());
                 }
                 list_of_rooms.clear();
-                list_of_rooms.addAll(set);
+                list_of_rooms.addAll(set);*/
+
+                list_of_rooms.clear();
+
+                for(DataSnapshot child : dataSnapshot.getChildren()){
+                    if(child.getKey().equals("chats")) {
+                        for (DataSnapshot child2 : child.getChildren()) {
+                            list_of_rooms.add(child2.getKey());
+                        }
+                    }
+                }
 
                 arrayAdapter.notifyDataSetChanged();
             }
@@ -109,12 +125,17 @@ public class ChatRoomFragment extends Fragment {
                 intent.putExtra("user_name", name);
                 startActivity(intent);
                 */
+                Intent intent = new Intent(getActivity(), ChatActivity.class);
+                intent.putExtra("user_id", mStudent.getId());
+                intent.putExtra("room_name", ((TextView)view).getText().toString());
+                startActivity(intent);
             }
         });
 
         return view;
     }
 
+    /*
     private void request_user_name() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Enter name:");
@@ -133,11 +154,12 @@ public class ChatRoomFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.cancel();
-                request_user_name();
+                //request_user_name();
             }
         });
 
         builder.show();
     }
+    */
 
 }

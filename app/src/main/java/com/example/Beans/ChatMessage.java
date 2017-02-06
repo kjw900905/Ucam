@@ -1,8 +1,6 @@
 package com.example.Beans;
 
-
 import java.util.Date;
-
 
 public class ChatMessage {
     private String messageText;
