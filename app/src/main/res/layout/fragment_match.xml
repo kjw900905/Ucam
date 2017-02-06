@@ -117,11 +117,21 @@
 
         <Button
             android:id="@+id/btnSearch"
-            android:layout_width="70dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="찾기"
+            android:text="방만들기"
             android:background="@drawable/btn_select"
             android:textStyle="bold"
+            android:layout_weight="1"
             android:gravity="center"/>
+        <Button
+            android:id="@+id/button3"
+            android:layout_height="wrap_content"
+            android:text="참여하기"
+            android:background="@drawable/btn_select"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_width="180dp" />
     </LinearLayout>
+
 </LinearLayout>
