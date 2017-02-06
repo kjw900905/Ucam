@@ -108,7 +108,7 @@ public class TimeTableFragment extends Fragment {
                 ColorDrawable colorCode = (ColorDrawable)selectedView.getBackground();
                 int color = colorCode.getColor();
                 if(color == -1){
-                    selectedView.setBackgroundColor(Color.BLUE);
+                    selectedView.setBackgroundColor(Color.LTGRAY);
                     String user_Id = mStudent.getId();
                     String day = arrayTimeTableDetail.get(position).getday();
                     String time = arrayTimeTableDetail.get(position).gettime();

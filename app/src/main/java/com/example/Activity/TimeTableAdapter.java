@@ -223,7 +223,7 @@ public class TimeTableAdapter extends BaseAdapter {
                 int selectPosition = Integer.parseInt(position);
                 if(viewPosition == selectPosition) {
                     TextView textView = (TextView) gridView.findViewById(R.id.grid_TextView);
-                    textView.setBackgroundColor(Color.BLUE);
+                    textView.setBackgroundColor(Color.LTGRAY);
                 }
 
             }
