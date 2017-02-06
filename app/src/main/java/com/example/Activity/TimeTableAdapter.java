@@ -30,7 +30,6 @@ import java.util.ArrayList;
 public class TimeTableAdapter extends BaseAdapter {
     private String user_ID;
     private JSONArray getPosition;
-    private ArrayList<String> positionArrayList;
     private String myJSON;
     private Context context;
     private int rootViewHeight;
@@ -80,7 +79,7 @@ public class TimeTableAdapter extends BaseAdapter {
                     Log.e(arrayTimeTableDetail.get(i).getposition(), "실행");
                     //Toast.makeText(gridView.getContext(), arrayTimeTableDetail.get(i).getposition(), Toast.LENGTH_SHORT).show();
                     TextView textView = (TextView)gridView.findViewById(R.id.grid_TextView);
-                    textView.setBackgroundColor(Color.BLUE);
+                    textView.setBackgroundColor(Color.LTGRAY);
                 }
             }
 
@@ -93,18 +92,22 @@ public class TimeTableAdapter extends BaseAdapter {
         } else {
             gridView = (View) convertView;
         }
+        TextView textView = (TextView)gridView.findViewById(R.id.grid_TextView);
+        textView.setText("");
 
         SelectOne(user_ID, gridView, position);
 
-        positionArrayList = new ArrayList<String>();
+        //positionArrayList = new ArrayList<String>();
         //String test = positionArrayList.get(0);
         //Toast.makeText(gridView.getContext(), positionArrayList.get(0), Toast.LENGTH_SHORT).show();
+        /*
         for(int i = 0 ; i < positionArrayList.size() ; i++ ){
             if(position == Integer.parseInt(positionArrayList.get(i))){
                 TextView textView = (TextView)gridView.findViewById(R.id.grid_TextView);
                 textView.setBackgroundColor(Color.BLUE);
             }
         }
+        */
 
         /*
         for(int i=0; i<arrayTimeTableDetail.size(); i++){
@@ -219,7 +222,6 @@ public class TimeTableAdapter extends BaseAdapter {
             for (int i = 0; i < getPosition.length(); i++) {
                 JSONObject c = getPosition.getJSONObject(i);
                 String position = c.getString("position");
-                positionArrayList.add(position);
                 int selectPosition = Integer.parseInt(position);
                 if(viewPosition == selectPosition) {
                     TextView textView = (TextView) gridView.findViewById(R.id.grid_TextView);
