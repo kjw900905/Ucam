@@ -105,6 +105,7 @@ public class InActivity extends AppCompatActivity implements NavigationView.OnNa
                             // 확인 버튼 클릭시 설정
                             public void onClick(DialogInterface dialog, int whichButton){
                                 finish();
+                                System.exit(0);
                             }
                         })
                         .setNegativeButton("취소", new DialogInterface.OnClickListener(){
