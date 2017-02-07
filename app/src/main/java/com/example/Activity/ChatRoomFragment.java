@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.Beans.Student;
 import com.google.firebase.database.DataSnapshot;
@@ -38,6 +37,7 @@ public class ChatRoomFragment extends Fragment {
     private String m_detailedInterests;                //관심분야
     private String m_chattingNumber;
     private String m_makeRoomFlag;
+    private String m_roomName;
 
     public ChatRoomFragment() {
         // Required empty public constructor
@@ -58,6 +58,7 @@ public class ChatRoomFragment extends Fragment {
         m_detailedInterests = getArguments().getString("detailedInterests");
         m_chattingNumber = getArguments().getString("chattingNumber");
         m_makeRoomFlag = getArguments().getString("makeRoomFlag");
+        m_roomName = getArguments().getString("roomName");
 
         //Toast.makeText(getActivity(), m_detailedInterests+m_chattingNumber, Toast.LENGTH_SHORT).show();
 
@@ -83,13 +84,13 @@ public class ChatRoomFragment extends Fragment {
         });*/
 
         if(m_makeRoomFlag.equals("Y")){
-            root.child("chats").child(m_detailedInterests).child("title").setValue(m_detailedInterests);
+            root.child("chats").child(m_roomName).child("title").setValue(m_roomName);
             root.child("chats").child(m_detailedInterests).child("memberNumber").setValue(m_chattingNumber);
             root.child("users").child(mStudent.getId()).child("roomName").setValue(m_detailedInterests);
 
             Intent intent = new Intent(getActivity(), ChatActivity.class);
             intent.putExtra("user_id", mStudent.getId());
-            intent.putExtra("room_name", (m_detailedInterests));
+            intent.putExtra("room_name", (m_roomName));
             startActivity(intent);
         }
 

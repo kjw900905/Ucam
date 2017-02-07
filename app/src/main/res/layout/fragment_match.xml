@@ -115,6 +115,14 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="방 제목을 입력해 주세요."
+            android:ems="10"
+            android:id="@+id/setRoomName" />
+
     </LinearLayout>
 
 
