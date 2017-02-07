@@ -37,6 +37,7 @@ public class ChatRoomFragment extends Fragment {
 
     private String m_detailedInterests;                //관심분야
     private String m_chattingNumber;
+    private String m_makeRoomFlag;
 
     public ChatRoomFragment() {
         // Required empty public constructor
@@ -53,10 +54,13 @@ public class ChatRoomFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
 
+        m_makeRoomFlag = "N";
+
         mStudent = (Student)getArguments().getSerializable("myInfo");
 
         m_detailedInterests = getArguments().getString("detailedInterests");
         m_chattingNumber = getArguments().getString("chattingNumber");
+        m_makeRoomFlag = getArguments().getString("makeRoomFlag");
 
         Toast.makeText(getActivity(), m_detailedInterests+m_chattingNumber, Toast.LENGTH_SHORT).show();
 
@@ -70,7 +74,7 @@ public class ChatRoomFragment extends Fragment {
 
         //request_user_name();
 
-        add_room.setOnClickListener(new View.OnClickListener() {
+        /*add_room.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Map<String, Object> map = new HashMap<String, Object>();
@@ -79,7 +83,17 @@ public class ChatRoomFragment extends Fragment {
                 root.child("chats").child(room_name.getText().toString()).child("title").setValue(" ");
                 root.child("chats").child(room_name.getText().toString()).child("memberNumber").setValue(" ");
             }
-        });
+        });*/
+
+        if(m_makeRoomFlag.equals("Y")){
+            root.child("chats").child(room_name.getText().toString()).child("title").setValue(m_detailedInterests);
+            root.child("chats").child(room_name.getText().toString()).child("memberNumber").setValue(m_chattingNumber);
+
+            Intent intent = new Intent(getActivity(), ChatActivity.class);
+            intent.putExtra("user_id", mStudent.getId());
+            intent.putExtra("room_name", ((TextView)view).getText().toString());
+            startActivity(intent);
+        }
 
         root.addValueEventListener(new ValueEventListener() {
             @Override
