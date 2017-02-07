@@ -19,12 +19,16 @@ import android.widget.Toast;
 import com.example.Beans.Student;
 import com.example.Beans.Variable;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.Calendar;
 
 public class MatchFragment extends Fragment {
     private EditText edtInterests; // "관심분야" EditText
@@ -55,6 +59,11 @@ public class MatchFragment extends Fragment {
 
     private Student mStudent;
 
+    private JSONArray getTime;
+    private String myJSON;
+
+    private boolean isFindFlag;
+
     public void MatchFragment() {
         // null
     }
@@ -68,13 +77,16 @@ public class MatchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_match, container, false);
 
+        Calendar oCalendar = Calendar.getInstance();
+        int nowTime = oCalendar.get(Calendar.HOUR_OF_DAY);
+
         edtInterests = (EditText) view.findViewById(R.id.edtInterests); // "관심분야" EditText
         edtDetailInterests = (EditText) view.findViewById(R.id.edtDetailInterests); // "세부항목" EditText
         edtNumPeople = (EditText) view.findViewById(R.id.edtNumPeople); // "인원" EditText
         setRoomName = (EditText)view.findViewById(R.id.setRoomName);
 
         makeRoomFlag = "N";
-
+        isFindFlag = false;
         mStudent = (Student)getArguments().getSerializable("myInfo");
 
         btnInterests = (Button) view.findViewById(R.id.btnInterests); // "관심분야" Button
@@ -236,6 +248,12 @@ public class MatchFragment extends Fragment {
     }
 
     public void onClickMakeRoom(){
+/*
+        Calendar oCalendar = Calendar.getInstance();
+        int nowTime = oCalendar.get(Calendar.HOUR_OF_DAY);
+*/
+        SelectOne(mStudent.getId());
+/*
         if(TextUtils.isEmpty(edtNumPeople.getText()) || setRoomName.getText().toString().length() == 0){
             Toast.makeText(getActivity(), "위 항목을 전부 채워주십시오.", Toast.LENGTH_SHORT).show();
         }else{
@@ -255,6 +273,7 @@ public class MatchFragment extends Fragment {
             bundle.putString("roomName", roomName);
             chatRoomFragment.setArguments(bundle);
         }
+        */
     }
 
     public void onClickParticipate(){
@@ -393,5 +412,128 @@ public class MatchFragment extends Fragment {
 
         UpdateSearchTask updateSearchTask = new UpdateSearchTask();
         updateSearchTask.execute(strInterests, strNumPeople);
+    }
+
+    public void SelectOne(String str_User_ID) {
+        class SelectOneTask extends AsyncTask<String, Void, String> {
+            /*ProgressDialog loading;
+
+            protected void onPreExecute() {
+                super.onPreExecute();
+                loading = ProgressDialog.show(MainActivity.this, "Please Wait", null, true, true);
+            }
+          */
+
+            protected String doInBackground(String[] params) {
+                String temp_ID = (String) params[0];
+                try {
+                    String data = "";
+                    data += URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(temp_ID, "UTF-8");
+
+                    URL url = new URL(Variable.m_SERVER_URL + Variable.m_PHP_SELECT_POSITION);
+                    URLConnection con = url.openConnection();
+
+                    con.setDoOutput(true);
+                    OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
+
+                    wr.write(data);
+                    wr.flush();
+
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                    StringBuilder sb = new StringBuilder();
+                    String line = null;
+
+                    // Read Server Response
+                    while((line = reader.readLine()) != null) {
+                        sb.append(line);
+                        break;
+                    }
+                    return sb.toString().trim();
+                } catch(Exception exception) {
+                    return new String(exception.getMessage());
+                }
+            }
+
+            protected  void onPostExecute(String result) {
+                myJSON = result;
+                get_Time();
+            }
+        }
+
+        SelectOneTask selectOneTask = new SelectOneTask();
+        selectOneTask.execute(str_User_ID);
+    }
+
+    public void get_Time() {
+        try {
+            Calendar oCalendar = Calendar.getInstance();
+            int nowTime = oCalendar.get(Calendar.HOUR_OF_DAY);
+            int dayNum = oCalendar.get(Calendar.DAY_OF_WEEK);
+            String day ="";
+            switch (dayNum) {
+                case 1:
+                    day = "일";
+                    break;
+                case 2:
+                    day = "월";
+                    break;
+                case 3:
+                    day = "화";
+                    break;
+                case 4:
+                    day = "수";
+                    break;
+                case 5:
+                    day = "목";
+                    break;
+                case 6:
+                    day = "금";
+                    break;
+                case 7:
+                    day = "토";
+                    break;
+            }
+            
+            JSONObject jsonObj = new JSONObject(myJSON);
+            getTime = jsonObj.getJSONArray("result");
+
+
+            for (int i = 0; i < getTime.length(); i++) {
+                JSONObject c = getTime.getJSONObject(i);
+                String time = c.getString("time");
+                int selectTime = Integer.parseInt(time);
+                String selectDay = c.getString("day");
+
+                if(selectTime == nowTime && selectDay.equals(day)) {
+                    Toast.makeText(getActivity(), "수업시간이라 방을 만들 수 없습니다.", Toast.LENGTH_SHORT).show();
+                    isFindFlag = true;
+                    break;
+                }
+            }
+            if(isFindFlag == false){
+                if(TextUtils.isEmpty(edtNumPeople.getText()) || setRoomName.getText().toString().length() == 0){
+                    Toast.makeText(getActivity(), "위 항목을 전부 채워주십시오.", Toast.LENGTH_SHORT).show();
+                }else{
+                    ChatRoomFragment chatRoomFragment = new ChatRoomFragment();
+                    FragmentManager fragmentManager = myContext.getSupportFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.content_in, chatRoomFragment).addToBackStack(null).commit();
+
+                    roomName = setRoomName.getText().toString();
+
+                    makeRoomFlag = "Y";
+
+                    Bundle bundle = new Bundle(1);
+                    bundle.putSerializable("myInfo",mStudent);
+                    bundle.putString("detailedInterests", detailedInterests);
+                    bundle.putString("chattingNumber", chattingNumber);
+                    bundle.putString("makeRoomFlag", makeRoomFlag);
+                    bundle.putString("roomName", roomName);
+                    chatRoomFragment.setArguments(bundle);
+                }
+            }
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
     }
 }
