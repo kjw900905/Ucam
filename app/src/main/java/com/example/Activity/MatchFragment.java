@@ -239,10 +239,10 @@ public class MatchFragment extends Fragment {
         makeRoomFlag = "Y";
 
         Bundle bundle = new Bundle(1);
+        bundle.putSerializable("myInfo",mStudent);
         bundle.putString("detailedInterests", detailedInterests);
         bundle.putString("chattingNumber", chattingNumber);
         bundle.putString("makeRoomFlag", makeRoomFlag);
-        bundle.putSerializable("myInfo",mStudent);
         chatRoomFragment.setArguments(bundle);
 
     }
