@@ -85,6 +85,7 @@ public class ChatRoomFragment extends Fragment {
         if(m_makeRoomFlag.equals("Y")){
             root.child("chats").child(m_detailedInterests).child("title").setValue(m_detailedInterests);
             root.child("chats").child(m_detailedInterests).child("memberNumber").setValue(m_chattingNumber);
+            root.child("users").child(mStudent.getId()).child("roomName").setValue(m_detailedInterests);
 
             Intent intent = new Intent(getActivity(), ChatActivity.class);
             intent.putExtra("user_id", mStudent.getId());
@@ -136,6 +137,7 @@ public class ChatRoomFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), ChatActivity.class);
                 intent.putExtra("user_id", mStudent.getId());
                 intent.putExtra("room_name", ((TextView)view).getText().toString());
+                root.child("users").child(mStudent.getId()).child("roomName").setValue(m_detailedInterests);
                 startActivity(intent);
             }
         });
