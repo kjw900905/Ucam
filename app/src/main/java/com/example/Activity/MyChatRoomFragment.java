@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.Beans.Student;
 import com.google.firebase.database.DataSnapshot;
@@ -23,7 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 
-public class ChatRoomFragment extends Fragment {
+public class MyChatRoomFragment extends Fragment {
 
     private EditText room_name;
 
@@ -36,13 +37,8 @@ public class ChatRoomFragment extends Fragment {
     private String m_detailedInterests;                //관심분야
     private String m_chattingNumber;
     private String m_makeRoomFlag;
-<<<<<<< HEAD
-    private String m_roomName;
-=======
-    private int roomIndex;
->>>>>>> 562eaa6d4673bc7e2a52e80a18f0d4ddacfd8abb
 
-    public ChatRoomFragment() {
+    public MyChatRoomFragment() {
         // Required empty public constructor
     }
 
@@ -57,11 +53,7 @@ public class ChatRoomFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
 
-        mStudent = (Student) getArguments().getSerializable("myInfo");
-        m_detailedInterests = getArguments().getString("detailedInterests");
-        m_chattingNumber = getArguments().getString("chattingNumber");
-        m_makeRoomFlag = getArguments().getString("makeRoomFlag");
-        m_roomName = getArguments().getString("roomName");
+        mStudent = (Student)getArguments().getSerializable("myInfo");
 
         //Toast.makeText(getActivity(), m_detailedInterests+m_chattingNumber, Toast.LENGTH_SHORT).show();
 
@@ -85,25 +77,6 @@ public class ChatRoomFragment extends Fragment {
             }
         });*/
 
-<<<<<<< HEAD
-        if(m_makeRoomFlag.equals("Y")){
-            root.child("chats").child(m_roomName).child("title").setValue(m_roomName);
-            root.child("chats").child(m_detailedInterests).child("memberNumber").setValue(m_chattingNumber);
-            root.child("users").child(mStudent.getId()).child("roomName").setValue(m_detailedInterests);
-=======
-        if (m_makeRoomFlag.equals("Y")) {
-
-            //root.child("chats").child(m_detailedInterests).child("title").setValue(m_detailedInterests);
-            //root.child("chats").child(m_detailedInterests).child("memberNumber").setValue(m_chattingNumber);
-            //root.child("users").child(mStudent.getId()).child("roomName").setValue(m_detailedInterests);
->>>>>>> 562eaa6d4673bc7e2a52e80a18f0d4ddacfd8abb
-
-            Intent intent = new Intent(getActivity(), ChatActivity.class);
-            intent.putExtra("user_id", mStudent.getId());
-            intent.putExtra("room_name", (m_roomName));
-            startActivity(intent);
-        }
-
         root.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -119,9 +92,12 @@ public class ChatRoomFragment extends Fragment {
 
                 list_of_rooms.clear();
 
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    if (child.getKey().equals("chats")) {
+                for(DataSnapshot child : dataSnapshot.getChildren()){
+                    if(child.getKey().equals("chats")) {
                         for (DataSnapshot child2 : child.getChildren()) {
+                            if(child.getKey().equals("users")){
+
+                            }
                             list_of_rooms.add(child2.getKey());
                         }
                     }
@@ -147,7 +123,7 @@ public class ChatRoomFragment extends Fragment {
                 */
                 Intent intent = new Intent(getActivity(), ChatActivity.class);
                 intent.putExtra("user_id", mStudent.getId());
-                intent.putExtra("room_name", ((TextView) view).getText().toString());
+                intent.putExtra("room_name", ((TextView)view).getText().toString());
                 root.child("users").child(mStudent.getId()).child("roomName").setValue(m_detailedInterests);
                 startActivity(intent);
             }
