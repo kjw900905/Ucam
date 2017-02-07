@@ -230,7 +230,7 @@ public class MatchFragment extends Fragment {
 
         Bundle bundle = new Bundle(1);
         bundle.putString("detailedInterests", detailedInterests);
-        bundle.putSerializable("chattingNumber", chattingNumber);
+        bundle.putString("chattingNumber", chattingNumber);
         chatRoomFragment.setArguments(bundle);
 
     }
