@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.Beans.Student;
 import com.example.Beans.Variable;
 
 import java.io.BufferedReader;
@@ -47,6 +48,9 @@ public class MatchFragment extends Fragment {
 
     private String detailedInterests;                //관심분야
     private String chattingNumber;          //채팅방 인원수
+    private String makeRoomFlag;
+
+    private Student mStudent;
 
     public void MatchFragment() {
         // null
@@ -64,6 +68,10 @@ public class MatchFragment extends Fragment {
         edtInterests = (EditText) view.findViewById(R.id.edtInterests); // "관심분야" EditText
         edtDetailInterests = (EditText) view.findViewById(R.id.edtDetailInterests); // "세부항목" EditText
         edtNumPeople = (EditText) view.findViewById(R.id.edtNumPeople); // "인원" EditText
+
+        makeRoomFlag = "N";
+
+        mStudent = (Student)getArguments().getSerializable("myInfo");
 
         btnInterests = (Button) view.findViewById(R.id.btnInterests); // "관심분야" Button
         btnDetailInterests = (Button) view.findViewById(R.id.btnDetailInterests); // "세부항목" Button
@@ -228,9 +236,13 @@ public class MatchFragment extends Fragment {
         FragmentManager fragmentManager = myContext.getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_in, chatRoomFragment).addToBackStack(null).commit();
 
+        makeRoomFlag = "Y";
+
         Bundle bundle = new Bundle(1);
         bundle.putString("detailedInterests", detailedInterests);
-        bundle.putSerializable("chattingNumber", chattingNumber);
+        bundle.putString("chattingNumber", chattingNumber);
+        bundle.putString("makeRoomFlag", makeRoomFlag);
+        bundle.putSerializable("myInfo",mStudent);
         chatRoomFragment.setArguments(bundle);
 
     }
