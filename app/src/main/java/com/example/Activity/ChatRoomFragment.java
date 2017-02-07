@@ -54,17 +54,15 @@ public class ChatRoomFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
 
-        m_makeRoomFlag = "N";
-
         mStudent = (Student)getArguments().getSerializable("myInfo");
         m_detailedInterests = getArguments().getString("detailedInterests");
         m_chattingNumber = getArguments().getString("chattingNumber");
         m_makeRoomFlag = getArguments().getString("makeRoomFlag");
 
-        Toast.makeText(getActivity(), m_detailedInterests+m_chattingNumber, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), m_detailedInterests+m_chattingNumber, Toast.LENGTH_SHORT).show();
 
         add_room = (Button) view.findViewById(R.id.btn_add_room);
-        room_name = (EditText) view.findViewById(R.id.room_name_edittext);
+        //room_name = (EditText) view.findViewById(R.id.room_name_edittext);
         listView = (ListView) view.findViewById(R.id.listViewConv);
 
         arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, list_of_rooms);
@@ -85,12 +83,12 @@ public class ChatRoomFragment extends Fragment {
         });*/
 
         if(m_makeRoomFlag.equals("Y")){
-            root.child("chats").child(room_name.getText().toString()).child("title").setValue(m_detailedInterests);
-            root.child("chats").child(room_name.getText().toString()).child("memberNumber").setValue(m_chattingNumber);
+            root.child("chats").child(m_detailedInterests).child("title").setValue(m_detailedInterests);
+            root.child("chats").child(m_detailedInterests).child("memberNumber").setValue(m_chattingNumber);
 
             Intent intent = new Intent(getActivity(), ChatActivity.class);
             intent.putExtra("user_id", mStudent.getId());
-            intent.putExtra("room_name", ((TextView)view).getText().toString());
+            intent.putExtra("room_name", (m_detailedInterests));
             startActivity(intent);
         }
 
