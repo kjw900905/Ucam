@@ -70,7 +70,7 @@ public class ChatRoomFragment extends Fragment {
 
         //request_user_name();
 
-        add_room.setOnClickListener(new View.OnClickListener() {
+        /*add_room.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Map<String, Object> map = new HashMap<String, Object>();
@@ -79,7 +79,7 @@ public class ChatRoomFragment extends Fragment {
                 root.child("chats").child(room_name.getText().toString()).child("title").setValue(" ");
                 root.child("chats").child(room_name.getText().toString()).child("memberNumber").setValue(" ");
             }
-        });
+        });*/
 
         root.addValueEventListener(new ValueEventListener() {
             @Override
