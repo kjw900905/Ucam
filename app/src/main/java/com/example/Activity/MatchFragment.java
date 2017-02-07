@@ -248,7 +248,18 @@ public class MatchFragment extends Fragment {
     }
 
     public void onClickParticipate(){
+        ChatRoomFragment chatRoomFragment = new ChatRoomFragment();
+        FragmentManager fragmentManager = myContext.getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_in, chatRoomFragment).addToBackStack(null).commit();
 
+        makeRoomFlag = "N";
+
+        Bundle bundle = new Bundle(1);
+        bundle.putSerializable("myInfo",mStudent);
+        bundle.putString("detailedInterests", detailedInterests);
+        bundle.putString("chattingNumber", chattingNumber);
+        bundle.putString("makeRoomFlag", makeRoomFlag);
+        chatRoomFragment.setArguments(bundle);
     }
 
     // 체크 표시가 되어 있는 항목의 value를 구하기 위해 사용하는 메소드
