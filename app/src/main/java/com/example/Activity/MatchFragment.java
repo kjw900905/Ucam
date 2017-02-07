@@ -1,9 +1,12 @@
 package com.example.Activity;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -32,6 +35,8 @@ public class MatchFragment extends Fragment {
     private Button btnMakeRoom; // "방만들기" Button
     private Button btnParticipate; // "참여하기" Button;
 
+    private FragmentActivity myContext;
+
     private int m_selectInterests = 0; // "관심분야" RadioButton value
     private int m_o_selectInterests = -1; // 이전 "관심분야" value
     private boolean[] m_checkDetailInterestsGame = {false, false, false}; // "세부항목"의 "게임" CheckBox value
@@ -45,6 +50,12 @@ public class MatchFragment extends Fragment {
 
     public void MatchFragment() {
         // null
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        myContext=(FragmentActivity) activity;
+        super.onAttach(activity);
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -109,6 +120,7 @@ public class MatchFragment extends Fragment {
             }
         });
 
+        //"참여하기" 버튼 이겠죠? 저 갈건데요?? 알바 대타까지 구해놨는데요!?
         btnParticipate.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 onClickParticipate();
@@ -212,6 +224,14 @@ public class MatchFragment extends Fragment {
     }
 
     public void onClickMakeRoom(){
+        ChatRoomFragment chatRoomFragment = new ChatRoomFragment();
+        FragmentManager fragmentManager = myContext.getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_in, chatRoomFragment).addToBackStack(null).commit();
+
+        Bundle bundle = new Bundle(1);
+        bundle.putString("detailedInterests", detailedInterests);
+        bundle.putSerializable("chattingNumber", chattingNumber);
+        chatRoomFragment.setArguments(bundle);
 
     }
 

@@ -1,38 +1,27 @@
 package com.example.Activity;
 
-import com.example.Beans.Student;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.messaging.FirebaseMessaging;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.Activity.R;
+import com.example.Beans.Student;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
 
 
 public class ChatRoomFragment extends Fragment {
@@ -45,6 +34,9 @@ public class ChatRoomFragment extends Fragment {
     private ArrayList<String> list_of_rooms = new ArrayList<>();
     private DatabaseReference root = FirebaseDatabase.getInstance().getReference();
     Student mStudent;
+
+    private String m_detailedInterests;                //관심분야
+    private String m_chattingNumber;
 
     public ChatRoomFragment() {
         // Required empty public constructor
@@ -62,6 +54,11 @@ public class ChatRoomFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
 
         mStudent = (Student)getArguments().getSerializable("myInfo");
+
+        m_detailedInterests = getArguments().getString("detailedInterests");
+        m_chattingNumber = getArguments().getString("chattingNumber");
+
+        Toast.makeText(getActivity(), m_detailedInterests+m_chattingNumber, Toast.LENGTH_SHORT).show();
 
         add_room = (Button) view.findViewById(R.id.btn_add_room);
         room_name = (EditText) view.findViewById(R.id.room_name_edittext);
