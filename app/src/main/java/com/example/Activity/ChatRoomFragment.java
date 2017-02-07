@@ -137,8 +137,8 @@ public class ChatRoomFragment extends Fragment {
                 */
                 Intent intent = new Intent(getActivity(), ChatActivity.class);
                 intent.putExtra("user_id", mStudent.getId());
-                //intent.putExtra("room_name", ((TextView)view).getText().toString());
-                //startActivity(intent);
+                intent.putExtra("room_name", ((TextView)view).getText().toString());
+                startActivity(intent);
             }
         });
 
