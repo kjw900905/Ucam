@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -36,11 +35,11 @@ public class ChatRoomFragment extends Fragment {
     private String m_detailedInterests;                //관심분야
     private String m_chattingNumber;
     private String m_makeRoomFlag;
-<<<<<<< HEAD
+
     private String m_roomName;
-=======
+
     private int roomIndex;
->>>>>>> 562eaa6d4673bc7e2a52e80a18f0d4ddacfd8abb
+
 
     public ChatRoomFragment() {
         // Required empty public constructor
@@ -85,28 +84,28 @@ public class ChatRoomFragment extends Fragment {
             }
         });*/
 
-<<<<<<< HEAD
-        if(m_makeRoomFlag.equals("Y")){
+        if (m_makeRoomFlag.equals("Y")) {
             root.child("chats").child(m_roomName).child("title").setValue(m_roomName);
             root.child("chats").child(m_detailedInterests).child("memberNumber").setValue(m_chattingNumber);
             root.child("users").child(mStudent.getId()).child("roomName").setValue(m_detailedInterests);
-=======
-        if (m_makeRoomFlag.equals("Y")) {
 
-            //root.child("chats").child(m_detailedInterests).child("title").setValue(m_detailedInterests);
-            //root.child("chats").child(m_detailedInterests).child("memberNumber").setValue(m_chattingNumber);
-            //root.child("users").child(mStudent.getId()).child("roomName").setValue(m_detailedInterests);
->>>>>>> 562eaa6d4673bc7e2a52e80a18f0d4ddacfd8abb
+            if (m_makeRoomFlag.equals("Y")) {
 
-            Intent intent = new Intent(getActivity(), ChatActivity.class);
-            intent.putExtra("user_id", mStudent.getId());
-            intent.putExtra("room_name", (m_roomName));
-            startActivity(intent);
+                //root.child("chats").child(m_detailedInterests).child("title").setValue(m_detailedInterests);
+                //root.child("chats").child(m_detailedInterests).child("memberNumber").setValue(m_chattingNumber);
+                //root.child("users").child(mStudent.getId()).child("roomName").setValue(m_detailedInterests);
+
+
+                Intent intent = new Intent(getActivity(), ChatActivity.class);
+                intent.putExtra("user_id", mStudent.getId());
+                intent.putExtra("room_name", (m_roomName));
+                startActivity(intent);
+            }
         }
 
-        root.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            root.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
 
                 /*Set<String> set = new HashSet<String>();
                 Iterator i = dataSnapshot.getChildren().iterator();
@@ -117,44 +116,44 @@ public class ChatRoomFragment extends Fragment {
                 list_of_rooms.clear();
                 list_of_rooms.addAll(set);*/
 
-                list_of_rooms.clear();
+                    list_of_rooms.clear();
 
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    if (child.getKey().equals("chats")) {
-                        for (DataSnapshot child2 : child.getChildren()) {
-                            list_of_rooms.add(child2.getKey());
+                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+                        if (child.getKey().equals("chats")) {
+                            for (DataSnapshot child2 : child.getChildren()) {
+                                list_of_rooms.add(child2.getKey());
+                            }
                         }
                     }
+
+                    arrayAdapter.notifyDataSetChanged();
                 }
 
-                arrayAdapter.notifyDataSetChanged();
-            }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                }
+            });
 
-            }
-        });
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 /* TODO: 일단 채팅은 보류
                 Intent intent = new Intent(getActivity(), Chat_Room.class);
                 intent.putExtra("room_name", ((TextView)view).getText().toString());
                 intent.putExtra("user_name", name);
                 startActivity(intent);
                 */
-                Intent intent = new Intent(getActivity(), ChatActivity.class);
-                intent.putExtra("user_id", mStudent.getId());
-                intent.putExtra("room_name", ((TextView) view).getText().toString());
-                root.child("users").child(mStudent.getId()).child("roomName").setValue(m_detailedInterests);
-                startActivity(intent);
-            }
-        });
+                    Intent intent = new Intent(getActivity(), ChatActivity.class);
+                    intent.putExtra("user_id", mStudent.getId());
+                    intent.putExtra("room_name", ((TextView) view).getText().toString());
+                    root.child("users").child(mStudent.getId()).child("roomName").setValue(m_detailedInterests);
+                    startActivity(intent);
+                }
+            });
 
-        return view;
-    }
+            return view;
+        }
 
     /*
     private void request_user_name() {
@@ -180,7 +179,6 @@ public class ChatRoomFragment extends Fragment {
         });
 
         builder.show();
-    }
-    */
-
+        */
 }
+
