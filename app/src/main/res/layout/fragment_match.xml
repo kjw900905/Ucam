@@ -126,8 +126,8 @@
         android:layout_alignParentStart="true">
 
         <Button
-            android:id="@+id/btnSearch"
-            android:layout_width="100dp"
+            android:id="@+id/btnMakeRoom"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/btn_select"
@@ -136,9 +136,10 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/button3"
-            android:layout_width="180dp"
+            android:id="@+id/btnParticipate"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@drawable/btn_select"
             android:gravity="center"
             android:text="참여하기"

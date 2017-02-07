@@ -29,7 +29,8 @@ public class MatchFragment extends Fragment {
     private Button btnInterests; // "관심분야" Button
     private Button btnDetailInterests; // "세부항목" Button
     private Button btnNumPeople; // "인원" Button
-    private Button btnSearch; // "찾기" Button
+    private Button btnMakeRoom; // "방만들기" Button
+    private Button btnParticipate; // "참여하기" Button;
 
     private int m_selectInterests = 0; // "관심분야" RadioButton value
     private int m_o_selectInterests = -1; // 이전 "관심분야" value
@@ -38,6 +39,9 @@ public class MatchFragment extends Fragment {
     private boolean[] m_checkDetailInterestsExercise = {false, false, false}; // "세부항목"의 "운동" CheckBox value
     private boolean[] m_checkDetailInterestsMajor = {false, false, false}; // "세부항목"의 "전공" CheckBox value
     private int m_selectNumPeople = 0; // "인원" RadioButton value
+
+    private String detailedInterests;                //관심분야
+    private String chattingNumber;          //채팅방 인원수
 
     public void MatchFragment() {
         // null
@@ -53,7 +57,8 @@ public class MatchFragment extends Fragment {
         btnInterests = (Button) view.findViewById(R.id.btnInterests); // "관심분야" Button
         btnDetailInterests = (Button) view.findViewById(R.id.btnDetailInterests); // "세부항목" Button
         btnNumPeople = (Button) view.findViewById(R.id.btnNumPeople); // "인원" Button
-        btnSearch = (Button) view.findViewById(R.id.btnSearch); // "찾기" Button
+        btnMakeRoom = (Button) view.findViewById(R.id.btnMakeRoom); // "찾기" Button
+        btnParticipate = (Button) view.findViewById(R.id.btnParticipate); // "참여하기" Button
 
         // "관심분야" EditText onClick
         edtInterests.setOnClickListener(new View.OnClickListener() {
@@ -97,10 +102,16 @@ public class MatchFragment extends Fragment {
             }
         });
 
-        // "찾기" 버튼 onClick
-        btnSearch.setOnClickListener(new View.OnClickListener() {
+        // "방만들기" 버튼 onClick
+        btnMakeRoom.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-                //UpdateSearch(getstrInterests(), getstrDetailInterests(), getstrNumPeople());
+                onClickMakeRoom();
+            }
+        });
+
+        btnParticipate.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                onClickParticipate();
             }
         });
 
@@ -128,6 +139,7 @@ public class MatchFragment extends Fragment {
                     edtDetailInterests.setText(""); // "세부항목" EditText value 초기화
                     edtNumPeople.setText(""); // "인원" EditText value 초기화
                     m_o_selectInterests = m_selectInterests; // 이전 index와 현재 index 일치
+                    detailedInterests = interests[m_selectInterests]; // 방제목(관심분야 + 세부사항)을 설정해주기 위해 먼저 관심분야를 string값에 넣어줌.
                 }
             }
         });
@@ -199,6 +211,14 @@ public class MatchFragment extends Fragment {
         builder.show();
     }
 
+    public void onClickMakeRoom(){
+
+    }
+
+    public void onClickParticipate(){
+
+    }
+
     // 체크 표시가 되어 있는 항목의 value를 구하기 위해 사용하는 메소드
     public void getCheckedValue(String[] detailInterests, boolean[] checkDetailInterests) {
         String result = ""; // EditText에 넣어주기 위한 String
@@ -223,6 +243,7 @@ public class MatchFragment extends Fragment {
         }
 
         edtDetailInterests.setText(result); // "세부항목" EditText value 변경
+        detailedInterests += (" " + result);
         edtNumPeople.setText(""); // "인원" EditText value 초기화
     }
 
@@ -248,6 +269,7 @@ public class MatchFragment extends Fragment {
                 public void onClick(DialogInterface dialog, int whichButton) {
                     String[] numPeople = getResources().getStringArray(R.array.NumPeople); // app/res/values/strings.xml의 <string-array name="NumPeople">
                     edtNumPeople.setText(numPeople[m_selectNumPeople]); // "인원" EditText value 변경
+                    chattingNumber = numPeople[m_selectNumPeople];      //인원을 스트링에 넣어줌.
                 }
             });
             builder.setNegativeButton("취소", null);
