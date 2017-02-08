@@ -493,7 +493,7 @@ public class MatchFragment extends Fragment {
                     day = "토";
                     break;
             }
-            
+
             JSONObject jsonObj = new JSONObject(myJSON);
             getTime = jsonObj.getJSONArray("result");
 
