@@ -1,12 +1,14 @@
 package com.example.Activity;
 
 import android.content.Intent;
+<<<<<<< HEAD
 import android.os.Bundle;
+=======
+>>>>>>> 334c27ab57857b607dc12ce13746b5d2af0ba2f9
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
