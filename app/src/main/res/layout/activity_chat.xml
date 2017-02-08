@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -48,5 +49,45 @@
         android:layout_marginBottom="16dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></ListView>
+
+    <SlidingDrawer
+        android:id="@+id/slide"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:allowSingleTap="true"
+        android:animateOnClick="true"
+        android:bottomOffset="5dp"
+        android:content="@+id/content"
+        android:handle="@+id/handle"
+        android:orientation="horizontal"
+        android:topOffset="60dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/handle"
+            android:src="@drawable/ic_menu_camera"/>
+        <RelativeLayout
+            android:id="@+id/content"
+            android:orientation="vertical"
+            android:background="#FFFFFFFF"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ListView
+                android:id="@+id/listMember"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </ListView>
+
+            <Button
+                android:layout_below="@+id/listMember"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/btnclose"
+                android:text="닫기"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
+    </SlidingDrawer>
 
 </RelativeLayout>

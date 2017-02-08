@@ -8,9 +8,12 @@ import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.SlidingDrawer;
 import android.widget.TextView;
 
 import com.example.Beans.ChatMessage;
@@ -21,6 +24,9 @@ import com.google.firebase.database.FirebaseDatabase;
 public class ChatActivity extends AppCompatActivity {
 
     private String user_id, room_name;
+
+    Button btnclose;
+    static final String[] LIST_MENU = {"LIST1", "LIST2", "LIST3"} ;
 
     private static int SIGN_IN_REQUEST_CODE = 1;
     private FirebaseListAdapter<ChatMessage> adapter;
@@ -55,6 +61,21 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, LIST_MENU) ;
+
+        ListView listview = (ListView) findViewById(R.id.listMember) ;
+        listview.setAdapter(adapter) ;
+
+
+        btnclose = (Button)findViewById(R.id.btnclose);
+        btnclose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SlidingDrawer drawer = (SlidingDrawer)findViewById(R.id.slide);
+                drawer.animateClose();
+            }
+        });
 
         Intent intent = getIntent();
         user_id = intent.getExtras().getString("user_id");
