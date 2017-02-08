@@ -15,18 +15,25 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SlidingDrawer;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.Beans.ChatMessage;
 import com.firebase.ui.database.FirebaseListAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class ChatActivity extends AppCompatActivity {
 
     private String user_id, room_name;
 
-    Button btnclose;
+    private Button btnclose;
     static final String[] LIST_MENU = {"LIST1", "LIST2", "LIST3"} ;
+    private ArrayList<String> memberNameList;
 
     private static int SIGN_IN_REQUEST_CODE = 1;
     private FirebaseListAdapter<ChatMessage> adapter;
@@ -61,12 +68,7 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, LIST_MENU) ;
-
-        ListView listview = (ListView) findViewById(R.id.listMember) ;
-        listview.setAdapter(adapter) ;
-
+        memberNameList = new ArrayList<String>();
 
         btnclose = (Button)findViewById(R.id.btnclose);
         btnclose.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +97,35 @@ public class ChatActivity extends AppCompatActivity {
                 input.setText("");
             }
         });
+
+        /*mData.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    if(child.getKey().equals("member")){
+                        for(DataSnapshot child2 : child.getChildren()){
+                            if(child2.getKey().equals(room_name)){
+                                for(DataSnapshot child3 : child2.getChildren()){
+                                    if(child3.getKey().equals())
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });*/
+
+        Toast.makeText(getApplicationContext(), mData.child("member").child(room_name).getKey(), Toast.LENGTH_SHORT).show();
+
+
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, LIST_MENU) ;
+        ListView listview = (ListView) findViewById(R.id.listMember) ;
+        listview.setAdapter(adapter) ;
 
         //Snackbar.make(activity_chat, "Welcome " + user_id, Snackbar.LENGTH_SHORT).show();
         displayChatMessage();
