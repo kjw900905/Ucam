@@ -342,6 +342,7 @@ public class MatchFragment extends Fragment {
                     String[] numPeople = getResources().getStringArray(R.array.NumPeople); // app/res/values/strings.xml의 <string-array name="NumPeople">
                     edtNumPeople.setText(numPeople[m_selectNumPeople]); // "인원" EditText value 변경
                     chattingNumber = numPeople[m_selectNumPeople];      //인원을 스트링에 넣어줌.
+                    chattingNumber = chattingNumber.substring(0,1);
                 }
             });
             builder.setNegativeButton("취소", null);
