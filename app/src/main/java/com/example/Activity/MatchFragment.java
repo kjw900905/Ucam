@@ -39,7 +39,9 @@ public class MatchFragment extends Fragment {
     private Button btnInterests; // "관심분야" Button
     private Button btnDetailInterests; // "세부항목" Button
     private Button btnNumPeople; // "인원" Button
+
     private Button btnMakeRoom; // "방만들기" Button
+    private Button btnMatch;
     private Button btnParticipate; // "참여하기" Button;
 
     private FragmentActivity myContext;
@@ -92,7 +94,9 @@ public class MatchFragment extends Fragment {
         btnInterests = (Button) view.findViewById(R.id.btnInterests); // "관심분야" Button
         btnDetailInterests = (Button) view.findViewById(R.id.btnDetailInterests); // "세부항목" Button
         btnNumPeople = (Button) view.findViewById(R.id.btnNumPeople); // "인원" Button
+
         btnMakeRoom = (Button) view.findViewById(R.id.btnMakeRoom); // "찾기" Button
+        btnMatch = (Button) view.findViewById(R.id.btnMatch); // "매칭" Button
         btnParticipate = (Button) view.findViewById(R.id.btnParticipate); // "참여하기" Button
 
         // "관심분야" EditText onClick
@@ -141,6 +145,14 @@ public class MatchFragment extends Fragment {
         btnMakeRoom.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 onClickMakeRoom();
+            }
+        });
+
+        // "매칭" 버튼 onClick
+        btnMatch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickMatchRoom();
             }
         });
 
@@ -274,6 +286,10 @@ public class MatchFragment extends Fragment {
             chatRoomFragment.setArguments(bundle);
         }
         */
+    }
+
+    public void onClickMatchRoom() {
+        //TODO: "매칭" 버튼 관련 코드 삽입
     }
 
     public void onClickParticipate(){

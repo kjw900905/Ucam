@@ -36,6 +36,7 @@ import java.util.HashMap;
 public class EditMemInfoFragment extends Fragment {
 
     EditText CurrentPw, NewPw, NewPw_Re;
+    boolean isResetAvailable = true;
 
     public EditMemInfoFragment() {
         // Required empty public constructor
@@ -100,7 +101,8 @@ public class EditMemInfoFragment extends Fragment {
                 String CurrentPwStr = CurrentPw.getText().toString();
                 String NewPwStr = NewPw.getText().toString();
                 String NewPwReStr = NewPw_Re.getText().toString();
-                boolean isResetAvailable = true;
+
+                isResetAvailable = true;
 
                 if(CurrentPwStr.length() == 0 || NewPwStr.length() == 0 || NewPwReStr.length() == 0) {
                     Toast.makeText(getActivity(), "정보를 모두 입력하여 주십시요.", Toast.LENGTH_SHORT).show();
@@ -146,7 +148,7 @@ public class EditMemInfoFragment extends Fragment {
             }
         }
 
-        if(!(Gender.equals("Male") || Gender.equals("Female"))) {
+        if(!(Gender.equals("남") || Gender.equals("여"))) {
             return false;
         } else if(!isResetAvailable) {
             return false;
