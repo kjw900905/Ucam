@@ -4,21 +4,23 @@ public class RoomInfo {
 
     private String m_roomTitle;
     private String m_roomInterest;
-    private String m_roomMemberNumber;
-    private long m_roomTime;
+    private String m_roomLimitMemberNumber;
+    private String m_roomTime;
+    private String m_roomCurrentMemberNumber;
 
-    public RoomInfo(String roomTitle, String roomInterest, String roomMemberNumber, long roomTime) {
-        m_roomTitle = roomTitle;
-        m_roomInterest = roomInterest;
-        m_roomMemberNumber = roomMemberNumber;
-        m_roomTime = roomTime;
+    public RoomInfo(String roomTitle, String roomInterest, String roomLimitMemberNumber, String roomTime, String roomCurrentMemberNumber) {
+        this.m_roomTitle = roomTitle;
+        this.m_roomInterest = roomInterest;
+        this.m_roomLimitMemberNumber = roomLimitMemberNumber;
+        this.m_roomTime = roomTime;
+        this.m_roomCurrentMemberNumber = roomCurrentMemberNumber;
     }
 
     public RoomInfo() {
 
     }
 
-    public void setM_roomTime(long m_roomTime) {
+    public void setM_roomTime(String m_roomTime) {
         this.m_roomTime = m_roomTime;
     }
 
@@ -38,16 +40,23 @@ public class RoomInfo {
         this.m_roomInterest = m_roomInterest;
     }
 
-    public String getM_roomMemberNumber() {
-        return m_roomMemberNumber;
+    public String getM_roomLimitMemberNumber() {
+        return m_roomLimitMemberNumber;
     }
 
-    public void setM_roomMemberNumber(String m_roomMemberNumber) {
-        this.m_roomMemberNumber = m_roomMemberNumber;
+    public void setM_roomLimitMemberNumber(String m_roomLimitMemberNumber) {
+        this.m_roomLimitMemberNumber = m_roomLimitMemberNumber;
     }
 
-    public long getM_roomTime() {
+    public String getM_roomTime() {
         return m_roomTime;
     }
 
+    public void setM_roomCurrentMemberNumber(String m_roomCurrentMemberNumber){
+        this.m_roomCurrentMemberNumber = m_roomCurrentMemberNumber;
+    }
+
+    public String getM_roomCurrentMemberNumber(){
+        return m_roomCurrentMemberNumber;
+    }
 }

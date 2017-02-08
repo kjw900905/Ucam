@@ -23,7 +23,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -43,7 +45,8 @@ public class ChatRoomFragment extends Fragment {
 
     private String m_roomName;
 
-    private int roomIndex;
+    private int m_currentMemberNumber;        //현재인원
+    private String m_currentMemberNumberString;   //현재인원 스트링으로 변환해줄거
 
 
     public ChatRoomFragment() {
@@ -105,26 +108,30 @@ public class ChatRoomFragment extends Fragment {
         });*/
 
         if (m_makeRoomFlag.equals("Y")) {
-
+            /*트리 생성 chats -> 방제목 -> 관심분야
+                                        -> 방제목
+                                        ->인원  이 형태로 디비에 생성됨*/
             root.child("chats").child(m_roomName).child("title").setValue(m_roomName);
             root.child("chats").child(m_roomName).child("detailedInterests").setValue(m_detailedInterests);
-            root.child("chats").child(m_roomName).child("memberNumber").setValue(m_chattingNumber);
-            root.child("chats").child(m_roomName).child("time").setValue(new Date().getTime());
+            root.child("chats").child(m_roomName).child("limitMemberNumber").setValue(m_chattingNumber);
+            root.child("chats").child(m_roomName).child("currentMemberNumber").setValue("1");
 
+            //날짜변환
+            Calendar rightNow = Calendar.getInstance();
+            Date date = rightNow.getTime();
+            SimpleDateFormat df = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss");
+            String strDate = df.format(date);
+
+            //트리 chats에 날짜까지 넣어준다.
+            //memeber는 어떤방에 어떤유저가 있는지 알려주기 위해 넣어줌.
+            root.child("chats").child(m_roomName).child("time").setValue(strDate);
             root.child("member").child(m_roomName).child(mStudent.getId()).setValue(true);
 
-            if (m_makeRoomFlag.equals("Y")) {
-
-                //root.child("chats").child(m_detailedInterests).child("title").setValue(m_detailedInterests);
-                //root.child("chats").child(m_detailedInterests).child("memberNumber").setValue(m_chattingNumber);
-                //root.child("users").child(mStudent.getId()).child("roomName").setValue(m_detailedInterests);
-
-
-                Intent intent = new Intent(getActivity(), ChatActivity.class);
-                intent.putExtra("user_id", mStudent.getId());
-                intent.putExtra("room_name", (m_roomName));
-                startActivity(intent);
-            }
+            //바로 방만들어줌. 바로 방만들어주는거 아니면 모든 방 목록 구경할 수 있음.
+            Intent intent = new Intent(getActivity(), ChatActivity.class);
+            intent.putExtra("user_id", mStudent.getId());
+            intent.putExtra("room_name", (m_roomName));
+            startActivity(intent);
         }
 
         root.addValueEventListener(new ValueEventListener() {
@@ -133,30 +140,39 @@ public class ChatRoomFragment extends Fragment {
 
                 list_of_rooms.clear();
 
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    String detailedInterests="";
-                    String memberNumber="";
-                    long time = 0;
-                    String title="";
+                String detailedInterests = "";
+                String memberLimitNumber = "";
+                String time = "";
+                String title = "";
 
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    //child는 현재 root에서 바로 아래 chats, message, users, member까지 온 상태
                     if (child.getKey().equals("chats")) {
                         for (DataSnapshot child2 : child.getChildren()) {
+                            //child2는 if문에서 chats로 들어오고 방제목까지 온 상태
                             //list_of_rooms.add(new RoomInfo(child2.getChildren().));
-                            for(DataSnapshot child3 : child2.getChildren()){
-                                if(child3.getKey().equals("detailedInterests")){
+                            for (DataSnapshot child3 : child2.getChildren()) {
+                                //child3는 if문에서 방제목(고유값)으로 들어오고 관심분야, 시간, 인원에 접근 할 수 있는 상태 if문으로 하나하나 값을 넣어주게 만듬.
+                                if (child3.getKey().equals("detailedInterests")) {
                                     detailedInterests = child3.getValue().toString();
                                 }
-                                if(child3.getKey().equals("memberNumber")){
-                                    memberNumber = (child3.getValue().toString());
+                                if (child3.getKey().equals("limitMemberNumber")) {
+                                    memberLimitNumber = (child3.getValue().toString());
                                 }
-                                if(child3.getKey().equals("title")){
+                                if (child3.getKey().equals("title")) {
                                     title = (child3.getValue().toString());
                                 }
-                                if(child3.getKey().equals("time")){
-                                    time = Long.parseLong(child3.getValue().toString());
+                                if (child3.getKey().equals("time")) {
+                                    time = child3.getValue().toString();
                                 }
+                                if (child3.getKey().equals("currentMemberNumber")) {
+                                    m_currentMemberNumber = Integer.valueOf(child3.getValue().toString());
+                                    m_currentMemberNumberString = String.valueOf(m_currentMemberNumber);
+                                    //currentMemberNumber++;
+                                }
+
                             }
-                            list_of_rooms.add(new RoomInfo(title, detailedInterests, memberNumber, time));
+                            list_of_rooms.add(new RoomInfo(title, detailedInterests, memberLimitNumber, time, m_currentMemberNumberString));
                         }
                     }
                 }
@@ -171,6 +187,7 @@ public class ChatRoomFragment extends Fragment {
         });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            RoomInfo r;
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 /* TODO: 일단 채팅은 보류
@@ -179,10 +196,48 @@ public class ChatRoomFragment extends Fragment {
                 intent.putExtra("user_name", name);
                 startActivity(intent);
                 */
+
+                r = list_of_rooms.get(position);
+
+                root.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot child : dataSnapshot.getChildren()) {
+                            //root안으로 들어옴.
+                            if (child.getKey().equals("member")) {
+                                for (DataSnapshot child2 : child.getChildren()) {
+                                    //if문으로 users, message, chats를 걸러내주고 member 가지로 들어왔음.
+                                    if(child2.getKey().equals(r.getM_roomTitle().toString())){
+                                        for (DataSnapshot child3 : child2.getChildren()) {
+                                            //if문으로 다른걸 걸러내고 내가 누른 방제목 가지 안으로 들어옴.
+                                            if(!(child3.getKey().equals(mStudent.getId()))){
+                                                //if문으로 내 아이디가 없으면 인원을 하나 늘려줌.
+                                                m_currentMemberNumber = Integer.valueOf(r.getM_roomCurrentMemberNumber());
+                                                m_currentMemberNumber++;
+                                                m_currentMemberNumberString = String.valueOf(m_currentMemberNumber);
+
+                                                r.setM_roomCurrentMemberNumber(m_currentMemberNumberString);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
                 Intent intent = new Intent(getActivity(), ChatActivity.class);
                 intent.putExtra("user_id", mStudent.getId());
-                intent.putExtra("room_name", ((TextView) view).getText().toString());
-                root.child("users").child(mStudent.getId()).child("roomName").setValue(true);
+                intent.putExtra("room_name", r.getM_roomTitle());
+                root.child("users").child(mStudent.getId()).child(r.getM_roomTitle()).setValue(true);
+                root.child("chats").child(r.getM_roomTitle()).child("currentMemberNumber").setValue(m_currentMemberNumberString);
+
                 startActivity(intent);
             }
         });
@@ -190,12 +245,12 @@ public class ChatRoomFragment extends Fragment {
         return view;
     }
 
-    private class ChatRoomArrayAdapter extends ArrayAdapter<RoomInfo>{
+    private class ChatRoomArrayAdapter extends ArrayAdapter<RoomInfo> {
         private ArrayList<RoomInfo> items;
         private int textViewResourceId;
         private Context context;
 
-        public ChatRoomArrayAdapter(Context context, int textViewResourceId, ArrayList<RoomInfo> items){
+        public ChatRoomArrayAdapter(Context context, int textViewResourceId, ArrayList<RoomInfo> items) {
             super(context, textViewResourceId, items);
             this.context = context;
             this.textViewResourceId = textViewResourceId;
@@ -207,28 +262,25 @@ public class ChatRoomFragment extends Fragment {
             View v = convertView;
 
             if (v == null) {
-                LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 v = inflater.inflate(R.layout.list_item_chat_room, null);
             }
 
             RoomInfo r = items.get(position);
 
-            if(r != null){
-                TextView text_room_time = (TextView)v.findViewById(R.id.text_room_title);
-                TextView text_room_interests = (TextView)v.findViewById(R.id.text_room_interests);
-                TextView text_room_title = (TextView)v.findViewById(R.id.text_room_title);
-                TextView text_room_num_people = (TextView)v.findViewById(R.id.text_room_num_people);
+            if (r != null) {
+                TextView text_room_time = (TextView) v.findViewById(R.id.text_room_time);
+                TextView text_room_interests = (TextView) v.findViewById(R.id.text_room_interests);
+                TextView text_room_title = (TextView) v.findViewById(R.id.text_room_title);
+                TextView text_room_num_people = (TextView) v.findViewById(R.id.text_room_num_people);
 
-                text_room_time.setText(String.valueOf(r.getM_roomTime()));
+                text_room_time.setText(r.getM_roomTime());
                 text_room_interests.setText(r.getM_roomInterest());
                 text_room_title.setText(r.getM_roomTitle());
-                text_room_num_people.setText(r.getM_roomMemberNumber());
-
+                text_room_num_people.setText(r.getM_roomCurrentMemberNumber() + "/" + r.getM_roomLimitMemberNumber());
             }
             return v;
         }
-
-
     }
 
     /*
