@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import com.example.Beans.Variable;
 
@@ -48,6 +49,8 @@ public class SearchSchoolDialog extends Activity {
 
     private ListView list;
 
+    EditText edtId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +72,7 @@ public class SearchSchoolDialog extends Activity {
     public void onClickSelectOne(View v) {
         list = (ListView) findViewById(listView);
         personList = new ArrayList<HashMap<String, String>>();
-        EditText edtId = (EditText) findViewById(R.id.edtId);
+        edtId = (EditText) findViewById(R.id.edtId);
         String strId = edtId.getText().toString();
         //Toast.makeText(getApplicationContext(), strId, Toast.LENGTH_SHORT).show();
         if (strId.equals("") || strId == null)  return;
@@ -164,7 +167,8 @@ public class SearchSchoolDialog extends Activity {
 
             temp_School_Name = adapterView.getAdapter().getItem(pos).toString();
             school_Name =  temp_School_Name.substring(16, temp_School_Name.length()-1);
-            //Toast.makeText(getApplicationContext(), school_Name, Toast.LENGTH_SHORT).show();
+            edtId.setText(school_Name);
+            Toast.makeText(getApplicationContext(), school_Name+"이 선택되었습니다.", Toast.LENGTH_SHORT).show();
         }
     };
 
