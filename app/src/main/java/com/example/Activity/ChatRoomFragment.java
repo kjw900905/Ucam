@@ -237,6 +237,7 @@ public class ChatRoomFragment extends Fragment {
                 intent.putExtra("user_id", mStudent.getId());
                 intent.putExtra("room_name", r.getM_roomTitle());
                 root.child("users").child(mStudent.getId()).child(r.getM_roomTitle()).setValue(true);
+                root.child("member").child(m_roomName).child(mStudent.getId()).setValue(true);
                 root.child("chats").child(r.getM_roomTitle()).child("currentMemberNumber").setValue(m_currentMemberNumberString);
 
                 startActivity(intent);
