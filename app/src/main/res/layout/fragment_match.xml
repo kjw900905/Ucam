@@ -3,10 +3,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
+
+        <Button
+            android:id="@+id/btnMakeRoom"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_select"
+            android:gravity="center"
+            android:text="방만들기"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnParticipate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_select"
+            android:gravity="center"
+            android:text="참여하기"
+            android:textStyle="bold" />
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:weightSum="1"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true">
 
@@ -115,42 +145,27 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <EditText
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:hint="방 제목을 입력해 주세요."
-            android:ems="10"
-            android:id="@+id/setRoomName" />
+            android:layout_height="wrap_content">
 
-    </LinearLayout>
+            <TextView
+                android:text="방제"
+                android:layout_height="match_parent"
+                android:id="@+id/textRoomName"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:layout_width="84dp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:inputType="textPersonName"
+                android:hint="방 제목을 입력해 주세요."
+                android:id="@+id/setRoomName"
+                android:layout_height="50dp" />
+
+        </LinearLayout>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true">
-
-        <Button
-            android:id="@+id/btnMakeRoom"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/btn_select"
-            android:gravity="center"
-            android:text="방만들기"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/btnParticipate"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/btn_select"
-            android:gravity="center"
-            android:text="참여하기"
-            android:textStyle="bold" />
     </LinearLayout>
 </RelativeLayout>
