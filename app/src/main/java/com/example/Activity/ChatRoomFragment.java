@@ -200,60 +200,60 @@ public class ChatRoomFragment extends Fragment {
 
                 }
             });
-        }
+        } else {
+            root.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
 
-        root.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+                    list_of_rooms.clear();
 
-                list_of_rooms.clear();
+                    String detailedInterests = "";
+                    String memberLimitNumber = "";
+                    String time = "";
+                    String title = "";
 
-                String detailedInterests = "";
-                String memberLimitNumber = "";
-                String time = "";
-                String title = "";
+                    //Toast.makeText(getContext(), m_detailedInterests, Toast.LENGTH_SHORT).show();
 
-                //Toast.makeText(getContext(), m_detailedInterests, Toast.LENGTH_SHORT).show();
-
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    //child는 현재 root에서 바로 아래 chats, message, users, member까지 온 상태
-                    if (child.getKey().equals("chats")) {
-                        for (DataSnapshot child2 : child.getChildren()) {
-                            //child2는 if문에서 chats로 들어오고 방제목까지 온 상태
-                            //list_of_rooms.add(new RoomInfo(child2.getChildren().));
-                            for (DataSnapshot child3 : child2.getChildren()) {
-                                //child3는 if문에서 방제목(고유값)으로 들어오고 관심분야, 시간, 인원에 접근 할 수 있는 상태 if문으로 하나하나 값을 넣어주게 만듬.
-                                if (child3.getKey().equals("detailedInterests")) {
-                                    detailedInterests = child3.getValue().toString();
+                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+                        //child는 현재 root에서 바로 아래 chats, message, users, member까지 온 상태
+                        if (child.getKey().equals("chats")) {
+                            for (DataSnapshot child2 : child.getChildren()) {
+                                //child2는 if문에서 chats로 들어오고 방제목까지 온 상태
+                                //list_of_rooms.add(new RoomInfo(child2.getChildren().));
+                                for (DataSnapshot child3 : child2.getChildren()) {
+                                    //child3는 if문에서 방제목(고유값)으로 들어오고 관심분야, 시간, 인원에 접근 할 수 있는 상태 if문으로 하나하나 값을 넣어주게 만듬.
+                                    if (child3.getKey().equals("detailedInterests")) {
+                                        detailedInterests = child3.getValue().toString();
+                                    }
+                                    if (child3.getKey().equals("limitMemberNumber")) {
+                                        memberLimitNumber = (child3.getValue().toString());
+                                    }
+                                    if (child3.getKey().equals("title")) {
+                                        title = (child3.getValue().toString());
+                                    }
+                                    if (child3.getKey().equals("time")) {
+                                        time = child3.getValue().toString();
+                                    }
+                                    if (child3.getKey().equals("currentMemberNumber")) {
+                                        m_currentMemberNumber = Long.valueOf(child3.getValue().toString());
+                                        m_currentMemberNumberString = String.valueOf(m_currentMemberNumber);
+                                        //currentMemberNumber++;
+                                    }
                                 }
-                                if (child3.getKey().equals("limitMemberNumber")) {
-                                    memberLimitNumber = (child3.getValue().toString());
-                                }
-                                if (child3.getKey().equals("title")) {
-                                    title = (child3.getValue().toString());
-                                }
-                                if (child3.getKey().equals("time")) {
-                                    time = child3.getValue().toString();
-                                }
-                                if (child3.getKey().equals("currentMemberNumber")) {
-                                    m_currentMemberNumber = Long.valueOf(child3.getValue().toString());
-                                    m_currentMemberNumberString = String.valueOf(m_currentMemberNumber);
-                                    //currentMemberNumber++;
-                                }
+                                list_of_rooms.add(new RoomInfo(title, detailedInterests, memberLimitNumber, time, m_currentMemberNumberString));
                             }
-                            list_of_rooms.add(new RoomInfo(title, detailedInterests, memberLimitNumber, time, m_currentMemberNumberString));
                         }
                     }
+
+                    adapter.notifyDataSetChanged();
                 }
 
-                adapter.notifyDataSetChanged();
-            }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+                }
+            });
+        }
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             RoomInfo r;

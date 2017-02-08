@@ -304,6 +304,12 @@ public class MatchFragment extends Fragment {
         bundle.putString("detailedInterests", detailedInterests);
         bundle.putString("chattingNumber", chattingNumber);
         bundle.putString("makeRoomFlag", makeRoomFlag);
+
+        if(detailedInterests.toString().isEmpty()) {
+            bundle.putString("detailedInterestsFlag", "N");
+        }
+
+        bundle.putString("detailedInterestsFlag", "Y");
         chatRoomFragment.setArguments(bundle);
     }
 
