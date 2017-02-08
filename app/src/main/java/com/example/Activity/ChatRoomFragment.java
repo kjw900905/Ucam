@@ -231,13 +231,13 @@ public class ChatRoomFragment extends Fragment {
 
                     }
                 });
-                
+
                 Intent intent = new Intent(getActivity(), ChatActivity.class);
                 intent.putExtra("user_id", mStudent.getId());
                 intent.putExtra("room_name", r.getM_roomTitle());
                 root.child("users").child(mStudent.getId()).child(r.getM_roomTitle()).setValue(true);
                 root.child("member").child(r.getM_roomTitle()).child(mStudent.getId()).setValue(true);
-                root.child("chats").child(r.getM_roomTitle()).child("currentMemberNumber").setValue(m_currentMemberNumberString);
+                root.child("chats").child(r.getM_roomTitle()).child("currentMemberNumber").setValue(r.getM_roomCurrentMemberNumber());
 
                 startActivity(intent);
             }
