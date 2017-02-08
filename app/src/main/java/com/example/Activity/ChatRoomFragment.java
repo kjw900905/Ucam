@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.Beans.RoomInfo;
 import com.example.Beans.Student;
@@ -45,7 +47,7 @@ public class ChatRoomFragment extends Fragment {
 
     private String m_roomName;
 
-    private int m_currentMemberNumber;        //현재인원
+    private long m_currentMemberNumber;        //현재인원
     private String m_currentMemberNumberString;   //현재인원 스트링으로 변환해줄거
 
 
@@ -166,7 +168,7 @@ public class ChatRoomFragment extends Fragment {
                                     time = child3.getValue().toString();
                                 }
                                 if (child3.getKey().equals("currentMemberNumber")) {
-                                    m_currentMemberNumber = Integer.valueOf(child3.getValue().toString());
+                                    m_currentMemberNumber = Long.valueOf(child3.getValue().toString());
                                     m_currentMemberNumberString = String.valueOf(m_currentMemberNumber);
                                     //currentMemberNumber++;
                                 }
@@ -199,27 +201,47 @@ public class ChatRoomFragment extends Fragment {
 
                 r = list_of_rooms.get(position);
 
+                root.child("users").child(mStudent.getId()).child(r.getM_roomTitle()).setValue(true);
+                root.child("member").child(r.getM_roomTitle()).child(mStudent.getId()).setValue(true);
+
+                //m_currentMemberNumber = Integer.valueOf(r.getM_roomCurrentMemberNumber());
+                //m_currentMemberNumber++;
+                //m_currentMemberNumberString = String.valueOf(m_currentMemberNumber);
+
+                r.setM_roomCurrentMemberNumber(m_currentMemberNumberString);
+                root.child("chats").child(r.getM_roomTitle()).child("currentMemberNumber").setValue(r.getM_roomCurrentMemberNumber());
+
                 root.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        Log.e("3", "3");
+                        //Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
                         for (DataSnapshot child : dataSnapshot.getChildren()) {
                             //root안으로 들어옴.
                             if (child.getKey().equals("member")) {
                                 for (DataSnapshot child2 : child.getChildren()) {
                                     //if문으로 users, message, chats를 걸러내주고 member 가지로 들어왔음.
-                                    if(child2.getKey().equals(r.getM_roomTitle().toString())){
-                                        for (DataSnapshot child3 : child2.getChildren()) {
-                                            //if문으로 다른걸 걸러내고 내가 누른 방제목 가지 안으로 들어옴.
-                                            if(!(child3.getKey().equals(mStudent.getId()))){
-                                                //if문으로 내 아이디가 없으면 인원을 하나 늘려줌.
-                                                m_currentMemberNumber = Integer.valueOf(r.getM_roomCurrentMemberNumber());
-                                                m_currentMemberNumber++;
-                                                m_currentMemberNumberString = String.valueOf(m_currentMemberNumber);
+                                    if(child2.getKey().equals(r.getM_roomTitle())){
+                                        m_currentMemberNumber = child2.getChildrenCount();
+                                        m_currentMemberNumberString = String.valueOf(m_currentMemberNumber);
+                                        r.setM_roomCurrentMemberNumber(m_currentMemberNumberString);
+                                        root.child("chats").child(r.getM_roomTitle()).child("currentMemberNumber").setValue(r.getM_roomCurrentMemberNumber());
 
+                                        //Log.e("1", "1");
+                                        //Toast.makeText(getContext(), "1", Toast.LENGTH_SHORT).show();
+                                        /*for (DataSnapshot child3 : child2.getChildren()) {
+                                            //if문으로 다른걸 걸러내고 내가 누른 방제목 가지 안으로 들어옴.
+                                            if(child3.getKey().equals(mStudent.getId())){
+                                                m_currentMemberNumber = Integer.valueOf(r.getM_roomCurrentMemberNumber());
+                                                m_currentMemberNumber--;
+                                                m_currentMemberNumberString = String.valueOf(m_currentMemberNumber);
                                                 r.setM_roomCurrentMemberNumber(m_currentMemberNumberString);
+                                                root.child("chats").child(r.getM_roomTitle()).child("currentMemberNumber").setValue(r.getM_roomCurrentMemberNumber());
                                             }
-                                        }
+
+                                        }*/
                                     }
+
                                 }
                             }
                         }
@@ -231,12 +253,14 @@ public class ChatRoomFragment extends Fragment {
                     }
                 });
 
+                adapter.notifyDataSetChanged();
+
                 Intent intent = new Intent(getActivity(), ChatActivity.class);
                 intent.putExtra("user_id", mStudent.getId());
                 intent.putExtra("room_name", r.getM_roomTitle());
-                root.child("users").child(mStudent.getId()).child(r.getM_roomTitle()).setValue(true);
-                root.child("member").child(r.getM_roomTitle()).child(mStudent.getId()).setValue(true);
-                root.child("chats").child(r.getM_roomTitle()).child("currentMemberNumber").setValue(r.getM_roomCurrentMemberNumber());
+                //root.child("users").child(mStudent.getId()).child(r.getM_roomTitle()).setValue(true);
+                //root.child("member").child(r.getM_roomTitle()).child(mStudent.getId()).setValue(true);
+                //root.child("chats").child(r.getM_roomTitle()).child("currentMemberNumber").setValue(r.getM_roomCurrentMemberNumber());
 
                 startActivity(intent);
             }
