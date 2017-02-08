@@ -26,20 +26,24 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ChatActivity extends AppCompatActivity {
 
     private String user_id, room_name;
 
     private Button btnclose;
-    static final String[] LIST_MENU = {"LIST1", "LIST2", "LIST3"} ;
+    //static final String[] LIST_MENU = {"LIST1", "LIST2", "LIST3"} ;
     private ArrayList<String> memberNameList;
+    private ArrayAdapter adapter2;
 
     private static int SIGN_IN_REQUEST_CODE = 1;
     private FirebaseListAdapter<ChatMessage> adapter;
     DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
     RelativeLayout activity_chat;
     FloatingActionButton fab;
+    Set<String> set;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -91,14 +95,15 @@ public class ChatActivity extends AppCompatActivity {
                 EditText input = (EditText)findViewById(R.id.input);
 
                 mData.child("message").child(room_name).push().setValue(new ChatMessage(input.getText().toString(), user_id));
-                /*FirebaseDatabase.getInstance().getReference().push().setValue(new ChatMessage(input.getText().toString(),
-                        user_id));*/
-                //FirebaseDatabase.getInstance().getReference().child("message").child(room_name).push().child("name").setValue(user_id);
                 input.setText("");
             }
         });
 
-        /*mData.addValueEventListener(new ValueEventListener() {
+        adapter2 = new ArrayAdapter(this, android.R.layout.simple_list_item_1, memberNameList) ;
+        ListView listview = (ListView) findViewById(R.id.listMember) ;
+        listview.setAdapter(adapter2) ;
+
+        mData.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
@@ -106,26 +111,33 @@ public class ChatActivity extends AppCompatActivity {
                         for(DataSnapshot child2 : child.getChildren()){
                             if(child2.getKey().equals(room_name)){
                                 for(DataSnapshot child3 : child2.getChildren()){
-                                    if(child3.getKey().equals())
+                                    //set = new HashSet<String>();
+
+                                    //set.add(child3.getKey());
+                                    memberNameList.add(child3.getKey());
+                                    //Toast.makeText(getApplicationContext(), child3.getKey(), Toast.LENGTH_SHORT).show();
+
+                                    /*if((child3.getKey().equals(room_name))){
+
+                                    }*/
                                 }
                             }
                         }
                     }
                 }
+                //Toast.makeText(getApplicationContext(), memberNameList.toString(), Toast.LENGTH_SHORT).show();
+                adapter2.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });*/
+        });
 
-        Toast.makeText(getApplicationContext(), mData.child("member").child(room_name).getKey(), Toast.LENGTH_SHORT).show();
-
-
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, LIST_MENU) ;
-        ListView listview = (ListView) findViewById(R.id.listMember) ;
-        listview.setAdapter(adapter) ;
+        //Toast.makeText(getApplicationContext(), "ss", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "zz", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), memberNameList.toString(), Toast.LENGTH_SHORT).show();
 
         //Snackbar.make(activity_chat, "Welcome " + user_id, Snackbar.LENGTH_SHORT).show();
         displayChatMessage();
