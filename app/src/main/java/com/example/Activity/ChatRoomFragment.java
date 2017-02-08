@@ -325,7 +325,7 @@ public class ChatRoomFragment extends Fragment {
                             intent.putExtra("room_name", r.getM_roomTitle());
                             startActivity(intent);
                         } else {
-
+                            //TODO: Alert 창 띄우기 (인원 제한 Exception)
                         }
                     }
 
