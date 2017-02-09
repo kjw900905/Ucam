@@ -1,0 +1,10 @@
+diff a/app/src/main/java/com/example/Activity/ChatRoomFragment.java b/app/src/main/java/com/example/Activity/ChatRoomFragment.java	(rejected hunks)
+@@ -38,7 +38,7 @@
+ 
+     private ListView listView;
+     private ChatRoomArrayAdapter adapter;
+-    private ArrayList<RoomInfo> list_of_rooms = new ArrayList<>();
++    private ArrayList<RoomInfo> list_of_rooms = new ArrayList<RoomInfo>();
+     private DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+     Student mStudent;
+ 

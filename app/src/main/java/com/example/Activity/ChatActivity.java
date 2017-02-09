@@ -102,7 +102,7 @@ public class ChatActivity extends AppCompatActivity {
         ListView listview = (ListView) findViewById(R.id.listMember);
         listview.setAdapter(adapter2);
 
-        mData.addValueEventListener(new ValueEventListener() {
+        mData.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
@@ -113,7 +113,9 @@ public class ChatActivity extends AppCompatActivity {
                                     //set = new HashSet<String>();
 
                                     //set.add(child3.getKey());
-                                    memberNameList.add(child3.getKey());
+                                    if(!child3.hasChild(user_id)) {
+                                        memberNameList.add(child3.getKey());
+                                    }
                                     //Toast.makeText(getApplicationContext(), child3.getKey(), Toast.LENGTH_SHORT).show();
 
                                     /*if((child3.getKey().equals(room_name))){

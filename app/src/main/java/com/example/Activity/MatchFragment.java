@@ -18,8 +18,11 @@ import android.widget.Toast;
 
 import com.example.Beans.Student;
 import com.example.Beans.Variable;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -540,7 +543,6 @@ public class MatchFragment extends Fragment {
 
             JSONObject jsonObj = new JSONObject(myJSON);
             getTime = jsonObj.getJSONArray("result");
-
 
             for (int i = 0; i < getTime.length(); i++) {
                 JSONObject c = getTime.getJSONObject(i);

@@ -53,7 +53,7 @@ public class ChatRoomFragment extends Fragment {
     private int currentRoomNumber;
     private Boolean isEnterRoom;
 
-    private long m_currentMemberNumber;        //현재인원
+    private int m_currentMemberNumber;        //현재인원
     private String m_currentMemberNumberString;   //현재인원 스트링으로 변환해줄거
 
 
@@ -71,7 +71,6 @@ public class ChatRoomFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
-        list_of_rooms.clear();
 
         m_makeRoomFlag = "N";
         mStudent = (Student) getArguments().getSerializable("myInfo");
@@ -198,7 +197,7 @@ public class ChatRoomFragment extends Fragment {
                                         time = child3.getValue().toString();
                                     }
                                     if (child3.getKey().equals("currentMemberNumber")) {
-                                        m_currentMemberNumber = Long.valueOf(child3.getValue().toString());
+                                        m_currentMemberNumber = Integer.valueOf(child3.getValue().toString());
                                         m_currentMemberNumberString = String.valueOf(m_currentMemberNumber);
                                         //currentMemberNumber++;
                                     }
@@ -220,7 +219,7 @@ public class ChatRoomFragment extends Fragment {
                 }
             });
         } else if (m_detailedInterestsFlag.equals("Y") && m_detailedInterestsMemberNumberFlag.equals("Y")) {
-            root.addValueEventListener(new ValueEventListener() {
+            root.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -256,7 +255,7 @@ public class ChatRoomFragment extends Fragment {
                                         time = child3.getValue().toString();
                                     }
                                     if (child3.getKey().equals("currentMemberNumber")) {
-                                        m_currentMemberNumber = Long.valueOf(child3.getValue().toString());
+                                        m_currentMemberNumber = Integer.valueOf(child3.getValue().toString());
                                         m_currentMemberNumberString = String.valueOf(m_currentMemberNumber);
                                         //currentMemberNumber++;
                                     }
@@ -278,7 +277,7 @@ public class ChatRoomFragment extends Fragment {
                 }
             });
         } else {
-            root.addValueEventListener(new ValueEventListener() {
+            root.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -312,7 +311,7 @@ public class ChatRoomFragment extends Fragment {
                                         time = child3.getValue().toString();
                                     }
                                     if (child3.getKey().equals("currentMemberNumber")) {
-                                        m_currentMemberNumber = Long.valueOf(child3.getValue().toString());
+                                        m_currentMemberNumber = Integer.valueOf(child3.getValue().toString());
                                         m_currentMemberNumberString = String.valueOf(m_currentMemberNumber);
                                         //currentMemberNumber++;
                                     }
@@ -345,21 +344,30 @@ public class ChatRoomFragment extends Fragment {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot chatsChild : dataSnapshot.getChildren()) {
                             if (chatsChild.getKey().equals(r.getM_roomTitle())) {
-                                int limitMemberNumber = Integer.parseInt(chatsChild.child("limitMemberNumber").getValue().toString());
-                                int currentMemberNumber = Integer.parseInt(chatsChild.child("currentMemberNumber").getValue().toString());
-
-                                // 현재 인원수가 최대 인원수보다 적으면 채팅방에 입장
-                                if (currentMemberNumber < limitMemberNumber) {
-                                    currentMemberNumber++;
-                                    r.setM_roomCurrentMemberNumber(String.valueOf(currentMemberNumber));
-                                    root.child("chats").child(r.getM_roomTitle()).child("currentMemberNumber").setValue(currentMemberNumber);
-
+                                if(chatsChild.hasChild(mStudent.getId())) {
                                     Intent intent = new Intent(getActivity(), ChatActivity.class);
                                     intent.putExtra("user_id", mStudent.getId());
                                     intent.putExtra("room_name", r.getM_roomTitle());
                                     startActivity(intent);
                                 } else {
-                                    Toast.makeText(getContext(), "인원이 다 찼습니다.", Toast.LENGTH_SHORT);
+                                    int limitMemberNumber = Integer.parseInt(chatsChild.child("limitMemberNumber").getValue().toString());
+                                    int currentMemberNumber = Integer.parseInt(chatsChild.child("currentMemberNumber").getValue().toString());
+
+                                    // 현재 인원수가 최대 인원수보다 적으면 채팅방에 입장
+                                    if (currentMemberNumber < limitMemberNumber) {
+                                        currentMemberNumber++;
+                                        r.setM_roomCurrentMemberNumber(String.valueOf(currentMemberNumber));
+                                        root.child("chats").child(r.getM_roomTitle()).child("currentMemberNumber").setValue(currentMemberNumber);
+                                        root.child("chats").child(r.getM_roomTitle()).child(mStudent.getId()).setValue("T");
+                                        root.child("member").child(r.getM_roomTitle()).child(mStudent.getId()).setValue("T");
+
+                                        Intent intent = new Intent(getActivity(), ChatActivity.class);
+                                        intent.putExtra("user_id", mStudent.getId());
+                                        intent.putExtra("room_name", r.getM_roomTitle());
+                                        startActivity(intent);
+                                    } else {
+                                        Toast.makeText(getContext(), "인원이 다 찼습니다.", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             }
                         }
