@@ -15,7 +15,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SlidingDrawer;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.Beans.ChatMessage;
 import com.firebase.ui.database.FirebaseListAdapter;
@@ -26,7 +25,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Set;
 
 public class ChatActivity extends AppCompatActivity {
@@ -100,9 +98,9 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-        adapter2 = new ArrayAdapter(this, android.R.layout.simple_list_item_1, memberNameList) ;
-        ListView listview = (ListView) findViewById(R.id.listMember) ;
-        listview.setAdapter(adapter2) ;
+        adapter2 = new ArrayAdapter(this, android.R.layout.simple_list_item_1, memberNameList);
+        ListView listview = (ListView) findViewById(R.id.listMember);
+        listview.setAdapter(adapter2);
 
         mData.addValueEventListener(new ValueEventListener() {
             @Override
