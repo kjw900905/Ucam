@@ -301,22 +301,26 @@ public class ChatRoomFragment extends Fragment {
                         for(DataSnapshot rootChild : dataSnapshot.getChildren()) {
                             if(rootChild.getKey().toString().equals("chats")) {
                                 for (DataSnapshot chatsChild : rootChild.getChildren()) {
-                                    int limitMemberNumber = Integer.parseInt(chatsChild.child("limitMemberNumber").getValue().toString());
-                                    int currentMemberNumber = Integer.parseInt(chatsChild.child("currentMemberNumber").getValue().toString());
+                                    if(chatsChild.getKey().toString().equals(r.getM_roomTitle())) {
+                                        for(DataSnapshot roomChild : chatsChild.getChildren()) {
+                                            int limitMemberNumber = Integer.parseInt(roomChild.child("limitMemberNumber").getValue().toString());
+                                            int currentMemberNumber = Integer.parseInt(roomChild.child("currentMemberNumber").getValue().toString());
 
-                                    // 현재 인원수가 최대 인원수보다 적으면 채팅방에 입장
-                                    if (currentMemberNumber < limitMemberNumber) {
-                                        currentMemberNumber++;
-                                        r.setM_roomCurrentMemberNumber(String.valueOf(currentMemberNumber));
-                                        root.child("chats").child(r.getM_roomTitle()).child("currentMemberNumber").setValue(currentMemberNumber);
-                                        root.child("member").child(r.getM_roomTitle()).child(mStudent.getId()).setValue(true);
+                                            // 현재 인원수가 최대 인원수보다 적으면 채팅방에 입장
+                                            if (currentMemberNumber < limitMemberNumber) {
+                                                currentMemberNumber++;
+                                                r.setM_roomCurrentMemberNumber(String.valueOf(currentMemberNumber));
+                                                root.child("chats").child(r.getM_roomTitle()).child("currentMemberNumber").setValue(currentMemberNumber);
+                                                root.child("member").child(r.getM_roomTitle()).child(mStudent.getId()).setValue(true);
 
-                                        Intent intent = new Intent(getActivity(), ChatActivity.class);
-                                        intent.putExtra("user_id", mStudent.getId());
-                                        intent.putExtra("room_name", r.getM_roomTitle());
-                                        startActivity(intent);
-                                    } else {
-                                        Toast.makeText(getContext(), "인원이 다 찼습니다.", Toast.LENGTH_SHORT).show();
+                                                Intent intent = new Intent(getActivity(), ChatActivity.class);
+                                                intent.putExtra("user_id", mStudent.getId());
+                                                intent.putExtra("room_name", r.getM_roomTitle());
+                                                startActivity(intent);
+                                            } else {
+                                                Toast.makeText(getContext(), "인원이 다 찼습니다.", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
                                     }
                                 }
                             }
