@@ -296,7 +296,7 @@ public class ChatRoomFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 r = list_of_rooms.get(position);
 
-                root.addValueEventListener(new ValueEventListener() {
+                root.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Log.e("3", "3");
@@ -345,6 +345,14 @@ public class ChatRoomFragment extends Fragment {
                         Log.e("ah", m_detailedInterestsFlag);
                         Log.e("ah2", m_detailedInterestsMemberNumberFlag);
 
+                        if(r.getM_isEnterRoom().equals("T")) {
+                            Intent intent = new Intent(getActivity(), ChatActivity.class);
+                            intent.putExtra("user_id", mStudent.getId());
+                            intent.putExtra("room_name", r.getM_roomTitle());
+                            startActivity(intent);
+                        } else {
+                            //TODO: Alert 창 띄우기 (인원 제한 Exception)
+                        }
                     }
 
                     @Override
@@ -353,14 +361,7 @@ public class ChatRoomFragment extends Fragment {
                     }
                 });
 
-                if(r.getM_isEnterRoom().equals("T")) {
-                    Intent intent = new Intent(getActivity(), ChatActivity.class);
-                    intent.putExtra("user_id", mStudent.getId());
-                    intent.putExtra("room_name", r.getM_roomTitle());
-                    startActivity(intent);
-                } else {
-                    //TODO: Alert 창 띄우기 (인원 제한 Exception)
-                }
+
 
                 adapter.notifyDataSetChanged();
             }
