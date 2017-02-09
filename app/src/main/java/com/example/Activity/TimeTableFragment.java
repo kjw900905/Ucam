@@ -1,12 +1,15 @@
 package com.example.Activity;
 
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +35,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 //import com.example.kjw90.ucam.R;
 
@@ -47,6 +51,16 @@ public class TimeTableFragment extends Fragment {
     String myJSON;
     JSONArray details = null;
 
+    private Student mStudent;
+
+    private  FragmentActivity myContext;
+
+    @Override
+    public void onAttach(Activity activity) {
+        myContext=(FragmentActivity) activity;
+        super.onAttach(activity);
+    }
+
 
     public TimeTableFragment() {
         // Required empty public constructor
@@ -55,7 +69,7 @@ public class TimeTableFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        final Student mStudent = (Student)getArguments().getSerializable("myInfo");
+        mStudent = (Student)getArguments().getSerializable("myInfo");
 
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.gridview_timetable, container, false);
@@ -94,6 +108,7 @@ public class TimeTableFragment extends Fragment {
         //TextView a = (TextView)gridView.findViewById(R.id.time1);
         //a.setBackgroundColor(Color.BLUE);
         //v.setBackgroundColor(Color.BLUE);
+
 
         gridView.setSelector(new StateListDrawable());
         gridView.setOnItemClickListener(new OnItemClickListener() {
@@ -147,6 +162,96 @@ public class TimeTableFragment extends Fragment {
             }
         });
 
+        gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
+
+                TextView selectedView = (TextView)view.findViewById(R.id.grid_TextView);
+                ColorDrawable colorCode = (ColorDrawable)selectedView.getBackground();
+                int color = colorCode.getColor();
+
+                Calendar oCalendar = Calendar.getInstance();
+                int nowTime = oCalendar.get(Calendar.HOUR_OF_DAY);
+                int dayNum = oCalendar.get(Calendar.DAY_OF_WEEK);
+
+                if(color == -1){
+
+                    String user_Id = mStudent.getId();
+                    String day = arrayTimeTableDetail.get(position).getday();
+                    String time = arrayTimeTableDetail.get(position).gettime();
+                    String selected_Position = String.valueOf(position);
+
+                    int selected_Time = Integer.parseInt(time);
+
+                    int selected_Day_Num = 0;
+
+                    switch (day) {
+                        case "일":
+                            selected_Day_Num = 1;
+                            break;
+                        case "월":
+                            selected_Day_Num = 2;
+                            break;
+                        case "화":
+                            selected_Day_Num = 3;
+                            break;
+                        case "수":
+                            selected_Day_Num = 4;
+                            break;
+                        case "목":
+                            selected_Day_Num = 5;
+                            break;
+                        case "금":
+                            selected_Day_Num = 6;
+                            break;
+                        case "토":
+                            selected_Day_Num = 7;
+                            break;
+                    }
+                    if(selected_Day_Num < dayNum){
+                        Toast.makeText(getActivity(), "지난 요일은 예약할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                    }else{
+                        if(selected_Time < nowTime){
+                            Toast.makeText(getActivity(), "지난 시간은 예약할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                        }else{
+                            //예약
+                            selectedView.setBackgroundColor(Color.BLUE);
+
+                            Toast.makeText(getActivity(), "예약을 해볼까나", Toast.LENGTH_SHORT).show();
+
+                            InsertAboutReservation(user_Id, day, time, selected_Position);
+
+                            //화면 전환
+                            MatchFragment matchFragment = new MatchFragment();
+                            FragmentManager fragmentManager = myContext.getSupportFragmentManager();
+                            fragmentManager.beginTransaction().replace(R.id.content_in, matchFragment).addToBackStack(null).commit();
+
+                            Bundle bundle = new Bundle(1);
+                            bundle.putSerializable("myInfo", mStudent);
+                            matchFragment.setArguments(bundle);
+                        }
+                    }
+                }else if(color == Color.BLUE){
+                    selectedView.setBackgroundColor(Color.WHITE);
+
+                    Toast.makeText(getActivity(), "예약이 취소되었습니다.", Toast.LENGTH_SHORT).show();
+
+                    String user_Id = mStudent.getId();
+                    String day = arrayTimeTableDetail.get(position).getday();
+                    String time = arrayTimeTableDetail.get(position).gettime();
+                    String selected_Position = String.valueOf(position);
+
+                    DeleteReservation(user_Id, day, time, selected_Position);
+                    //방을 없애주는 작업을 해줘야함
+
+                }else{
+                    //수업시간이라 예약 못함
+                    Toast.makeText(getActivity(), "수업시간에는 예약을 할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            }
+        });
+
         // 여기서부터는 Insert 부분입니다.
 
         // 여기서부터는 SelectAll 부분입니다.
@@ -154,6 +259,7 @@ public class TimeTableFragment extends Fragment {
 
         return view;
     }
+
     /*
     public void change_Color(View view){
         TextView test = (TextView)view.findViewById(R.id.grid_TextView);
@@ -372,4 +478,135 @@ public class TimeTableFragment extends Fragment {
         DeleteTask deleteTask = new DeleteTask();
         deleteTask.execute(str_ID, str_Day, str_Time, str_Position);
     }
+
+    public void InsertAboutReservation(String str_Id, String str_Day ,String str_Time, String str_Position) {
+
+        class InsertTask extends AsyncTask<String, Void, String> {
+            /*ProgressDialog loading;
+
+            protected void onPreExecute() {
+                super.onPreExecute();
+                loading = ProgressDialog.show(MainActivity.this, "Please Wait", null, true, true);
+            }
+            */
+
+            protected String doInBackground(String[] params) {
+                String id = (String) params[0];
+                String day = (String) params[1];
+                String time = (String) params[2];
+                String position = (String) params[3];
+
+
+                try {
+                    String data = "";
+                    data += URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(id, "UTF-8");
+                    data += "&" + URLEncoder.encode("day", "UTF-8") + "=" + URLEncoder.encode(day, "UTF-8");
+                    data += "&" + URLEncoder.encode("time", "UTF-8") + "=" + URLEncoder.encode(time, "UTF-8");
+                    data += "&" + URLEncoder.encode("position", "UTF-8") + "=" + URLEncoder.encode(position, "UTF-8");
+
+                    Log.e(position, "첫번째");
+                    URL url = new URL(Variable.m_SERVER_URL + Variable.m_PHP_INSERT_TIME_TABLE_RESERVATION);
+                    URLConnection con = url.openConnection();
+
+                    con.setDoOutput(true);
+                    OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
+
+                    wr.write(data);
+                    wr.flush();
+
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
+                    StringBuilder sb = new StringBuilder();
+                    String line = null;
+
+
+
+                    // Read Server Response
+                    while((line = reader.readLine()) != null) {
+                        sb.append(line);
+                        break;
+                    }
+
+                    return sb.toString().trim();
+                } catch(Exception exception) {
+                    return new String(exception.getMessage());
+                }
+            }
+
+            /*
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                loading.dismiss();
+                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+            }
+            */
+        }
+
+        InsertTask insertTask = new InsertTask();
+        insertTask.execute(str_Id, str_Day, str_Time, str_Position);
+    }
+
+    public void DeleteReservation(String str_ID, String str_Day, String str_Time, String str_Position) {
+        class DeleteTask extends AsyncTask<String, Void, String> {
+            /*ProgressDialog loading;
+
+            protected void onPreExecute() {
+                super.onPreExecute();
+                loading = ProgressDialog.show(MainActivity.this, "Please Wait", null, true, true);
+            }
+            */
+
+            protected String doInBackground(String[] params) {
+                String id = (String) params[0];
+                String day = (String) params[1];
+                String time = (String) params[2];
+                String position = (String) params[3];
+
+                try {
+                    String data = "";
+                    data += URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(id, "UTF-8");
+                    data += "&" + URLEncoder.encode("day", "UTF-8") + "=" + URLEncoder.encode(day, "UTF-8");
+                    data += "&" + URLEncoder.encode("time", "UTF-8") + "=" + URLEncoder.encode(time, "UTF-8");
+                    data += "&" + URLEncoder.encode("position", "UTF-8") + "=" + URLEncoder.encode(position, "UTF-8");
+
+
+                    URL url = new URL(Variable.m_SERVER_URL + Variable.m_PHP_DELETE_TIME_TABLE_RESERVATION);
+                    URLConnection con = url.openConnection();
+
+                    con.setDoOutput(true);
+                    OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
+
+                    wr.write(data);
+                    wr.flush();
+
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
+                    StringBuilder sb = new StringBuilder();
+                    String line = null;
+
+                    // Read Server Response
+                    while((line = reader.readLine()) != null) {
+                        sb.append(line);
+                        break;
+                    }
+
+                    return sb.toString().trim();
+                } catch(Exception exception) {
+                    return new String(exception.getMessage());
+                }
+            }
+
+            /*
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                loading.dismiss();
+                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+            }
+            */
+        }
+
+        DeleteTask deleteTask = new DeleteTask();
+        deleteTask.execute(str_ID, str_Day, str_Time, str_Position);
+    }
+
 }

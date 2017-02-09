@@ -81,8 +81,8 @@
             <Button
                 android:layout_below="@+id/listMember"
                 android:layout_gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/btnclose"
                 android:text="닫기"
                 android:layout_alignParentBottom="true"

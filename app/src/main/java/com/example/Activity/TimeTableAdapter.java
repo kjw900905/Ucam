@@ -96,6 +96,7 @@ public class TimeTableAdapter extends BaseAdapter {
         textView.setText("");
 
         SelectOne(user_ID, gridView, position);
+        SelectReservation(user_ID, gridView, position);
 
         //positionArrayList = new ArrayList<String>();
         //String test = positionArrayList.get(0);
@@ -220,7 +221,7 @@ public class TimeTableAdapter extends BaseAdapter {
             JSONObject jsonObj = new JSONObject(myJSON);
             getPosition = jsonObj.getJSONArray("result");
             for (int i = 0; i < getPosition.length(); i++) {
-                JSONObject c = getPosition.getJSONObject(i);
+                    JSONObject c = getPosition.getJSONObject(i);
                 String position = c.getString("position");
                 int selectPosition = Integer.parseInt(position);
                 if(viewPosition == selectPosition) {
@@ -233,4 +234,74 @@ public class TimeTableAdapter extends BaseAdapter {
             exception.printStackTrace();
         }
     }
+
+    public void SelectReservation(String str_User_ID, final View gridView, final int viewPosition) {
+        class SelectOneTask extends AsyncTask<String, Void, String> {
+            /*ProgressDialog loading;
+
+            protected void onPreExecute() {
+                super.onPreExecute();
+                loading = ProgressDialog.show(MainActivity.this, "Please Wait", null, true, true);
+            }
+          */
+
+            protected String doInBackground(String[] params) {
+                String temp_ID = (String) params[0];
+                try {
+                    String data = "";
+                    data += URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(temp_ID, "UTF-8");
+
+                    URL url = new URL(Variable.m_SERVER_URL + Variable.m_PHP_SELECT_RESERVATION_POSITION);
+                    URLConnection con = url.openConnection();
+
+                    con.setDoOutput(true);
+                    OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
+
+                    wr.write(data);
+                    wr.flush();
+
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                    StringBuilder sb = new StringBuilder();
+                    String line = null;
+
+                    // Read Server Response
+                    while((line = reader.readLine()) != null) {
+                        sb.append(line);
+                        break;
+                    }
+                    return sb.toString().trim();
+                } catch(Exception exception) {
+                    return new String(exception.getMessage());
+                }
+            }
+
+            protected  void onPostExecute(String result) {
+                myJSON = result;
+                getReservationPosition(gridView, viewPosition);
+            }
+        }
+
+        SelectOneTask selectOneTask = new SelectOneTask();
+        selectOneTask.execute(str_User_ID);
+    }
+
+    public void getReservationPosition(View gridView, int viewPosition) {
+        try {
+            JSONObject jsonObj = new JSONObject(myJSON);
+            getPosition = jsonObj.getJSONArray("result");
+            for (int i = 0; i < getPosition.length(); i++) {
+                JSONObject c = getPosition.getJSONObject(i);
+                String position = c.getString("position");
+                int selectPosition = Integer.parseInt(position);
+                if(viewPosition == selectPosition) {
+                    TextView textView = (TextView) gridView.findViewById(R.id.grid_TextView);
+                    textView.setBackgroundColor(Color.BLUE);
+                }
+
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+    }
+
 }
