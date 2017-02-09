@@ -52,7 +52,7 @@ public class ChatRoomFragment extends Fragment {
     private int currentRoomNumber;
     private Boolean isEnterRoom;
 
-    private long m_currentMemberNumber;        //현재인원
+    private int m_currentMemberNumber;        //현재인원
     private String m_currentMemberNumberString;   //현재인원 스트링으로 변환해줄거
 
 
@@ -154,7 +154,7 @@ public class ChatRoomFragment extends Fragment {
                                         time = child3.getValue().toString();
                                     }
                                     if (child3.getKey().equals("currentMemberNumber")) {
-                                        m_currentMemberNumber = Long.valueOf(child3.getValue().toString());
+                                        m_currentMemberNumber = Integer.valueOf(child3.getValue().toString());
                                         m_currentMemberNumberString = String.valueOf(m_currentMemberNumber);
                                         //currentMemberNumber++;
                                     }
@@ -212,7 +212,7 @@ public class ChatRoomFragment extends Fragment {
                                         time = child3.getValue().toString();
                                     }
                                     if (child3.getKey().equals("currentMemberNumber")) {
-                                        m_currentMemberNumber = Long.valueOf(child3.getValue().toString());
+                                        m_currentMemberNumber = Integer.valueOf(child3.getValue().toString());
                                         m_currentMemberNumberString = String.valueOf(m_currentMemberNumber);
                                         //currentMemberNumber++;
                                     }
@@ -268,7 +268,7 @@ public class ChatRoomFragment extends Fragment {
                                         time = child3.getValue().toString();
                                     }
                                     if (child3.getKey().equals("currentMemberNumber")) {
-                                        m_currentMemberNumber = Long.valueOf(child3.getValue().toString());
+                                        m_currentMemberNumber = Integer.valueOf(child3.getValue().toString());
                                         m_currentMemberNumberString = String.valueOf(m_currentMemberNumber);
                                         //currentMemberNumber++;
                                     }
@@ -290,6 +290,8 @@ public class ChatRoomFragment extends Fragment {
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             RoomInfo r;
+            int limitMemberNumber = 0;
+            int currentMemberNumber = 0;
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -303,31 +305,29 @@ public class ChatRoomFragment extends Fragment {
                                 for (DataSnapshot chatsChild : rootChild.getChildren()) {
                                     if(chatsChild.getKey().equals(r.getM_roomTitle())) {
                                         for(DataSnapshot roomChild : chatsChild.getChildren()) {
-                                            int limitMemberNumber = 0;
-                                            Long currentMemberNumber = 0L;
 
                                             if(roomChild.getKey().equals("limitMemberNumber")){
                                                 limitMemberNumber = Integer.parseInt(roomChild.getValue().toString());
                                             }
 
                                             if(roomChild.getKey().equals("currentMemberNumber")){
-                                                currentMemberNumber = Long.parseLong(roomChild.getValue().toString());
+                                                currentMemberNumber = Integer.parseInt(roomChild.getValue().toString());
                                             }
 
                                             // 현재 인원수가 최대 인원수보다 적으면 채팅방에 입장
-                                            if (currentMemberNumber < limitMemberNumber) {
-                                                currentMemberNumber++;
-                                                r.setM_roomCurrentMemberNumber(String.valueOf(currentMemberNumber));
-                                                root.child("chats").child(r.getM_roomTitle()).child("currentMemberNumber").setValue(currentMemberNumber);
-                                                root.child("member").child(r.getM_roomTitle()).child(mStudent.getId()).setValue(true);
+                                        }
+                                        if (currentMemberNumber < limitMemberNumber) {
+                                            currentMemberNumber++;
+                                            r.setM_roomCurrentMemberNumber(String.valueOf(currentMemberNumber));
+                                            root.child("chats").child(r.getM_roomTitle()).child("currentMemberNumber").setValue(currentMemberNumber);
+                                            root.child("member").child(r.getM_roomTitle()).child(mStudent.getId()).setValue(true);
 
-                                                Intent intent = new Intent(getActivity(), ChatActivity.class);
-                                                intent.putExtra("user_id", mStudent.getId());
-                                                intent.putExtra("room_name", r.getM_roomTitle());
-                                                startActivity(intent);
-                                            } else {
-                                                Toast.makeText(getContext(), "인원이 다 찼습니다.", Toast.LENGTH_SHORT).show();
-                                            }
+                                            Intent intent = new Intent(getActivity(), ChatActivity.class);
+                                            intent.putExtra("user_id", mStudent.getId());
+                                            intent.putExtra("room_name", r.getM_roomTitle());
+                                            startActivity(intent);
+                                        } else {
+                                            Toast.makeText(getContext(), "인원이 다 찼습니다.", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 }
