@@ -7,6 +7,7 @@ public class Variable {
     public final static String m_SERVER_URL = "http://117.17.158.173";
     public final static String m_PHP_SELECTONE_SEARCH_SCHOOL = "/SelectOne_search_school.php";
     public final static String m_PHP_SELECT_POSITION = "/SelectPosition.php";
+    public final static String m_PHP_SELECT_RESERVATION_POSITION = "/SelectReservationPosition.php";
     public final static String m_PHP_INSERT_PERSONAL_INFORMATION = "/Insert_personal_information.php";
     public final static String m_PHP_CHECK_ID_PW = "/Check_ID_PW.php";
     public final static String m_PHP_CHECK_TIME_TABLE = "/Check_Time_Table.php";
@@ -15,8 +16,10 @@ public class Variable {
     public final static String m_PHP_DELETE = "/Delete.php";
     public final static String m_PHP_SELECT_ONE = "/SelectOne.php";
     public final static String m_PHP_INSERT_TIME_TABLE_DETAIL = "/InsertTimeTableDetail.php";
+    public final static String m_PHP_INSERT_TIME_TABLE_RESERVATION = "/InsertTimeTableReservation.php";
     public final static String m_PHP_SELECTALL_TIME_TABLE_DETAIL = "/SelectAllTimeTableDetail.php";
     public final static String m_PHP_DELETE_TIME_TABLE_DETAIL = "/DeleteTimeTableDetail.php";
+    public final static String m_PHP_DELETE_TIME_TABLE_RESERVATION = "/DeleteTimeTableReservation.php";
 
     // java.com.example.Activity.DrawTimeTable 에서 사용하는 상수 ============================================================= //
     public final static String[] m_DAY = {"월", "화", "수", "목", "금"};
