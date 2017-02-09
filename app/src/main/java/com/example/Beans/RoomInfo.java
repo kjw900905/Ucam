@@ -7,6 +7,7 @@ public class RoomInfo {
     private String m_roomLimitMemberNumber;
     private String m_roomTime;
     private String m_roomCurrentMemberNumber;
+    private String m_isEnterRoom;
 
     public RoomInfo(String roomTitle, String roomInterest, String roomLimitMemberNumber, String roomTime, String roomCurrentMemberNumber) {
         this.m_roomTitle = roomTitle;
@@ -14,6 +15,7 @@ public class RoomInfo {
         this.m_roomLimitMemberNumber = roomLimitMemberNumber;
         this.m_roomTime = roomTime;
         this.m_roomCurrentMemberNumber = roomCurrentMemberNumber;
+        this.m_isEnterRoom = "T";
     }
 
     public RoomInfo() {
@@ -58,5 +60,13 @@ public class RoomInfo {
 
     public String getM_roomCurrentMemberNumber(){
         return m_roomCurrentMemberNumber;
+    }
+
+    public void setM_isEnterRoom(String m_isEnterRoom) {
+        this.m_isEnterRoom = m_isEnterRoom;
+    }
+
+    public String getM_isEnterRoom() {
+        return m_isEnterRoom;
     }
 }

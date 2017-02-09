@@ -96,6 +96,7 @@ public class ChatActivity extends AppCompatActivity {
 
                 mData.child("message").child(room_name).push().setValue(new ChatMessage(input.getText().toString(), user_id));
                 input.setText("");
+                
             }
         });
 
