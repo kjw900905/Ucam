@@ -291,67 +291,10 @@ public class ChatRoomFragment extends Fragment {
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             RoomInfo r;
-            int limitMemberNumber = 0;
-            int currentMemberNumber = 0;
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 r = list_of_rooms.get(position);
-
-                /*root.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        Loop1 : for(DataSnapshot rootChild : dataSnapshot.getChildren()) {
-                            if(rootChild.getKey().equals("member")) {
-                                for(DataSnapshot memberChild : rootChild.getChildren()) {
-                                    if(memberChild.hasChild(mStudent.getId())) {
-                                        Intent intent = new Intent(getActivity(), ChatActivity.class);
-                                        intent.putExtra("user_id", mStudent.getId());
-                                        intent.putExtra("room_name", r.getM_roomTitle());
-                                        startActivity(intent);
-                                        break Loop1;
-                                    }
-                                }
-                            }
-
-                            if(rootChild.getKey().equals("chats")) {
-                                for (DataSnapshot chatsChild : rootChild.getChildren()) {
-                                    if(chatsChild.getKey().equals(r.getM_roomTitle())) {
-                                        for(DataSnapshot roomChild : chatsChild.getChildren()) {
-
-                                            if(roomChild.getKey().equals("limitMemberNumber")){
-                                                limitMemberNumber = Integer.parseInt(roomChild.getValue().toString());
-                                            }
-
-                                            if(roomChild.getKey().equals("currentMemberNumber")){
-                                                currentMemberNumber = Integer.parseInt(roomChild.getValue().toString());
-                                            }
-                                        }
-                                        // 현재 인원수가 최대 인원수보다 적으면 채팅방에 입장
-                                        if (currentMemberNumber < limitMemberNumber) {
-                                            currentMemberNumber++;
-                                            r.setM_roomCurrentMemberNumber(String.valueOf(currentMemberNumber));
-                                            root.child("chats").child(r.getM_roomTitle()).child("currentMemberNumber").setValue(currentMemberNumber);
-                                            root.child("member").child(r.getM_roomTitle()).child(mStudent.getId()).setValue(true);
-
-                                            Intent intent = new Intent(getActivity(), ChatActivity.class);
-                                            intent.putExtra("user_id", mStudent.getId());
-                                            intent.putExtra("room_name", r.getM_roomTitle());
-                                            startActivity(intent);
-                                        } else {
-                                            Toast.makeText(getContext(), "인원이 다 찼습니다.", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });*/
 
                 // root/chats 이벤트 설정
                 root.child("chats").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -359,11 +302,6 @@ public class ChatRoomFragment extends Fragment {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot chatsChild : dataSnapshot.getChildren()) {
                             if (chatsChild.getKey().equals(r.getM_roomTitle())) {
-                                //Toast.makeText(getContext(), mStudent.getId().toString(), Toast.LENGTH_SHORT).show();
-                                //Toast.makeText(getContext(), root.child("member").child(r.getM_roomTitle()).child(mStudent.getId()).getKey().toString(), Toast.LENGTH_SHORT).show();
-                                //mStudent.getId().equals(root.child("chats").child(r.getM_roomTitle()).child(mStudent.getId()).getKey().toString())
-                                Toast.makeText(getContext(), root.child("member").child(r.getM_roomTitle()).child("33").getKey().toString(), Toast.LENGTH_SHORT).show();
-
                                 if(chatsChild.hasChild(mStudent.getId())) {
                                     Intent intent = new Intent(getActivity(), ChatActivity.class);
                                     intent.putExtra("user_id", mStudent.getId());
@@ -379,7 +317,7 @@ public class ChatRoomFragment extends Fragment {
                                         r.setM_roomCurrentMemberNumber(String.valueOf(currentMemberNumber));
                                         root.child("chats").child(r.getM_roomTitle()).child("currentMemberNumber").setValue(currentMemberNumber);
                                         root.child("chats").child(r.getM_roomTitle()).child(mStudent.getId()).setValue("T");
-                                        //root.child("member").child(r.getM_roomTitle()).child(mStudent.getId()).setValue(true);
+                                        root.child("member").child(r.getM_roomTitle()).child(mStudent.getId()).setValue("T");
 
                                         Intent intent = new Intent(getActivity(), ChatActivity.class);
                                         intent.putExtra("user_id", mStudent.getId());
