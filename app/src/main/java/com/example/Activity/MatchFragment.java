@@ -68,6 +68,8 @@ public class MatchFragment extends Fragment {
     private JSONArray getTime;
     private String myJSON;
 
+    private String mReservationFlag;
+
     private boolean isFindFlag, isTitleExist;
 
     public void MatchFragment() {
@@ -95,6 +97,13 @@ public class MatchFragment extends Fragment {
         isFindFlag = false;
         isTitleExist = false;
         mStudent = (Student)getArguments().getSerializable("myInfo");
+
+        if(Variable.reservationFlag.equals("Y")){
+            Variable.reservationDay = getArguments().getString("reservationDay");
+            Variable.reservationTime = getArguments().getString("reservationTime");
+            Variable.reservationFlag = "N";
+            mReservationFlag = "Y";
+        }
 
         btnInterests = (Button) view.findViewById(R.id.btnInterests); // "관심분야" Button
         btnDetailInterests = (Button) view.findViewById(R.id.btnDetailInterests); // "세부항목" Button
@@ -550,23 +559,47 @@ public class MatchFragment extends Fragment {
                     Toast.makeText(getActivity(), "위 항목을 전부 채워주십시오.", Toast.LENGTH_SHORT).show();
                 }else{
                     if(!isTitleExist) {
-                        ChatRoomFragment chatRoomFragment = new ChatRoomFragment();
-                        FragmentManager fragmentManager = myContext.getSupportFragmentManager();
-                        fragmentManager.beginTransaction().replace(R.id.content_in, chatRoomFragment).addToBackStack(null).commit();
+                        if(mReservationFlag.equals("Y")){
+                            mReservationFlag = "N";
+                            Variable.reservationFlag = "Y";
+                            ChatRoomFragment chatRoomFragment = new ChatRoomFragment();
+                            FragmentManager fragmentManager = myContext.getSupportFragmentManager();
+                            fragmentManager.beginTransaction().replace(R.id.content_in, chatRoomFragment).addToBackStack(null).commit();
 
-                        roomName = setRoomName.getText().toString();
+                            roomName = setRoomName.getText().toString();
 
-                        makeRoomFlag = "Y";
+                            makeRoomFlag = "Y";
 
-                        Bundle bundle = new Bundle(1);
-                        bundle.putSerializable("myInfo",mStudent);
-                        bundle.putString("detailedInterests", detailedInterests);
-                        bundle.putString("chattingNumber", chattingNumber);
-                        bundle.putString("makeRoomFlag", makeRoomFlag);
-                        bundle.putString("roomName", roomName);
-                        bundle.putString("detailedInterestsFlag", "N");
-                        bundle.putString("detailedInterestsMemberNumberFlag", "N");
-                        chatRoomFragment.setArguments(bundle);
+                            Bundle bundle = new Bundle(1);
+                            bundle.putSerializable("myInfo",mStudent);
+                            bundle.putString("detailedInterests", detailedInterests);
+                            bundle.putString("chattingNumber", chattingNumber);
+                            bundle.putString("makeRoomFlag", makeRoomFlag);
+                            bundle.putString("roomName", roomName);
+                            bundle.putString("detailedInterestsFlag", "N");
+                            bundle.putString("detailedInterestsMemberNumberFlag", "N");
+                            chatRoomFragment.setArguments(bundle);
+
+                        }else{
+                            ChatRoomFragment chatRoomFragment = new ChatRoomFragment();
+                            FragmentManager fragmentManager = myContext.getSupportFragmentManager();
+                            fragmentManager.beginTransaction().replace(R.id.content_in, chatRoomFragment).addToBackStack(null).commit();
+
+                            roomName = setRoomName.getText().toString();
+
+                            makeRoomFlag = "Y";
+
+                            Bundle bundle = new Bundle(1);
+                            bundle.putSerializable("myInfo",mStudent);
+                            bundle.putString("detailedInterests", detailedInterests);
+                            bundle.putString("chattingNumber", chattingNumber);
+                            bundle.putString("makeRoomFlag", makeRoomFlag);
+                            bundle.putString("roomName", roomName);
+                            bundle.putString("detailedInterestsFlag", "N");
+                            bundle.putString("detailedInterestsMemberNumberFlag", "N");
+                            chatRoomFragment.setArguments(bundle);
+                        }
+
                     } else {
                         //
                     }

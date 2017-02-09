@@ -24,6 +24,12 @@ import android.widget.Toast;
 import com.example.Beans.Student;
 import com.example.Beans.TimeTableDetail;
 import com.example.Beans.Variable;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -211,7 +217,7 @@ public class TimeTableFragment extends Fragment {
                     if(selected_Day_Num < dayNum){
                         Toast.makeText(getActivity(), "지난 요일은 예약할 수 없습니다.", Toast.LENGTH_SHORT).show();
                     }else{
-                        if(selected_Time < nowTime){
+                        if(selected_Day_Num == dayNum && selected_Time <= nowTime){
                             Toast.makeText(getActivity(), "지난 시간은 예약할 수 없습니다.", Toast.LENGTH_SHORT).show();
                         }else{
                             //예약
@@ -221,13 +227,19 @@ public class TimeTableFragment extends Fragment {
 
                             InsertAboutReservation(user_Id, day, time, selected_Position);
 
+                            Variable.reservationPosition = selected_Position;
+
                             //화면 전환
                             MatchFragment matchFragment = new MatchFragment();
                             FragmentManager fragmentManager = myContext.getSupportFragmentManager();
                             fragmentManager.beginTransaction().replace(R.id.content_in, matchFragment).addToBackStack(null).commit();
 
+                            Variable.reservationFlag = "Y";
+
                             Bundle bundle = new Bundle(1);
                             bundle.putSerializable("myInfo", mStudent);
+                            bundle.putString("reservationDay", day);
+                            bundle.putString("reservationTime", time);
                             matchFragment.setArguments(bundle);
                         }
                     }
@@ -242,7 +254,34 @@ public class TimeTableFragment extends Fragment {
                     String selected_Position = String.valueOf(position);
 
                     DeleteReservation(user_Id, day, time, selected_Position);
-                    //방을 없애주는 작업을 해줘야함
+                    //예약방을 없애주는 작업을 해줘야함
+                    try{
+                        String roomName = Variable.reservationRoomName.getString(selected_Position);
+
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                        Query chatsQuery = ref.child("chats").orderByChild("title").equalTo(roomName);
+
+                        chatsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
+                                    appleSnapshot.getRef().removeValue();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
+                        Variable.reservationRoomName.remove(selected_Position);
+                    }catch(Exception exception) {
+                    exception.printStackTrace();
+                }
+
+
+
 
                 }else{
                     //수업시간이라 예약 못함

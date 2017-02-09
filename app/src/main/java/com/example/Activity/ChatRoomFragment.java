@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,12 +17,14 @@ import android.widget.Toast;
 
 import com.example.Beans.RoomInfo;
 import com.example.Beans.Student;
-import com.firebase.ui.database.FirebaseListAdapter;
+import com.example.Beans.Variable;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -89,33 +90,76 @@ public class ChatRoomFragment extends Fragment {
         listView.setAdapter(adapter);
 
         if (m_makeRoomFlag.equals("Y")) {
-            /*트리 생성 chats -> 방제목 -> 관심분야
+            if(Variable.reservationFlag.equals("Y")){
+                Variable.reservationFlag = "N";
+                root.child("chats").child(m_roomName).child("title").setValue(m_roomName);
+                root.child("chats").child(m_roomName).child("detailedInterests").setValue(m_detailedInterests);
+                root.child("chats").child(m_roomName).child("limitMemberNumber").setValue(m_chattingNumber);
+                root.child("chats").child(m_roomName).child("currentMemberNumber").setValue("1");
+                root.child("chats").child(m_roomName).child("isEnterRoom").setValue("T");
+
+                Variable.reservationRoomName = new JSONObject();
+                try{
+                    Variable.reservationRoomName.put(Variable.reservationPosition, m_roomName);
+                    Variable.reservationPosition = "";
+                }catch(Exception exception) {
+                    exception.printStackTrace();
+                }
+
+/*
+                Calendar rightNow = Calendar.getInstance();
+                Date date = rightNow.getTime();
+                SimpleDateFormat df = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss");
+                String strDate = df.format(date);
+*/
+                //트리 chats에 날짜까지 넣어준다.
+                //memeber는 어떤방에 어떤유저가 있는지 알려주기 위해 넣어줌.
+                root.child("chats").child(m_roomName).child("time").setValue(Variable.reservationDay+"요일 "+Variable.reservationTime+"시 예약");
+                root.child("member").child(m_roomName).child(mStudent.getId()).setValue(true);
+
+                Variable.reservationDay = "";
+                Variable.reservationTime = "";
+
+                Log.e("1", "1");
+
+                //바로 방만들어줌. 바로 방만들어주는거 아니면 모든 방 목록 구경할 수 있음.
+                Intent intent = new Intent(getActivity(), ChatActivity.class);
+                intent.putExtra("user_id", mStudent.getId());
+                intent.putExtra("room_name", (m_roomName));
+                startActivity(intent);
+
+            }else{
+
+                /*트리 생성 chats -> 방제목 -> 관심분야
                                         -> 방제목
                                         ->인원  이 형태로 디비에 생성됨*/
-            root.child("chats").child(m_roomName).child("title").setValue(m_roomName);
-            root.child("chats").child(m_roomName).child("detailedInterests").setValue(m_detailedInterests);
-            root.child("chats").child(m_roomName).child("limitMemberNumber").setValue(m_chattingNumber);
-            root.child("chats").child(m_roomName).child("currentMemberNumber").setValue("1");
-            root.child("chats").child(m_roomName).child("isEnterRoom").setValue("T");
+                root.child("chats").child(m_roomName).child("title").setValue(m_roomName);
+                root.child("chats").child(m_roomName).child("detailedInterests").setValue(m_detailedInterests);
+                root.child("chats").child(m_roomName).child("limitMemberNumber").setValue(m_chattingNumber);
+                root.child("chats").child(m_roomName).child("currentMemberNumber").setValue("1");
+                root.child("chats").child(m_roomName).child("isEnterRoom").setValue("T");
 
-            //날짜변환
-            Calendar rightNow = Calendar.getInstance();
-            Date date = rightNow.getTime();
-            SimpleDateFormat df = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss");
-            String strDate = df.format(date);
+                //날짜변환
+                Calendar rightNow = Calendar.getInstance();
+                Date date = rightNow.getTime();
+                SimpleDateFormat df = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss");
+                String strDate = df.format(date);
 
-            //트리 chats에 날짜까지 넣어준다.
-            //memeber는 어떤방에 어떤유저가 있는지 알려주기 위해 넣어줌.
-            root.child("chats").child(m_roomName).child("time").setValue(strDate);
-            root.child("member").child(m_roomName).child(mStudent.getId()).setValue(true);
+                //트리 chats에 날짜까지 넣어준다.
+                //memeber는 어떤방에 어떤유저가 있는지 알려주기 위해 넣어줌.
+                root.child("chats").child(m_roomName).child("time").setValue(strDate);
+                root.child("member").child(m_roomName).child(mStudent.getId()).setValue(true);
 
-            Log.e("1", "1");
+                Log.e("1", "1");
 
-            //바로 방만들어줌. 바로 방만들어주는거 아니면 모든 방 목록 구경할 수 있음.
-            Intent intent = new Intent(getActivity(), ChatActivity.class);
-            intent.putExtra("user_id", mStudent.getId());
-            intent.putExtra("room_name", (m_roomName));
-            startActivity(intent);
+                //바로 방만들어줌. 바로 방만들어주는거 아니면 모든 방 목록 구경할 수 있음.
+                Intent intent = new Intent(getActivity(), ChatActivity.class);
+                intent.putExtra("user_id", mStudent.getId());
+                intent.putExtra("room_name", (m_roomName));
+                startActivity(intent);
+
+            }
+
         }
         if (m_detailedInterestsFlag.equals("Y") && m_detailedInterestsMemberNumberFlag.equals("N")) {
             root.addValueEventListener(new ValueEventListener() {

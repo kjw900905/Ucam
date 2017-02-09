@@ -1,5 +1,7 @@
 package com.example.Beans;
 
+import org.json.JSONObject;
+
 public class Variable {
     // php 주소 구성 : "http://(서버 주소)/(php 파일명 + 확장자명)"
     // php 주소 형식 : "http://xxx.xxx.xxx.xxx/xxxxx.php"
@@ -24,4 +26,11 @@ public class Variable {
     // java.com.example.Activity.DrawTimeTable 에서 사용하는 상수 ============================================================= //
     public final static String[] m_DAY = {"월", "화", "수", "목", "금"};
     public final static String[] m_TIME = {"08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19"};
+
+    //예약할때 사용하는 친구들
+    public static String reservationFlag = "N";
+    public static String reservationDay = "";
+    public static String reservationTime= "";
+    public static String reservationPosition = "";
+    public static JSONObject reservationRoomName;
 }
