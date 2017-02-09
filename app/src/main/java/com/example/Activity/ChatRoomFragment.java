@@ -299,12 +299,20 @@ public class ChatRoomFragment extends Fragment {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for(DataSnapshot rootChild : dataSnapshot.getChildren()) {
-                            if(rootChild.getKey().toString().equals("chats")) {
+                            if(rootChild.getKey().equals("chats")) {
                                 for (DataSnapshot chatsChild : rootChild.getChildren()) {
-                                    if(chatsChild.getKey().toString().equals(r.getM_roomTitle())) {
+                                    if(chatsChild.getKey().equals(r.getM_roomTitle())) {
                                         for(DataSnapshot roomChild : chatsChild.getChildren()) {
-                                            int limitMemberNumber = Integer.parseInt(roomChild.child("limitMemberNumber").getValue().toString());
-                                            int currentMemberNumber = Integer.parseInt(roomChild.child("currentMemberNumber").getValue().toString());
+                                            int limitMemberNumber = 0;
+                                            Long currentMemberNumber = 0L;
+
+                                            if(roomChild.getKey().equals("limitMemberNumber")){
+                                                limitMemberNumber = Integer.parseInt(roomChild.getValue().toString());
+                                            }
+
+                                            if(roomChild.getKey().equals("currentMemberNumber")){
+                                                currentMemberNumber = Long.parseLong(roomChild.getValue().toString());
+                                            }
 
                                             // 현재 인원수가 최대 인원수보다 적으면 채팅방에 입장
                                             if (currentMemberNumber < limitMemberNumber) {
