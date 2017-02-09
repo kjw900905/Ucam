@@ -37,7 +37,7 @@ public class ChatRoomFragment extends Fragment {
 
     private ListView listView;
     private ChatRoomArrayAdapter adapter;
-    private ArrayList<RoomInfo> list_of_rooms = new ArrayList<>();
+    private ArrayList<RoomInfo> list_of_rooms = new ArrayList<RoomInfo>();
     private DatabaseReference root = FirebaseDatabase.getInstance().getReference();
     Student mStudent;
 
@@ -70,7 +70,6 @@ public class ChatRoomFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
-        list_of_rooms.clear();
 
         m_makeRoomFlag = "N";
         mStudent = (Student) getArguments().getSerializable("myInfo");
@@ -118,8 +117,9 @@ public class ChatRoomFragment extends Fragment {
             intent.putExtra("room_name", (m_roomName));
             startActivity(intent);
         }
+
         if (m_detailedInterestsFlag.equals("Y") && m_detailedInterestsMemberNumberFlag.equals("N")) {
-            root.addValueEventListener(new ValueEventListener() {
+            root.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -177,7 +177,7 @@ public class ChatRoomFragment extends Fragment {
                 }
             });
         } else if (m_detailedInterestsFlag.equals("Y") && m_detailedInterestsMemberNumberFlag.equals("Y")) {
-            root.addValueEventListener(new ValueEventListener() {
+            root.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -235,7 +235,7 @@ public class ChatRoomFragment extends Fragment {
                 }
             });
         } else {
-            root.addValueEventListener(new ValueEventListener() {
+            root.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
