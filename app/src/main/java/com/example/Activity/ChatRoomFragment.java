@@ -45,6 +45,7 @@ public class ChatRoomFragment extends Fragment {
     private String m_chattingNumber;
     private String m_makeRoomFlag;
     private String m_detailedInterestsFlag;
+    private String m_detailedInterestsMemberNumberFlag;
     private String m_roomName;
 
     private int roomLimitNumber;
@@ -69,52 +70,24 @@ public class ChatRoomFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
-
         list_of_rooms.clear();
 
+
+        //m_makeRoomFlag = "N";
         mStudent = (Student) getArguments().getSerializable("myInfo");
         m_detailedInterests = getArguments().getString("detailedInterests");
         m_chattingNumber = getArguments().getString("chattingNumber");
         m_roomName = getArguments().getString("roomName");
         m_makeRoomFlag = getArguments().getString("makeRoomFlag");
         m_detailedInterestsFlag = getArguments().getString("detailedInterestsFlag");
+        m_detailedInterestsMemberNumberFlag = getArguments().getString("detailedInterestsMemberNumberFlag");
+
 
         //Toast.makeText(getActivity(), m_detailedInterests+m_chattingNumber, Toast.LENGTH_SHORT).show();
         //room_name = (EditText) view.findViewById(R.id.room_name_edittext);
         adapter = new ChatRoomArrayAdapter(getContext(), R.layout.list_item_chat_room, list_of_rooms);
         listView = (ListView) view.findViewById(R.id.listViewConv);
         listView.setAdapter(adapter);
-/*
-        adapter = new FirebaseListAdapter<RoomInfo>(getActivity(), RoomInfo.class, R.layout.list_item_chat_room, root.child(m_roomName)) {
-            @Override
-            protected void populateView(View v, RoomInfo model, int position) {
-                TextView room_title, room_interest, room_mem_num, room_time;
-                room_title = (TextView) v.findViewById(R.id.text_room_title);
-                room_interest = (TextView) v.findViewById(R.id.text_room_interests);
-                room_mem_num = (TextView) v.findViewById(R.id.text_room_num_people);
-                room_time = (TextView) v.findViewById(R.id.text_room_time);
-
-                room_title.setText(model.getM_roomTitle());
-                room_interest.setText(model.getM_roomInterest());
-                room_mem_num.setText(model.getM_roomMemberNumber());
-                room_time.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)", model.getM_roomTime()));
-            }
-        };
-
-        listView.setAdapter(adapter);
-*/
-        //request_user_name();
-
-        /*add_room.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Map<String, Object> map = new HashMap<String, Object>();
-                //map.put(room_name.getText().toString(), "");
-                //root.updateChildren(map);
-                root.child("chats").child(room_name.getText().toString()).child("title").setValue(" ");
-                root.child("chats").child(room_name.getText().toString()).child("memberNumber").setValue(" ");
-            }
-        });*/
 
         if (m_makeRoomFlag.equals("Y")) {
             /*트리 생성 chats -> 방제목 -> 관심분야
@@ -187,6 +160,62 @@ public class ChatRoomFragment extends Fragment {
 
                                 if (m_detailedInterests.equals(child2.child("detailedInterests").getValue().toString())) {
                                         list_of_rooms.add(new RoomInfo(title, detailedInterests, memberLimitNumber, time, m_currentMemberNumberString));
+                                }
+                            }
+                        }
+                    }
+
+                    adapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        } else if(m_detailedInterestsFlag.equals("Y") && m_detailedInterestsMemberNumberFlag.equals("Y")) {
+            root.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    list_of_rooms.clear();
+
+                    String detailedInterests = "";
+                    String memberLimitNumber = "";
+                    String time = "";
+                    String title = "";
+
+                    //Toast.makeText(getContext(), m_detailedInterests, Toast.LENGTH_SHORT).show();
+
+                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+                        //child는 현재 root에서 바로 아래 chats, message, users, member까지 온 상태
+                        if (child.getKey().equals("chats")) {
+                            for (DataSnapshot child2 : child.getChildren()) {
+                                //child2는 if문에서 chats로 들어오고 방제목까지 온 상태
+                                //list_of_rooms.add(new RoomInfo(child2.getChildren().));
+                                for (DataSnapshot child3 : child2.getChildren()) {
+                                    //child3는 if문에서 방제목(고유값)으로 들어오고 관심분야, 시간, 인원에 접근 할 수 있는 상태 if문으로 하나하나 값을 넣어주게 만듬.
+                                    if (child3.getKey().equals("detailedInterests")) {
+                                        detailedInterests = child3.getValue().toString();
+                                    }
+                                    if (child3.getKey().equals("limitMemberNumber")) {
+                                        memberLimitNumber = (child3.getValue().toString());
+                                    }
+                                    if (child3.getKey().equals("title")) {
+                                        title = (child3.getValue().toString());
+                                    }
+                                    if (child3.getKey().equals("time")) {
+                                        time = child3.getValue().toString();
+                                    }
+                                    if (child3.getKey().equals("currentMemberNumber")) {
+                                        m_currentMemberNumber = Long.valueOf(child3.getValue().toString());
+                                        m_currentMemberNumberString = String.valueOf(m_currentMemberNumber);
+                                        //currentMemberNumber++;
+                                    }
+                                }
+
+                                if (m_detailedInterests.equals(child2.child("detailedInterests").getValue().toString()) && m_chattingNumber.equals(child2.child("limitMemberNumber"))) {
+                                    list_of_rooms.add(new RoomInfo(title, detailedInterests, memberLimitNumber, time, m_currentMemberNumberString));
                                 }
                             }
                         }

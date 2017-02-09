@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.example.Beans.Student;
 import com.example.Beans.Variable;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -46,6 +48,8 @@ public class MatchFragment extends Fragment {
 
     private FragmentActivity myContext;
 
+    private DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+
     private int m_selectInterests = 0; // "관심분야" RadioButton value
     private int m_o_selectInterests = -1; // 이전 "관심분야" value
     private boolean[] m_checkDetailInterestsGame = {false, false, false}; // "세부항목"의 "게임" CheckBox value
@@ -64,7 +68,7 @@ public class MatchFragment extends Fragment {
     private JSONArray getTime;
     private String myJSON;
 
-    private boolean isFindFlag;
+    private boolean isFindFlag, isTitleExist;
 
     public void MatchFragment() {
         // null
@@ -89,6 +93,7 @@ public class MatchFragment extends Fragment {
 
         makeRoomFlag = "N";
         isFindFlag = false;
+        isTitleExist = false;
         mStudent = (Student)getArguments().getSerializable("myInfo");
 
         btnInterests = (Button) view.findViewById(R.id.btnInterests); // "관심분야" Button
@@ -305,11 +310,18 @@ public class MatchFragment extends Fragment {
         bundle.putString("chattingNumber", chattingNumber);
         bundle.putString("makeRoomFlag", makeRoomFlag);
 
-        if(detailedInterests.toString().isEmpty()) {
+        if(detailedInterests == null) {
             bundle.putString("detailedInterestsFlag", "N");
+        } else {
+            bundle.putString("detailedInterestsFlag", "Y");
         }
 
-        bundle.putString("detailedInterestsFlag", "Y");
+        if(chattingNumber == null) {
+            bundle.putString("detailedInterestsMemberNumberFlag", "N");
+        } else {
+            bundle.putString("detailedInterestsMemberNumberFlag", "Y");
+        }
+
         chatRoomFragment.setArguments(bundle);
     }
 
@@ -533,25 +545,31 @@ public class MatchFragment extends Fragment {
                     break;
                 }
             }
-            if(isFindFlag == false){
+            if(!isFindFlag){
                 if(TextUtils.isEmpty(edtNumPeople.getText()) || setRoomName.getText().toString().length() == 0){
                     Toast.makeText(getActivity(), "위 항목을 전부 채워주십시오.", Toast.LENGTH_SHORT).show();
                 }else{
-                    ChatRoomFragment chatRoomFragment = new ChatRoomFragment();
-                    FragmentManager fragmentManager = myContext.getSupportFragmentManager();
-                    fragmentManager.beginTransaction().replace(R.id.content_in, chatRoomFragment).addToBackStack(null).commit();
+                    if(!isTitleExist) {
+                        ChatRoomFragment chatRoomFragment = new ChatRoomFragment();
+                        FragmentManager fragmentManager = myContext.getSupportFragmentManager();
+                        fragmentManager.beginTransaction().replace(R.id.content_in, chatRoomFragment).addToBackStack(null).commit();
 
-                    roomName = setRoomName.getText().toString();
+                        roomName = setRoomName.getText().toString();
 
-                    makeRoomFlag = "Y";
+                        makeRoomFlag = "Y";
 
-                    Bundle bundle = new Bundle(1);
-                    bundle.putSerializable("myInfo",mStudent);
-                    bundle.putString("detailedInterests", detailedInterests);
-                    bundle.putString("chattingNumber", chattingNumber);
-                    bundle.putString("makeRoomFlag", makeRoomFlag);
-                    bundle.putString("roomName", roomName);
-                    chatRoomFragment.setArguments(bundle);
+                        Bundle bundle = new Bundle(1);
+                        bundle.putSerializable("myInfo",mStudent);
+                        bundle.putString("detailedInterests", detailedInterests);
+                        bundle.putString("chattingNumber", chattingNumber);
+                        bundle.putString("makeRoomFlag", makeRoomFlag);
+                        bundle.putString("roomName", roomName);
+                        bundle.putString("detailedInterestsFlag", "N");
+                        bundle.putString("detailedInterestsMemberNumberFlag", "N");
+                        chatRoomFragment.setArguments(bundle);
+                    } else {
+                        //
+                    }
                 }
             }
 
